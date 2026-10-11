@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Navbar from './components/Navbar';
 
 export default function Home() {
   // Interactive Form State
@@ -76,23 +77,7 @@ export default function Home() {
   ];
   return (
     <>
-      <nav className="navbar">
-        <div className="nav-container">
-          <div className="logo">
-            <span className="logo-icon">🍽️</span>
-            LOGO
-          </div>
-          <div className="nav-links">
-            <a href="#" className="active">Home</a>
-            <a href="#about">About</a>
-            <a href="#signature-services">Services</a>
-            <a href="#menu">Menu</a>
-            <a href="#testimonials">Reviews</a>
-            <a href="#faq">FAQ</a>
-          </div>
-          <a href="/book" className="btn btn-primary">Book Now</a>
-        </div>
-      </nav>
+      <Navbar />
 
       <main>
         <section className="hero">

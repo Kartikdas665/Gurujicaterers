@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Navbar from '../components/Navbar';
 
 export default function BookNowPage() {
   const [step, setStep] = useState<number>(1);
@@ -76,34 +77,24 @@ export default function BookNowPage() {
   return (
     <>
       {/* Navigation */}
-      <nav className="navbar">
-        <div className="nav-container">
-          <Link href="/" className="logo">
-            <span className="logo-icon">🍽️</span>
-            GURUJI CATERERS
-          </Link>
-          <div className="nav-links">
-            <Link href="/">Home</Link>
-            <Link href="/#about">About</Link>
-            <Link href="/#signature-services">Services</Link>
-            <Link href="/#menu">Menu</Link>
-            <Link href="/#faq">FAQ</Link>
-          </div>
-          <Link href="/" className="btn btn-outline" style={{ fontSize: '0.85rem', padding: '8px 18px' }}>
-            ← Back to Home
-          </Link>
+      <Navbar />
+
+      {/* 70vh Grand Party Celebration Hero Banner */}
+      <section className="page-hero-banner">
+        <div className="page-hero-bg"></div>
+        <div className="page-hero-overlay"></div>
+        <div className="container page-hero-content">
+          <div className="gold-accent-line" style={{ margin: '0 auto 16px' }}></div>
+          <span className="section-pill">ONLINE RESERVATION</span>
+          <h1 className="page-hero-title">Reserve Your Grand Culinary Experience</h1>
+          <p className="page-hero-subtitle">
+            Customize your royal menu, select bespoke live counters, and get an instant quote.
+          </p>
         </div>
-      </nav>
+      </section>
 
       <main className="book-page-main">
         <div className="container">
-          {/* Page Header */}
-          <div className="book-page-header">
-            <span className="section-pill">ONLINE RESERVATION</span>
-            <h1>Reserve Your Grand Culinary Experience</h1>
-            <p>Customize your royal menu, select bespoke live counters, and get an instant quote.</p>
-          </div>
-
           {/* Stepper Wizard Indicator */}
           <div className="booking-stepper">
             <div className={`step-node ${step >= 1 ? 'active' : ''}`}>
