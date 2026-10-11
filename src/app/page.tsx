@@ -23,6 +23,15 @@ export default function Home() {
 
       <main>
         <section className="hero">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="hero-video"
+          >
+            <source src="/hero-bg.mp4" type="video/mp4" />
+          </video>
           <div className="hero-content">
             <h1>Aapki Parties Ko Banayein Yaadgaar....</h1>
             <p>Bringing Our Culinary Expertise Elevate Your Celebrations</p>
@@ -33,13 +42,71 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="features-section">
+          <div className="container">
+            <div className="features-grid">
+              <div className="feature-card">
+                <div className="feature-icon-wrapper">
+                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2-2a1 1 0 0 0-1.4 0l-4.3 4.3a1 1 0 0 0 0 1.4Z" />
+                    <path d="m18 10 3.3-3.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0L14 6" />
+                    <path d="m2 14 6 6" />
+                    <path d="M7 8l4-4" />
+                    <path d="m14 13-1.5-1.5" />
+                    <path d="M3 21l3-3" />
+                  </svg>
+                </div>
+                <h3>Trusted Services</h3>
+                <p>Over 1,000+ happy customers and growing</p>
+              </div>
+
+              <div className="feature-card">
+                <div className="feature-icon-wrapper">
+                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+                    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+                    <path d="M21 14h-1a3 3 0 0 0-3 3v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1a3 3 0 0 0-3-3H2" />
+                  </svg>
+                </div>
+                <h3>Instant Support</h3>
+                <p>Whenever you want to contact our pros they are available.</p>
+              </div>
+
+              <div className="feature-card">
+                <div className="feature-icon-wrapper">
+                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <polyline points="16 11 18 13 22 9" />
+                  </svg>
+                </div>
+                <h3>Verified professionals</h3>
+                <p>Our professionals with backgrounds checked give best services.</p>
+              </div>
+
+              <div className="feature-card">
+                <div className="feature-icon-wrapper">
+                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2l1.6 3.2 3.6.5-2.6 2.5.6 3.6L12 10.1 8.8 11.8l.6-3.6-2.6-2.5 3.6-.5z" />
+                    <rect x="3" y="14" width="5" height="7" rx="1" />
+                    <rect x="9.5" y="11" width="5" height="10" rx="1" />
+                    <rect x="16" y="16" width="5" height="5" rx="1" />
+                  </svg>
+                </div>
+                <h3>Highest Average Rating</h3>
+                <p>We are rated 4.5 or over by customers across all sections of our services.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id="about" className="about-section">
           <div className="container about-container">
             <div className="about-image">
-              <img src="/catering_wedding_1791127871855.jpg" alt="Chefs Cooking" style={{height: '400px', objectFit: 'cover'}} />
+              <img src="/catering_wedding_1791127871855.jpg" alt="Chefs Cooking" style={{ height: '400px', objectFit: 'cover' }} />
             </div>
             <div className="about-text">
-              <h2>Humari Kahani:<br/>Saalon Ka Anubhav</h2>
+              <h2>Humari Kahani:<br />Saalon Ka Anubhav</h2>
               <p>We poplessttad a foaldiond tore wen treditional compelating cecoeststs silfine enssonful easstterts and successfully outhun caterhs oate ceating cosdfions.</p>
               <p>We concuren our censemmene ta taditional online catering toe travistam cemices to online conshling collins paaldons, mere mopdaait oi our roone mamselaghous our yeors of years caperemas.</p>
             </div>
@@ -167,7 +234,7 @@ export default function Home() {
           <div className="footer-grid">
             <div className="footer-col">
               <div className="footer-logo">
-                <span className="logo-icon" style={{color: 'white'}}>🍽️</span>
+                <span className="logo-icon" style={{ color: 'white' }}>🍽️</span>
                 LOGO
               </div>
               <p className="footer-desc">Delivering exceptional culinary experiences for your special events.</p>

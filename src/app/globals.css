@@ -136,10 +136,6 @@ ul {
 
 /* Hero Section */
 .hero {
-  background-color: var(--dark-bg);
-  background-image: url('/catering_hero_1791127858700.jpg'); 
-  background-size: cover;
-  background-position: center;
   position: relative;
   text-align: center;
   padding: 0 20px;
@@ -149,6 +145,17 @@ ul {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
 .hero::before {
@@ -158,7 +165,7 @@ ul {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(10, 6, 8, 0.85); /* Darker overlay for dark theme */
+  background: rgba(10, 6, 8, 0.65); /* Overlay for text contrast */
   z-index: 1;
 }
 
@@ -186,6 +193,85 @@ ul {
   display: flex;
   justify-content: center;
   gap: 15px;
+}
+
+/* Features / Trust Section */
+.features-section {
+  padding: 50px 0 60px;
+  background-color: #ffffff;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 36px 24px 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.09);
+}
+
+.feature-icon-wrapper {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #e6f6fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.feature-icon {
+  width: 32px;
+  height: 32px;
+  color: #0ea5e9;
+}
+
+.feature-card h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.feature-card p {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #6b7280;
+  max-width: 230px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  .features-section {
+    padding: 35px 0 45px;
+  }
 }
 
 /* About Section */
