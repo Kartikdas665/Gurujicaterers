@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,600&display=swap');
 
 :root {
   --primary: #c59b27; /* Rich Royal Gold */
@@ -11,6 +11,143 @@
   --text-light: #ffffff;
   --gray-text: #b8b0a8; /* Warm light gray */
   --border-color: rgba(197, 155, 39, 0.2); /* Subtle gold border */
+
+  /* Typography Scale Tokens - Desktop */
+  --font-display-hero-size: 80px;
+  --font-display-hero-lh: 1.1;
+
+  --font-h1-size: 64px;
+  --font-h1-lh: 1.15;
+
+  --font-h2-size: 48px;
+  --font-h2-lh: 1.2;
+
+  --font-h3-size: 40px;
+  --font-h3-lh: 1.2;
+
+  --font-h4-size: 32px;
+  --font-h4-lh: 1.25;
+
+  --font-h5-size: 24px;
+  --font-h5-lh: 1.3;
+
+  --font-h6-size: 20px;
+  --font-h6-lh: 1.3;
+
+  --font-b1-size: 18px;
+  --font-b1-lh: 1.5;
+
+  --font-b2-size: 16px;
+  --font-b2-lh: 1.5;
+
+  --font-b3-size: 14px;
+  --font-b3-lh: 1.45;
+
+  --font-btn-size: 16px;
+  --font-btn-lh: 1.4;
+
+  --font-btn2-size: 18px;
+  --font-btn2-lh: 1.4;
+
+  --font-caption-size: 12px;
+  --font-caption-lh: 1.2;
+
+  --font-overline-size: 12px;
+  --font-overline-lh: 1.2;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    /* Tablet Typography Scale */
+    --font-display-hero-size: 64px;
+    --font-display-hero-lh: 1.1;
+
+    --font-h1-size: 52px;
+    --font-h1-lh: 1.15;
+
+    --font-h2-size: 42px;
+    --font-h2-lh: 1.2;
+
+    --font-h3-size: 36px;
+    --font-h3-lh: 1.2;
+
+    --font-h4-size: 30px;
+    --font-h4-lh: 1.25;
+
+    --font-h5-size: 22px;
+    --font-h5-lh: 1.3;
+
+    --font-h6-size: 18px;
+    --font-h6-lh: 1.3;
+
+    --font-b1-size: 17px;
+    --font-b1-lh: 1.5;
+
+    --font-b2-size: 16px;
+    --font-b2-lh: 1.5;
+
+    --font-b3-size: 14px;
+    --font-b3-lh: 1.45;
+
+    --font-btn-size: 15px;
+    --font-btn-lh: 1.4;
+
+    --font-btn2-size: 18px;
+    --font-btn2-lh: 1.4;
+
+    --font-caption-size: 12px;
+    --font-caption-lh: 1.2;
+
+    --font-overline-size: 11px;
+    --font-overline-lh: 1.2;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    /* Mobile Typography Scale */
+    --font-display-hero-size: 44px;
+    --font-display-hero-lh: 1.12;
+
+    --font-h1-size: 40px;
+    --font-h1-lh: 1.15;
+
+    --font-h2-size: 34px;
+    --font-h2-lh: 1.2;
+
+    --font-h3-size: 30px;
+    --font-h3-lh: 1.22;
+
+    --font-h4-size: 26px;
+    --font-h4-lh: 1.25;
+
+    --font-h5-size: 22px;
+    --font-h5-lh: 1.3;
+
+    --font-h6-size: 18px;
+    --font-h6-lh: 1.35;
+
+    --font-b1-size: 16px;
+    --font-b1-lh: 1.5;
+
+    --font-b2-size: 15px;
+    --font-b2-lh: 1.5;
+
+    --font-b3-size: 14px;
+    --font-b3-lh: 1.45;
+
+    --font-btn-size: 15px;
+    --font-btn-lh: 1.4;
+
+    --font-btn2-size: 16px;
+    --font-btn2-lh: 1.4;
+
+    --font-caption-size: 12px;
+    --font-caption-lh: 1.2;
+
+    --font-overline-size: 11px;
+    --font-overline-lh: 1.2;
+  }
 }
 
 * {
@@ -23,13 +160,85 @@ body {
   background-color: var(--light-bg);
   color: var(--text-dark);
   font-family: 'Poppins', sans-serif;
-  line-height: 1.6;
+  font-size: var(--font-b2-size);
+  line-height: var(--font-b2-lh);
   overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--text-dark);
+}
+
+h1, .h1 {
+  font-size: var(--font-h1-size);
+  line-height: var(--font-h1-lh);
+  font-weight: 700;
+}
+
+h2, .h2 {
+  font-size: var(--font-h2-size);
+  line-height: var(--font-h2-lh);
+  font-weight: 700;
+}
+
+h3, .h3 {
+  font-size: var(--font-h3-size);
+  line-height: var(--font-h3-lh);
+  font-weight: 600;
+}
+
+h4, .h4 {
+  font-size: var(--font-h4-size);
+  line-height: var(--font-h4-lh);
+  font-weight: 400;
+}
+
+h5, .h5 {
+  font-size: var(--font-h5-size);
+  line-height: var(--font-h5-lh);
+  font-weight: 600;
+}
+
+h6, .h6 {
+  font-size: var(--font-h6-size);
+  line-height: var(--font-h6-lh);
+  font-weight: 400;
+}
+
+.display-hero {
+  font-family: 'Poppins', sans-serif;
+  font-size: var(--font-display-hero-size) !important;
+  line-height: var(--font-display-hero-lh) !important;
+  font-weight: 700 !important;
+}
+
+.b1, .body-large {
+  font-size: var(--font-b1-size) !important;
+  line-height: var(--font-b1-lh) !important;
+}
+
+.b2, .body-medium {
+  font-size: var(--font-b2-size) !important;
+  line-height: var(--font-b2-lh) !important;
+}
+
+.b3, .body-small {
+  font-size: var(--font-b3-size) !important;
+  line-height: var(--font-b3-lh) !important;
+}
+
+.caption {
+  font-size: var(--font-caption-size) !important;
+  line-height: var(--font-caption-lh) !important;
+}
+
+.overline {
+  font-size: var(--font-overline-size) !important;
+  line-height: var(--font-overline-lh) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
 }
 
 a {
@@ -133,12 +342,21 @@ ul {
 
 .btn {
   display: inline-block;
-  padding: 10px 24px;
+  padding: 12px 28px;
   border-radius: 4px;
-  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  font-size: var(--font-btn-size);
+  line-height: var(--font-btn-lh);
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
   text-align: center;
+}
+
+.btn-lg, .btn-2 {
+  font-size: var(--font-btn2-size);
+  line-height: var(--font-btn2-lh);
+  padding: 14px 32px;
 }
 
 .btn-primary {
@@ -201,19 +419,21 @@ ul {
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .hero h1 {
-  font-size: 3.5rem;
+  font-size: var(--font-display-hero-size);
+  line-height: var(--font-display-hero-lh);
   color: white;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   font-weight: 700;
 }
 
 .hero p {
-  font-size: 1.1rem;
+  font-size: var(--font-b1-size);
+  line-height: var(--font-b1-lh);
   margin-bottom: 30px;
   color: #e0e0e0;
 }
@@ -366,7 +586,7 @@ ul {
 }
 
 .signature-subheading {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-style: italic;
   color: #c59b27;
   font-size: 1.22rem;
@@ -375,7 +595,7 @@ ul {
 }
 
 .signature-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 2.5rem;
   font-weight: 600;
   color: #ffffff;
@@ -542,7 +762,7 @@ ul {
 }
 
 .signature-card-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.85rem;
   font-weight: 600;
   color: #ffffff;
@@ -580,7 +800,7 @@ ul {
 }
 
 .signature-card-number {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.15rem;
   font-weight: 600;
   color: #c59b27;
@@ -766,7 +986,7 @@ ul {
 }
 
 .section-title-luxury {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 2.6rem;
   font-weight: 700;
   color: #ffffff;
@@ -812,7 +1032,7 @@ ul {
 }
 
 .testimonial-quote-mark {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 4rem;
   line-height: 1;
   color: rgba(197, 155, 39, 0.2);
@@ -1042,7 +1262,7 @@ ul {
 }
 
 .price-number {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 2.4rem;
   font-weight: 700;
   color: #dfba4d;
@@ -1405,8 +1625,9 @@ footer .container {
 }
 
 .page-hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.2rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: var(--font-h1-size);
+  line-height: var(--font-h1-lh);
   color: #ffffff;
   font-weight: 700;
   margin-bottom: 14px;
@@ -1415,8 +1636,8 @@ footer .container {
 
 .page-hero-subtitle {
   color: #d1d5db;
-  font-size: 1.15rem;
-  line-height: 1.6;
+  font-size: var(--font-b1-size);
+  line-height: var(--font-b1-lh);
   max-width: 660px;
   margin: 0 auto;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
@@ -1426,12 +1647,6 @@ footer .container {
   .page-hero-banner {
     height: 60vh;
     min-height: 420px;
-  }
-  .page-hero-title {
-    font-size: 2.2rem;
-  }
-  .page-hero-subtitle {
-    font-size: 0.98rem;
   }
 }
 
@@ -1452,7 +1667,7 @@ footer .container {
 }
 
 .book-page-header h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 2.8rem;
   color: #ffffff;
   margin: 12px 0 10px;
@@ -1538,7 +1753,7 @@ footer .container {
 }
 
 .step-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.6rem;
   color: #ffffff;
   margin-bottom: 24px;
@@ -1682,7 +1897,7 @@ footer .container {
 }
 
 .pkg-price {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.6rem;
   font-weight: 700;
   color: #dfba4d;
@@ -1830,7 +2045,7 @@ footer .container {
 }
 
 .summary-header h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.4rem;
   color: #ffffff;
 }
@@ -1885,7 +2100,7 @@ footer .container {
 }
 
 .gold-total {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.6rem;
   color: #dfba4d;
   font-weight: 700;
@@ -1927,7 +2142,7 @@ footer .container {
 }
 
 .booking-success-screen h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 2.2rem;
   color: #ffffff;
   margin-bottom: 8px;
@@ -2000,7 +2215,7 @@ footer .container {
 }
 
 .dedicated-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 3rem;
   color: #ffffff;
   margin-bottom: 14px;
@@ -2075,7 +2290,7 @@ footer .container {
   background: rgba(10, 8, 11, 0.85);
   border: 1px solid rgba(197, 155, 39, 0.4);
   color: #dfba4d;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
   padding: 4px 14px;
@@ -2093,7 +2308,7 @@ footer .container {
 }
 
 .service-detail-text h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 2.1rem;
   color: #ffffff;
   margin-bottom: 12px;
@@ -2144,7 +2359,7 @@ footer .container {
 }
 
 .service-rate-label {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.1rem;
   font-weight: 600;
   color: #dfba4d;
@@ -2163,7 +2378,7 @@ footer .container {
 }
 
 .services-cta-banner h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 2.2rem;
   color: #ffffff;
   margin-bottom: 10px;
@@ -2195,7 +2410,7 @@ footer .container {
 }
 
 .rating-huge-score {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 3rem;
   font-weight: 700;
   color: #dfba4d;
@@ -2311,7 +2526,7 @@ footer .container {
   position: absolute;
   top: -6px;
   right: 0;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 4rem;
   color: rgba(197, 155, 39, 0.2);
   line-height: 1;
@@ -2424,7 +2639,7 @@ footer .container {
 }
 
 .faq-contact-info h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.6rem;
   color: #ffffff;
   margin-bottom: 6px;
@@ -2508,7 +2723,7 @@ footer .container {
 }
 
 .menu-dish-card h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.45rem;
   color: #ffffff;
   margin-bottom: 8px;
@@ -2554,7 +2769,7 @@ footer .container {
 }
 
 .pdf-card-left h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.6rem;
   color: #ffffff;
   margin-bottom: 4px;
@@ -2584,7 +2799,7 @@ footer .container {
 }
 
 .story-split-text h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 2.5rem;
   color: #ffffff;
   margin-bottom: 16px;
@@ -2611,7 +2826,7 @@ footer .container {
 }
 
 .stat-number {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 2.2rem;
   font-weight: 700;
   color: #dfba4d;
@@ -2726,7 +2941,7 @@ footer .container {
 }
 
 .timeline-year {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.8rem;
   font-weight: 700;
   color: #dfba4d;

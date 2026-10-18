@@ -31,48 +31,51 @@ export default function Home() {
 
   const faqs = [
     {
-      q: 'Kitne din pehle booking confirm karni chahiye?',
-      a: 'Hum recommend karte hain ki weddings aur grand events ke liye kam se kam 3-4 hafte pehle book karein. Corporate ya intimate parties ke liye hum 5-7 din pehle bhi booking accommodate kar sakte hain.'
+      q: 'What types of events do you cater to?',
+      a: 'We provide comprehensive catering services for a wide range of events, including weddings, corporate functions, private parties, and destination events.'
     },
     {
-      q: 'Kya hum custom live food counters aur tasting arrange kar sakte hain?',
-      a: 'Haan bilkul! Hum customized live chaat counters, tandoor stations, Italian pasta bars aur artisan desserts arrange karte hain. Final menu lock karne se pehle complimentary food tasting session bhi available hai.'
+      q: 'Can we customize the menu according to our preferences?',
+      a: 'Absolutely. We specialize in creating bespoke menus tailored specifically to your taste, dietary requirements, and event theme.'
     },
     {
-      q: 'Minimum guest count requirement kya hai?',
-      a: 'Humari standard packages 50 guests se start hoti hain. Badi weddings aur corporate summits ke liye hum 3,000+ guests tak ka live seamless catering manage karte hain.'
+      q: 'Do you accommodate special dietary restrictions?',
+      a: 'Yes, our chefs are highly skilled at preparing delicious vegetarian, vegan, gluten-free, and allergy-friendly options upon request.'
     },
     {
-      q: 'Service staff, crockery aur cutlery caterers ke side se provide hoti hai?',
-      a: 'Haan, hum complete end-to-end luxury hospitality provide karte hain — professionally groomed uniforms me waiters, chefs, premium bone china crockery, glassware aur live table setups included rehte hain.'
-    },
-    {
-      q: 'Payment terms aur cancellation policies kya hain?',
-      a: 'Booking confirm karne ke liye 30% advance deposit hota hai, event se 2 din pehle 50%, aur event complete hone ke baad balance 20%. Date reschedule karne ki flexible policy bhi provided hai.'
+      q: 'Do you offer tasting sessions before booking?',
+      a: 'Yes, we encourage our clients to schedule a tasting session to experience our culinary quality and finalize their menu selections.'
     }
   ];
 
   const testimonials = [
     {
-      name: 'Vikram & Ananya Sharma',
-      role: 'Destination Wedding at Udaipur',
+      name: 'Victoria & Alexander Sterling',
+      role: 'Luxury Destination Wedding',
       rating: 5,
-      review: 'Guruji Caterers ne humari wedding ko sach me yaadgaar bana diya! Khaane ka swaad, presentation aur staff ki hospitality lajawaab thi. Har guest ne khaane ki taareef ki!',
+      review: 'Guruji Caterers created an unforgettable culinary journey for our wedding weekend. From the exquisite live stations to the punctual and courteous service brigade, every detail was executed to perfection.',
       avatar: '👑'
     },
     {
-      name: 'Rajesh Singhania',
-      role: 'Director, Singhania Tech Summit',
+      name: 'Marcus Vance',
+      role: 'VP Corporate Relations, Global Summit',
       rating: 5,
-      review: '800 delegates ke liye corporate lunch manage karna easy nahi hota, lekin inki team ne time, taste aur hygiene me 100% perfection deliver kiya. Highly recommended!',
+      review: 'Hosting 800 international delegates requires precision and consistency. The catering team exceeded all expectations with impeccable food quality, seamless presentation, and strict hygiene standards.',
       avatar: '💼'
     },
     {
-      name: 'Pooja & Rohan Malhotra',
-      role: 'Silver Jubilee Celebration',
+      name: 'Elena & Julian Brooks',
+      role: 'Private Silver Jubilee Gala',
       rating: 5,
-      review: 'Live chaat counter aur traditional desserts top-notch the. Customization bohot smooth thi aur pricing pure luxury experience ke hisaab se fully justified thi.',
+      review: 'The bespoke menu curation was second to none. Our guests are still raving about the live culinary displays and gourmet dessert studio. True white-glove hospitality!',
       avatar: '✨'
+    },
+    {
+      name: 'Dr. Arjun & Radhika Patel',
+      role: 'Grand Reception & Cocktail Evening',
+      rating: 5,
+      review: 'The harmonious blend of authentic regional heritage dishes with modern contemporary global fare was sublime. Highly recommended for any milestone occasion.',
+      avatar: '🌟'
     }
   ];
   return (
@@ -80,6 +83,7 @@ export default function Home() {
       <Navbar />
 
       <main>
+        {/* 1. Hero Section */}
         <section className="hero">
           <video
             autoPlay
@@ -91,132 +95,69 @@ export default function Home() {
             <source src="/hero-bg.mp4" type="video/mp4" />
           </video>
           <div className="hero-content">
-            <h1>Aapki Parties Ko Banayein Yaadgaar....</h1>
-            <p>Bringing Our Culinary Expertise Elevate Your Celebrations</p>
+            <h1>Crafting Unforgettable Culinary Experiences</h1>
+            <p>Exquisite cuisine, impeccable service, and meticulous attention to detail. Let us transform your special occasions into extraordinary memories.</p>
             <div className="hero-btns">
-              <a href="/book" className="btn btn-primary">BOOK NOW</a>
-              <a href="#book" className="btn btn-outline">QUICK ESTIMATE</a>
+              <a href="#menu" className="btn btn-primary">Explore Our Menu</a>
+              <a href="#book" className="btn btn-outline">Get a Custom Quote</a>
             </div>
           </div>
         </section>
 
-        {/* <section className="features-section">
-          <div className="container">
-            <div className="features-grid">
-              <div className="feature-card">
-                <div className="feature-icon-wrapper">
-                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2-2a1 1 0 0 0-1.4 0l-4.3 4.3a1 1 0 0 0 0 1.4Z" />
-                    <path d="m18 10 3.3-3.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0L14 6" />
-                    <path d="m2 14 6 6" />
-                    <path d="M7 8l4-4" />
-                    <path d="m14 13-1.5-1.5" />
-                    <path d="M3 21l3-3" />
-                  </svg>
-                </div>
-                <h3>Trusted Services</h3>
-                <p>Over 1,000+ happy customers and growing</p>
-              </div>
-
-              <div className="feature-card">
-                <div className="feature-icon-wrapper">
-                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-                    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
-                    <path d="M21 14h-1a3 3 0 0 0-3 3v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1a3 3 0 0 0-3-3H2" />
-                  </svg>
-                </div>
-                <h3>Instant Support</h3>
-                <p>Whenever you want to contact our pros they are available.</p>
-              </div>
-
-              <div className="feature-card">
-                <div className="feature-icon-wrapper">
-                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <polyline points="16 11 18 13 22 9" />
-                  </svg>
-                </div>
-                <h3>Verified professionals</h3>
-                <p>Our professionals with backgrounds checked give best services.</p>
-              </div>
-
-              <div className="feature-card">
-                <div className="feature-icon-wrapper">
-                  <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 2l1.6 3.2 3.6.5-2.6 2.5.6 3.6L12 10.1 8.8 11.8l.6-3.6-2.6-2.5 3.6-.5z" />
-                    <rect x="3" y="14" width="5" height="7" rx="1" />
-                    <rect x="9.5" y="11" width="5" height="10" rx="1" />
-                    <rect x="16" y="16" width="5" height="5" rx="1" />
-                  </svg>
-                </div>
-                <h3>Highest Average Rating</h3>
-                <p>We are rated 4.5 or over by customers across all sections of our services.</p>
-              </div>
-            </div>
-          </div>
-        </section> */}
-
+        {/* 2. Key Highlights (Why Choose Us) */}
         <section className="features-section features-section-dark">
           <div className="container">
             <div className="features-grid">
               <div className="feature-card">
                 <div className="feature-icon-wrapper">
                   <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2-2a1 1 0 0 0-1.4 0l-4.3 4.3a1 1 0 0 0 0 1.4Z" />
-                    <path d="m18 10 3.3-3.3a1 1 0 0 0 0-1.4l-2.6-2.6a1 1 0 0 0-1.4 0L14 6" />
-                    <path d="m2 14 6 6" />
-                    <path d="M7 8l4-4" />
-                    <path d="m14 13-1.5-1.5" />
-                    <path d="M3 21l3-3" />
+                    <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z" />
+                    <line x1="6" y1="17" x2="18" y2="17" />
                   </svg>
                 </div>
-                <h3>Trusted Services</h3>
-                <p>Over 1,000+ happy customers and growing</p>
+                <h3>Culinary Excellence</h3>
+                <p>Highly experienced chefs crafting masterful dishes with passion and precision.</p>
               </div>
 
               <div className="feature-card">
                 <div className="feature-icon-wrapper">
                   <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-                    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
-                    <path d="M21 14h-1a3 3 0 0 0-3 3v1a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-1a3 3 0 0 0-3-3H2" />
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 </div>
-                <h3>Instant Support</h3>
-                <p>Whenever you want to contact our pros they are available.</p>
+                <h3>Premium Ingredients</h3>
+                <p>We source only the freshest and highest quality ingredients for unparalleled taste.</p>
               </div>
 
               <div className="feature-card">
                 <div className="feature-icon-wrapper">
                   <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <polyline points="16 11 18 13 22 9" />
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
                   </svg>
                 </div>
-                <h3>Verified professionals</h3>
-                <p>Our professionals with backgrounds checked give best services.</p>
+                <h3>Bespoke Menus</h3>
+                <p>Fully customized culinary offerings tailored to your specific event requirements and budget.</p>
               </div>
 
               <div className="feature-card">
                 <div className="feature-icon-wrapper">
                   <svg className="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 2l1.6 3.2 3.6.5-2.6 2.5.6 3.6L12 10.1 8.8 11.8l.6-3.6-2.6-2.5 3.6-.5z" />
-                    <rect x="3" y="14" width="5" height="7" rx="1" />
-                    <rect x="9.5" y="11" width="5" height="10" rx="1" />
-                    <rect x="16" y="16" width="5" height="5" rx="1" />
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <path d="m9 12 2 2 4-4" />
                   </svg>
                 </div>
-                <h3>Highest Average Rating</h3>
-                <p>We are rated 4.5 or over by customers across all sections of our services.</p>
+                <h3>Uncompromising Hygiene</h3>
+                <p>Adhering to the strictest safety and sanitation standards for your peace of mind.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Signature Services Section */}
+        {/* 3. Our Signature Services */}
         <section id="signature-services" className="signature-services-section">
           <div className="container">
             <div className="signature-header">
@@ -231,7 +172,7 @@ export default function Home() {
             </div>
 
             <div className="signature-grid">
-              {/* Card 1 */}
+              {/* Service 1: Social & Private Events */}
               <div className="signature-card">
                 <div className="signature-card-inner">
                   {/* Front Side */}
@@ -241,51 +182,8 @@ export default function Home() {
                     <div className="signature-card-inner-frame">
                       <div className="signature-card-content">
                         <div className="card-top-accent"></div>
-                        <h3 className="signature-card-title">Celebrity Events</h3>
-                        <p className="signature-card-tag">ELITE PRIVATE GATHERINGS</p>
-                        <div className="card-mini-divider">
-                          <span></span>
-                          <span className="mini-icon">🍲</span>
-                          <span></span>
-                        </div>
-                        <div className="signature-card-number">05.</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Back Side */}
-                  <div className="signature-card-back">
-                    <div className="signature-card-inner-frame">
-                      <div className="signature-card-content back-content">
-                        <div className="card-top-accent"></div>
-                        <h3 className="signature-card-title">Celebrity Events</h3>
-                        <p className="signature-card-desc">
-                          Bespoke culinary journeys curated for high-profile gatherings with utmost privacy, luxury service & Michelin-inspired cuisine.
-                        </p>
-                        <div className="card-mini-divider">
-                          <span></span>
-                          <span className="mini-icon">✨</span>
-                          <span></span>
-                        </div>
-                        <a href="#book" className="btn btn-gold">Explore Experience</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 2 */}
-              <div className="signature-card">
-                <div className="signature-card-inner">
-                  {/* Front Side */}
-                  <div className="signature-card-front">
-                    <div className="signature-card-bg" style={{ backgroundImage: `url('/catering_corporate_1791127885197.jpg')` }}></div>
-                    <div className="signature-card-overlay"></div>
-                    <div className="signature-card-inner-frame">
-                      <div className="signature-card-content">
-                        <div className="card-top-accent"></div>
-                        <h3 className="signature-card-title">Corporate Catering</h3>
-                        <p className="signature-card-tag">CORPORATE EVENTS</p>
+                        <h3 className="signature-card-title">Social & Private Events</h3>
+                        <p className="signature-card-tag">MEMORABLE GATHERINGS</p>
                         <div className="card-mini-divider">
                           <span></span>
                           <span className="mini-icon">🍲</span>
@@ -301,9 +199,52 @@ export default function Home() {
                     <div className="signature-card-inner-frame">
                       <div className="signature-card-content back-content">
                         <div className="card-top-accent"></div>
+                        <h3 className="signature-card-title">Social & Private Events</h3>
+                        <p className="signature-card-desc">
+                          Celebrate life’s milestones with personalized menus and flawless hospitality perfectly suited for intimate gatherings and grand celebrations.
+                        </p>
+                        <div className="card-mini-divider">
+                          <span></span>
+                          <span className="mini-icon">✨</span>
+                          <span></span>
+                        </div>
+                        <a href="#book" className="btn btn-gold">Explore Experience</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Service 2: Corporate Catering */}
+              <div className="signature-card">
+                <div className="signature-card-inner">
+                  {/* Front Side */}
+                  <div className="signature-card-front">
+                    <div className="signature-card-bg" style={{ backgroundImage: `url('/catering_corporate_1791127885197.jpg')` }}></div>
+                    <div className="signature-card-overlay"></div>
+                    <div className="signature-card-inner-frame">
+                      <div className="signature-card-content">
+                        <div className="card-top-accent"></div>
+                        <h3 className="signature-card-title">Corporate Catering</h3>
+                        <p className="signature-card-tag">PROFESSIONAL EXCELLENCE</p>
+                        <div className="card-mini-divider">
+                          <span></span>
+                          <span className="mini-icon">🍲</span>
+                          <span></span>
+                        </div>
+                        <div className="signature-card-number">02.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Back Side */}
+                  <div className="signature-card-back">
+                    <div className="signature-card-inner-frame">
+                      <div className="signature-card-content back-content">
+                        <div className="card-top-accent"></div>
                         <h3 className="signature-card-title">Corporate Catering</h3>
                         <p className="signature-card-desc">
-                          Seamless catering solutions for summits, annual galas, client luncheons, and executive board meets with impeccable presentation.
+                          Impress your clients and colleagues with highly professional catering solutions, ideal for board meetings, seminars, and corporate galas.
                         </p>
                         <div className="card-mini-divider">
                           <span></span>
@@ -317,7 +258,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Card 3 */}
+              {/* Service 3: Destination Weddings */}
               <div className="signature-card">
                 <div className="signature-card-inner">
                   {/* Front Side */}
@@ -334,7 +275,7 @@ export default function Home() {
                           <span className="mini-icon">🍲</span>
                           <span></span>
                         </div>
-                        <div className="signature-card-number">02.</div>
+                        <div className="signature-card-number">03.</div>
                       </div>
                     </div>
                   </div>
@@ -346,7 +287,7 @@ export default function Home() {
                         <div className="card-top-accent"></div>
                         <h3 className="signature-card-title">Destination Weddings</h3>
                         <p className="signature-card-desc">
-                          Grand royal feasts and live gourmet counters tailored for destination wedding extravaganzas across exotic locales.
+                          Turn your dream wedding into reality with a luxurious culinary experience designed to delight you and your esteemed guests.
                         </p>
                         <div className="card-mini-divider">
                           <span></span>
@@ -363,55 +304,62 @@ export default function Home() {
           </div>
         </section>
 
+        {/* 4. About Us */}
         <section id="about" className="about-section">
           <div className="container about-container">
             <div className="about-image">
-              <img src="/catering_wedding_1791127871855.jpg" alt="Chefs Cooking" style={{ height: '400px', objectFit: 'cover' }} />
+              <img src="/catering_wedding_1791127871855.jpg" alt="Our Story A Legacy of Excellence - Masterchefs orchestrating catering gala" style={{ height: '400px', objectFit: 'cover' }} />
             </div>
             <div className="about-text">
-              <h2>Humari Kahani:<br />Saalon Ka Anubhav</h2>
-              <p>We poplessttad a foaldiond tore wen treditional compelating cecoeststs silfine enssonful easstterts and successfully outhun caterhs oate ceating cosdfions.</p>
-              <p>We concuren our censemmene ta taditional online catering toe travistam cemices to online conshling collins paaldons, mere mopdaait oi our roone mamselaghous our yeors of years caperemas.</p>
+              <h2>Our Story: A Legacy of Excellence</h2>
+              <p>We believe that exceptional food is the soul of every great event. With years of industry experience, our dedicated team goes beyond just cooking; we curate memorable dining experiences that leave a lasting impression. From the first bite to the final toast, we ensure perfection.</p>
+              <p>Whether it is an extravagant destination wedding banquet, an executive corporate summit, or an intimate private gathering, our master chefs and service brigade bring precision, artistic presentation, and bespoke luxury to your celebrations.</p>
             </div>
           </div>
         </section>
 
+        {/* 5. Menu Showcase */}
         <section id="menu" className="menu-section">
           <div className="container">
             <h2 className="section-title">Menu Showcase</h2>
+            <p style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 40px', color: '#c7c7c7', fontSize: '1.05rem', lineHeight: '1.6' }}>
+              Discover a world of flavors with our thoughtfully curated selection of signature dishes. From authentic regional delicacies to contemporary global cuisines, our diverse menu is designed to satisfy every palate.
+            </p>
             <div className="menu-grid">
               <div className="menu-item">
-                <img src="/catering_hero_1791127858700.jpg" alt="Roasted Chicken" />
-                <h4>Temdusp andiamti sam maseting tankoom o scorring tandoorn aonn alidination.</h4>
-                <p>A delicious spread featuring our best grilled items and side dishes.</p>
+                <img src="/catering_hero_1791127858700.jpg" alt="Luxury Wedding Catering Food Display - Charcoal Tandoori & Artisanal Kebabs" />
+                <h4>Artisanal Tandoori & Kebabs</h4>
+                <p>Authentic charcoal sigri appetizers cooked to perfection with exquisite hand-ground spices.</p>
               </div>
               <div className="menu-item">
-                <img src="/catering_corporate_1791127885197.jpg" alt="Mediterranean Platter" />
-                <h4>Meditesmsmam Naumt plistter as a neos aninnoldalmetse Mediterrmsme Hisurs.</h4>
-                <p>A wonderful healthy platter filled with Mediterranean delights.</p>
+                <img src="/catering_corporate_1791127885197.jpg" alt="Corporate Event Buffet Setup - Contemporary Global & Mediterranean Platter" />
+                <h4>Continental & Mediterranean</h4>
+                <p>Curated artisanal salads, pasta stations and gourmet international delicacies crafted fresh.</p>
               </div>
               <div className="menu-item">
-                <img src="/catering_wedding_1791127871855.jpg" alt="Chocolate Dessert" />
-                <h4>Cheodolate locniano deurhocorhecoko leve, enco plates ocosent ae bommorn.</h4>
-                <p>Our famous chocolate dessert is a must-have at any event.</p>
+                <img src="/catering_wedding_1791127871855.jpg" alt="Gourmet Dessert Studio - Traditional Confectionery & Liquid Nitrogen Kulfi" />
+                <h4>Artisanal Dessert Studio</h4>
+                <p>Rich traditional mithais alongside decadent chocolate confectionery and live nitrogen delicacies.</p>
               </div>
               <div className="menu-item">
-                <img src="/catering_hero_1791127858700.jpg" alt="Buffet Dining" />
-                <h4>Pertevalstest colop of a buffdong zci nvoce preteretesoues.</h4>
-                <p>Exquisite buffet setups perfect for large gatherings.</p>
+                <img src="/catering_party_footer.jpg" alt="Private Party Catering Buffet Setup - Grand Celebratory Spread" />
+                <h4>Grand Banquet Buffet</h4>
+                <p>Exquisite multi-cuisine spreads with royal live counters tailored for lavish celebratory dining.</p>
               </div>
             </div>
-            <a href="#" className="btn btn-primary">Download Full Menu PDF</a>
+            <div style={{ textAlign: 'center', marginTop: '35px' }}>
+              <a href="/menu" className="btn btn-primary">View Full Menu</a>
+            </div>
           </div>
         </section>
 
-        {/* Testimonials Section */}
+        {/* 6. Testimonials */}
         <section id="testimonials" className="testimonials-section">
           <div className="container">
             <div className="section-header-centered">
               <span className="section-pill">TESTIMONIALS</span>
               <h2 className="section-title-luxury">What Our Guests Say</h2>
-              <p className="section-subtitle">Real experiences from memorable weddings and premier corporate events.</p>
+              <p className="section-subtitle">Real experiences highlighting our culinary quality, impeccable punctuality, and professional hospitality staff.</p>
             </div>
 
             <div className="testimonials-grid">
@@ -435,24 +383,24 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Interactive Luxury Booking & Estimate Form */}
+        {/* 7. Booking / Lead Generation Form */}
         <section id="book" className="interactive-book-section">
           <div className="container">
             <div className="book-card-container">
               <div className="book-card-left">
                 <span className="section-pill">LIVE QUOTE & BOOKING</span>
                 <h2>Design Your Dream Catering Experience</h2>
-                <p>Select your event preferences below for an instant preliminary estimate. Our culinary planners will contact you within 2 business hours.</p>
+                <p>Tell us about your upcoming event, and our culinary experts will craft a customized proposal just for you.</p>
 
                 {/* Event Type Selector */}
                 <div className="booking-option-group">
                   <label className="group-label">1. Event Type</label>
                   <div className="event-pills-row">
                     {[
-                      { id: 'wedding', label: '💍 Royal Wedding' },
-                      { id: 'corporate', label: '💼 Corporate Gala' },
+                      { id: 'wedding', label: '💍 Destination Wedding' },
+                      { id: 'corporate', label: '💼 Corporate Catering' },
+                      { id: 'private', label: '🎉 Social & Private Events' },
                       { id: 'celebrity', label: '🌟 Celebrity VIP' },
-                      { id: 'theme', label: '🎭 Theme Party' },
                     ].map((type) => (
                       <button
                         key={type.id}
@@ -469,7 +417,7 @@ export default function Home() {
                 {/* Live Guest Slider */}
                 <div className="booking-option-group">
                   <div className="slider-label-row">
-                    <label className="group-label">2. Estimated Guests</label>
+                    <label className="group-label">2. Estimated Guest Count</label>
                     <span className="slider-val-badge">{guestCount} Guests</span>
                   </div>
                   <input
@@ -495,7 +443,7 @@ export default function Home() {
                   <div className="addon-chips-grid">
                     {[
                       { id: 'veg', label: '🥗 Pure Veg & Jain Counter' },
-                      { id: 'chaat', label: '🥘 Live Delhi Chaat' },
+                      { id: 'chaat', label: '🥘 Live Delhi Chaat Studio' },
                       { id: 'live-tandoor', label: '🔥 Live Sigri Tandoor' },
                       { id: 'dessert', label: '🍨 Royal Dessert Studio' },
                       { id: 'mocktails', label: '🍹 Signature Mocktail Lounge' },
@@ -531,7 +479,7 @@ export default function Home() {
                   <div className="booking-success-box">
                     <div className="success-icon">🎉</div>
                     <h3>Booking Request Received!</h3>
-                    <p>Shukriya! Humari culinary director team agle 2 ghante me aapko sample menu aur customized quote ke sath connect karegi.</p>
+                    <p>Thank you! Our culinary director will connect with you within 2 business hours with a bespoke tasting menu and detailed proposal.</p>
                     <button
                       type="button"
                       onClick={() => setFormSubmitted(false)}
@@ -551,11 +499,16 @@ export default function Home() {
                   >
                     <div className="form-input-field">
                       <label>Full Name</label>
-                      <input type="text" placeholder="e.g. Rahul Verma" required />
+                      <input type="text" placeholder="e.g. Alexander Vance" required />
                     </div>
 
                     <div className="form-input-field">
-                      <label>Phone / WhatsApp</label>
+                      <label>Email Address</label>
+                      <input type="email" placeholder="alexander@example.com" required />
+                    </div>
+
+                    <div className="form-input-field">
+                      <label>Phone Number</label>
                       <input type="tel" placeholder="+91 98765 43210" required />
                     </div>
 
@@ -565,18 +518,46 @@ export default function Home() {
                         <input type="date" required />
                       </div>
                       <div className="form-input-field">
-                        <label>City / Venue</label>
-                        <input type="text" placeholder="e.g. Delhi NCR" required />
+                        <label>Event Type</label>
+                        <select
+                          value={selectedEventType}
+                          onChange={(e) => setSelectedEventType(e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '12px 14px',
+                            background: '#151515',
+                            border: '1px solid #333',
+                            borderRadius: '8px',
+                            color: '#fff',
+                            fontSize: '0.95rem'
+                          }}
+                        >
+                          <option value="private">Social & Private Events</option>
+                          <option value="corporate">Corporate Catering</option>
+                          <option value="wedding">Destination Weddings</option>
+                          <option value="celebrity">Celebrity & VIP Events</option>
+                        </select>
                       </div>
                     </div>
 
                     <div className="form-input-field">
-                      <label>Special Notes (Optional)</label>
-                      <textarea rows={2} placeholder="Any specific cuisine preference or chef request..."></textarea>
+                      <label>Estimated Guest Count</label>
+                      <input
+                        type="number"
+                        min="50"
+                        value={guestCount}
+                        onChange={(e) => setGuestCount(Number(e.target.value))}
+                        required
+                      />
+                    </div>
+
+                    <div className="form-input-field">
+                      <label>Special Requirements</label>
+                      <textarea rows={2} placeholder="Dietary restrictions (vegan, gluten-free, Jain), chef live counters, or event themes..."></textarea>
                     </div>
 
                     <button type="submit" className="btn-luxury-submit">
-                      <span>Reserve Date & Request Tasting</span>
+                      <span>Request a Bespoke Tasting</span>
                       <span className="btn-arrow">→</span>
                     </button>
                     <p className="guarantee-text">🔒 100% Privacy • No Spam • Complimentary Food Tasting</p>
@@ -587,7 +568,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FAQ Section */}
+        {/* 8. Frequently Asked Questions (FAQ) */}
         <section id="faq" className="faq-section">
           <div className="container faq-container">
             <div className="section-header-centered">
@@ -622,45 +603,53 @@ export default function Home() {
         </section>
       </main>
 
+      {/* 9. Footer */}
       <footer>
         <div className="container">
           <div className="footer-grid">
             <div className="footer-col">
               <div className="footer-logo">
                 <span className="logo-icon" style={{ color: 'white' }}>🍽️</span>
-                LOGO
+                GURUJI CATERERS
               </div>
-              <p className="footer-desc">Delivering exceptional culinary experiences for your special events.</p>
+              <p className="footer-desc">Premium catering services for weddings, corporate galas, and private celebrations with exquisite taste and flawless execution.</p>
+              <div style={{ display: 'flex', gap: '12px', marginTop: '16px', fontSize: '1.2rem' }}>
+                <a href="#" aria-label="Instagram" style={{ color: '#c5a880' }}>📸</a>
+                <a href="#" aria-label="Facebook" style={{ color: '#c5a880' }}>📘</a>
+                <a href="#" aria-label="LinkedIn" style={{ color: '#c5a880' }}>💼</a>
+                <a href="#" aria-label="WhatsApp" style={{ color: '#c5a880' }}>💬</a>
+              </div>
             </div>
             <div className="footer-col">
               <h4>CONTACT US</h4>
               <ul>
-                <li><p>📞 +1 234 567 8900</p></li>
-                <li><p>✉️ dummy@logo.com</p></li>
-                <li><p>📍 123 Street Name, City</p></li>
+                <li><p>📞 +91 98765 43210 / +91 91234 56789</p></li>
+                <li><p>✉️ info@gurujicaterers.com</p></li>
+                <li><p>📍 Main Ring Road, Delhi NCR, India</p></li>
               </ul>
             </div>
             <div className="footer-col">
-              <h4>COMPANY</h4>
+              <h4>QUICK NAVIGATION</h4>
               <ul>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Gallery</a></li>
-                <li><a href="#">Events</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/menu">Menu</a></li>
+                <li><a href="/faq">FAQ</a></li>
               </ul>
             </div>
             <div className="footer-col">
-              <h4>QUICK LINKS</h4>
+              <h4>EXPERIENCE</h4>
               <ul>
-                <li><a href="#">Book</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Testimonials</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="/book">Book Tasting</a></li>
+                <li><a href="/reviews">Reviews</a></li>
+                <li><a href="#signature-services">Signature Services</a></li>
+                <li><a href="#book">Get a Quote</a></li>
               </ul>
             </div>
           </div>
           <div className="footer-bottom">
-            <p>&copy; 2026 Your Company Name. All Rights Reserved.</p>
+            <p>&copy; 2026 Guruji Caterers. All Rights Reserved. | Premium Catering Services for Weddings, Corporate & Private Events</p>
           </div>
         </div>
       </footer>
