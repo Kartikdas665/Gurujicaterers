@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 class UserManager(BaseUserManager):
@@ -40,13 +41,36 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+    def clean(self):
+        super().clean()
+        # Enforce exactly one superadmin rule: cannot create another superadmin if one exists
+        if self.role == 'superadmin':
+            existing = User.objects.filter(role='superadmin')
+            if self.pk:
+                existing = existing.exclude(pk=self.pk)
+            if existing.exists():
+                raise ValidationError({'role': 'A Super Admin already exists. Only one Super Admin account is permitted in the system.'})
+
     def save(self, *args, **kwargs):
+        # Enforce validation
+        if self.role == 'superadmin':
+            existing = User.objects.filter(role='superadmin')
+            if self.pk:
+                existing = existing.exclude(pk=self.pk)
+            if existing.exists():
+                raise ValidationError('A Super Admin already exists. You cannot create another Super Admin.')
+
         # Automatically align permissions based on role
         if self.role == 'superadmin':
             self.is_superuser = True
             self.is_staff = True
         elif self.role in ['admin', 'manager']:
             self.is_staff = True
+            self.is_superuser = False
+        else:
+            self.is_staff = False
+            self.is_superuser = False
+
         super().save(*args, **kwargs)
 
     def __str__(self):

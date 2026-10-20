@@ -12,42 +12,42 @@ def seed():
         {
             "username": "superadmin",
             "email": "superadmin@gurujicaterers.com",
-            "first_name": "Chief",
-            "last_name": "Executive",
+            "first_name": "Super",
+            "last_name": "Admin",
             "role": "superadmin",
             "phone": "+91 99999 11111",
             "department": "Executive Leadership",
-            "password": "adminpassword123"
+            "password": "superadmin123"
         },
         {
-            "username": "admin_rohit",
-            "email": "rohit.admin@gurujicaterers.com",
-            "first_name": "Rohit",
-            "last_name": "Verma",
+            "username": "kartik_das",
+            "email": "admin@gurujicaterers.com",
+            "first_name": "Kartik",
+            "last_name": "Das",
             "role": "admin",
             "phone": "+91 98888 22222",
-            "department": "Operations & Bookings",
-            "password": "adminpassword123"
+            "department": "Operations",
+            "password": "admin123"
         },
         {
-            "username": "manager_priya",
-            "email": "priya.manager@gurujicaterers.com",
-            "first_name": "Priya",
-            "last_name": "Malhotra",
+            "username": "shivansh_singh",
+            "email": "manager@gurujicaterers.com",
+            "first_name": "Shivansh",
+            "last_name": "Sign",
             "role": "manager",
             "phone": "+91 97777 33333",
-            "department": "Kitchen & Catering Head",
-            "password": "adminpassword123"
+            "department": "Design",
+            "password": "manager123"
         },
         {
-            "username": "emp_amit",
-            "email": "amit.staff@gurujicaterers.com",
-            "first_name": "Amit",
-            "last_name": "Kumar",
+            "username": "emp_loyee",
+            "email": "employee@gurujicaterers.com",
+            "first_name": "Emp",
+            "last_name": "loyee",
             "role": "employee",
             "phone": "+91 96666 44444",
             "department": "Live Service Crew",
-            "password": "adminpassword123"
+            "password": "employee123"
         }
     ]
 

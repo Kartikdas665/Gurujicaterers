@@ -29,6 +29,70 @@
       display: flex;
       min-height: 100vh;
     }
+
+    /* Auth Sign In Overlay */
+    #auth-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top right, #241914 0%, #0c090e 70%);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .auth-card {
+      background: rgba(21, 17, 25, 0.95);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 440px;
+      padding: 38px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(197, 155, 39, 0.1);
+      position: relative;
+    }
+    .auth-brand {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .auth-brand .logo-icon {
+      font-size: 2.4rem;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .auth-brand h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .auth-brand p {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      margin-top: 4px;
+    }
+    .auth-notice {
+      background: rgba(197, 155, 39, 0.1);
+      border: 1px solid rgba(197, 155, 39, 0.3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.78rem;
+      color: #fbbf24;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .auth-alert {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .alert-error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+    }
+
     /* Sidebar */
     .sidebar {
       width: 270px;
@@ -139,6 +203,20 @@
       justify-content: center;
       font-weight: 700;
       color: #0c090e;
+    }
+    .btn-signout {
+      background: transparent;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+      font-size: 0.78rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-left: 8px;
+    }
+    .btn-signout:hover {
+      background: rgba(239, 68, 68, 0.15);
     }
 
     .content-area {
@@ -346,6 +424,38 @@
 </head>
 <body>
 
+  <!-- Sign In Screen Overlay -->
+  <div id="auth-screen">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <span class="logo-icon">🍽️</span>
+        <h1>GURUJI <span class="brand-gold">CATERERS</span></h1>
+        <p>Private Management Portal &bull; Python Django</p>
+      </div>
+
+      <div class="auth-notice">
+        🔒 <strong>Authorized Staff Only</strong><br>
+        Public registrations are disabled. Credentials are provided by Super Admin.
+      </div>
+
+      <div id="auth-error" class="auth-alert alert-error"></div>
+
+      <form id="signin-form" onsubmit="handleSignIn(event)">
+        <div class="form-group">
+          <label>Username or Email Address</label>
+          <input type="text" id="auth-login" required placeholder="e.g. kartik_das or admin@gurujicaterers.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="auth-pwd" required placeholder="Enter your portal password" />
+        </div>
+        <button type="submit" class="btn-gold" style="width: 100%; padding: 12px; margin-top: 10px; font-size: 0.95rem;">
+          Sign In to Portal →
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-brand">
@@ -394,8 +504,12 @@
     <header class="topbar">
       <h2 id="page-title">CMS Dashboard Overview</h2>
       <div class="admin-profile">
-        <div class="admin-avatar">SA</div>
-        <span>Super Admin (Executive)</span>
+        <div class="admin-avatar" id="header-avatar">SA</div>
+        <div>
+          <span id="header-name" style="font-weight: 600; font-size: 0.9rem;">Super Admin</span><br>
+          <small id="header-role" style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">superadmin</small>
+        </div>
+        <button class="btn-signout" onclick="handleSignOut()">Sign Out</button>
       </div>
     </header>
 
@@ -453,7 +567,7 @@
               <h3 class="panel-title">Staff & User Roles</h3>
               <p style="font-size: 0.82rem; color: var(--text-muted)">Super Admin, Admin, Manager, and Employee tier controls</p>
             </div>
-            <button class="btn-gold" onclick="openUserModal()">+ Add New User</button>
+            <button id="btn-open-user-modal" class="btn-gold" onclick="openUserModal()">+ Add New User</button>
           </div>
           <table>
             <thead>
@@ -525,23 +639,24 @@
     </div>
   </main>
 
-  <!-- Add User Modal -->
+  <!-- Add User Modal (Internal Team User Creation by Superadmin/Admin) -->
   <div id="user-modal" class="modal">
     <div class="modal-box">
-      <h3>Create New Team User</h3>
+      <h3>Create New Staff Account</h3>
       <form id="user-form" onsubmit="saveUser(event)">
         <div class="form-group">
           <label>Username</label>
           <input type="text" id="u-username" required placeholder="e.g. chef_karan" />
         </div>
         <div class="form-group">
-          <label>Role</label>
+          <label>Role Tier</label>
           <select id="u-role">
-            <option value="superadmin">Super Admin (Full Root Permissions)</option>
-            <option value="admin">Admin (CMS & Lead Management)</option>
+            <!-- Superadmin option is permanently blocked from creation -->
+            <option value="admin">Admin (CMS & Lead Management - Only Super Admin can create)</option>
             <option value="manager">Manager (Kitchen & Menu Supervision)</option>
             <option value="employee" selected>Employee (Ground Staff / Crew)</option>
           </select>
+          <small id="u-role-hint" style="font-size:0.75rem; color:#f59e0b;"></small>
         </div>
         <div class="form-group">
           <label>Full Name</label>
@@ -563,7 +678,7 @@
           <input type="text" id="u-department" placeholder="e.g. Live Counters / Banquets" />
         </div>
         <div class="form-group">
-          <label>Password</label>
+          <label>Initial Password</label>
           <input type="password" id="u-password" required placeholder="Password" />
         </div>
         <div class="modal-actions">
@@ -649,6 +764,70 @@
   <script>
     const API_URL = '/api';
 
+    // Check Session Auth on Load
+    function checkAuth() {
+      const savedUser = localStorage.getItem('guruji_auth_user');
+      if (savedUser) {
+        try {
+          const user = JSON.parse(savedUser);
+          applyAuthenticatedUser(user);
+          return true;
+        } catch (e) {
+          localStorage.removeItem('guruji_auth_user');
+        }
+      }
+      document.getElementById('auth-screen').style.display = 'flex';
+      return false;
+    }
+
+    function applyAuthenticatedUser(user) {
+      document.getElementById('auth-screen').style.display = 'none';
+      const initials = (user.first_name ? user.first_name[0] : '') + (user.last_name ? user.last_name[0] : '') || user.username.slice(0, 2).toUpperCase();
+      document.getElementById('header-avatar').innerText = initials;
+      document.getElementById('header-name').innerText = `${user.first_name || ''} ${user.last_name || ''}`.trim() || user.username;
+      document.getElementById('header-role').innerText = user.role || 'Staff';
+
+      fetchAnalytics();
+      loadInquiries();
+    }
+
+    async function handleSignIn(e) {
+      e.preventDefault();
+      const loginVal = document.getElementById('auth-login').value.trim();
+      const pwdVal = document.getElementById('auth-pwd').value;
+      const errBox = document.getElementById('auth-error');
+      errBox.style.display = 'none';
+
+      try {
+        const res = await fetch(`${API_URL}/auth/signin`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: loginVal, password: pwdVal }),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          localStorage.setItem('guruji_auth_user', JSON.stringify(data.user));
+          applyAuthenticatedUser(data.user);
+        } else {
+          errBox.innerText = data.error || 'Authentication failed.';
+          errBox.style.display = 'block';
+        }
+      } catch (err) {
+        errBox.innerText = 'Unable to connect to backend server.';
+        errBox.style.display = 'block';
+      }
+    }
+
+    async function handleSignOut() {
+      if (confirm('Are you sure you want to sign out?')) {
+        try {
+          await fetch(`${API_URL}/auth/signout`, { method: 'POST' });
+        } catch (e) {}
+        localStorage.removeItem('guruji_auth_user');
+        location.reload();
+      }
+    }
+
     async function fetchAnalytics() {
       try {
         const res = await fetch(`${API_URL}/analytics`);
@@ -695,14 +874,51 @@
       }
     }
 
+    function getLoggedInUser() {
+      try {
+        return JSON.parse(localStorage.getItem('guruji_auth_user') || '{}');
+      } catch (e) {
+        return {};
+      }
+    }
+
     async function loadUsers() {
       try {
+        const currentUser = getLoggedInUser();
         const res = await fetch(`${API_URL}/users`);
         const users = await res.json();
         const tbody = document.getElementById('users-tbody');
         tbody.innerHTML = '';
+
+        // Control Visibility of "+ Add New User" button based on hierarchy:
+        // Only superadmin and admin can create users. Manager and Employee cannot.
+        const addBtn = document.getElementById('btn-open-user-modal');
+        if (addBtn) {
+          if (currentUser.role === 'superadmin' || currentUser.role === 'admin') {
+            addBtn.style.display = 'inline-block';
+          } else {
+            addBtn.style.display = 'none';
+          }
+        }
+
         users.forEach((u) => {
           const tr = document.createElement('tr');
+          
+          // Determine if current user can delete this user:
+          // 1. Superadmin cannot be deleted by anyone
+          // 2. Manager cannot delete anyone
+          // 3. Employee cannot delete anyone
+          // 4. Admin cannot delete Superadmin or other Admins; can delete Manager and Employee
+          // 5. Superadmin can delete Admin, Manager, and Employee
+          let canDelete = false;
+          if (u.role !== 'superadmin') {
+            if (currentUser.role === 'superadmin') {
+              canDelete = true;
+            } else if (currentUser.role === 'admin' && (u.role === 'manager' || u.role === 'employee')) {
+              canDelete = true;
+            }
+          }
+
           tr.innerHTML = `
             <td>
               <strong>${u.username}</strong><br>
@@ -714,7 +930,9 @@
             <td>${u.email || '—'}</td>
             <td><span class="badge-status status-confirmed">${u.is_active ? 'Active' : 'Disabled'}</span></td>
             <td>
-              <button class="btn-action btn-delete" onclick="deleteUser(${u.id})">Remove</button>
+              ${canDelete 
+                ? `<button class="btn-action btn-delete" onclick="deleteUser(${u.id})">Remove</button>` 
+                : `<span style="font-size:0.75rem; color:var(--text-muted);">Protected</span>`}
             </td>
           `;
           tbody.appendChild(tr);
@@ -812,10 +1030,26 @@
     }
 
     async function deleteUser(id) {
+      const currentUser = getLoggedInUser();
+      if (!currentUser.id) {
+        alert('Please sign in first.');
+        return;
+      }
       if (confirm('Are you sure you want to remove this team user?')) {
-        await fetch(`${API_URL}/users/${id}`, { method: 'DELETE' });
-        loadUsers();
-        fetchAnalytics();
+        const res = await fetch(`${API_URL}/users/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'X-Requester-Id': currentUser.id.toString(),
+            'Content-Type': 'application/json',
+          }
+        });
+        const data = await res.json();
+        if (res.ok) {
+          loadUsers();
+          fetchAnalytics();
+        } else {
+          alert(data.error || 'Permission denied.');
+        }
       }
     }
 
@@ -836,6 +1070,32 @@
     }
 
     function openUserModal() {
+      const currentUser = getLoggedInUser();
+      const roleSelect = document.getElementById('u-role');
+      const hint = document.getElementById('u-role-hint');
+
+      // Populate allowed options according to rule:
+      // Superadmin can create: Admin, Manager, Employee
+      // Admin can create: Manager, Employee
+      // Manager & Employee: cannot create anyone
+      if (currentUser.role === 'superadmin') {
+        roleSelect.innerHTML = `
+          <option value="admin">Admin (Operations & Bookings)</option>
+          <option value="manager">Manager (Kitchen & Menu Supervision)</option>
+          <option value="employee" selected>Employee (Ground Staff / Crew)</option>
+        `;
+        hint.innerText = 'As Super Admin, you can create Admin, Manager, or Employee accounts.';
+      } else if (currentUser.role === 'admin') {
+        roleSelect.innerHTML = `
+          <option value="manager">Manager (Kitchen & Menu Supervision)</option>
+          <option value="employee" selected>Employee (Ground Staff / Crew)</option>
+        `;
+        hint.innerText = 'As Admin, you can create Manager or Employee accounts.';
+      } else {
+        alert('Your role does not have permission to create staff accounts.');
+        return;
+      }
+
       document.getElementById('user-modal').classList.add('active');
     }
     function openMenuModal() {
@@ -850,28 +1110,40 @@
 
     async function saveUser(e) {
       e.preventDefault();
+      const currentUser = getLoggedInUser();
+      if (!currentUser.id) {
+        alert('Please sign in first.');
+        return;
+      }
+
       const payload = {
-        username: document.getElementById('u-username').value,
+        username: document.getElementById('u-username').value.trim(),
         role: document.getElementById('u-role').value,
-        first_name: document.getElementById('u-fname').value,
-        last_name: document.getElementById('u-lname').value,
-        email: document.getElementById('u-email').value,
-        phone: document.getElementById('u-phone').value,
-        department: document.getElementById('u-department').value,
+        first_name: document.getElementById('u-fname').value.trim(),
+        last_name: document.getElementById('u-lname').value.trim(),
+        email: document.getElementById('u-email').value.trim(),
+        phone: document.getElementById('u-phone').value.trim(),
+        department: document.getElementById('u-department').value.trim(),
         password: document.getElementById('u-password').value,
+        requester_id: currentUser.id,
       };
+
       const res = await fetch(`${API_URL}/users`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requester-Id': currentUser.id.toString(),
+        },
         body: JSON.stringify(payload)
       });
+      const data = await res.json();
       if (res.ok) {
         closeModals();
         loadUsers();
         fetchAnalytics();
+        alert('Staff account created successfully!');
       } else {
-        const err = await res.json();
-        alert('Error: ' + JSON.stringify(err));
+        alert('Error: ' + (data.error || JSON.stringify(data)));
       }
     }
 
@@ -913,9 +1185,8 @@
       fetchAnalytics();
     }
 
-    // Initialize
-    fetchAnalytics();
-    loadInquiries();
+    // Initialize Auth Guard
+    checkAuth();
   </script>
 </body>
 </html>
