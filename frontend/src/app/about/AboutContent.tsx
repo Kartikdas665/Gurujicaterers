@@ -3,12 +3,12 @@
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 
-export default function AboutPage() {
+export default function AboutContent() {
   const milestones = [
     { year: '2010', title: 'The Royal Inception', desc: 'Started with authentic North Indian traditional banquets in Delhi with an unyielding passion for pure ingredients.' },
     { year: '2015', title: '500+ Mega Weddings', desc: 'Expanded into grand destination weddings across Rajasthan palaces (Udaipur, Jaipur, Jodhpur).' },
     { year: '2020', title: 'Corporate & VIP Banqueting', desc: 'Introduced international live counters, molecular dessert stations, and white-glove executive hospitality.' },
-    { year: '2026', title: 'Over 1,000+ Celebrations', desc: 'Recognized as one of India’s premier luxury catering enterprises with a team of 150+ masterchefs and hospitality artisans.' },
+    { year: '2026', title: 'Over 1,000+ Celebrations', desc: 'Recognized as one of India\'s premier luxury catering enterprises with a team of 150+ masterchefs and hospitality artisans.' },
   ];
 
   const pillars = [
@@ -22,14 +22,14 @@ export default function AboutPage() {
     <>
       <Navbar />
 
-      {/* 70vh Grand Party Celebration Hero Banner */}
+      {/* 1. Hero Section */}
       <section className="page-hero-banner">
         <div className="page-hero-bg"></div>
         <div className="page-hero-overlay"></div>
         <div className="container page-hero-content">
           <div className="gold-accent-line" style={{ margin: '0 auto 16px' }}></div>
           <span className="section-pill">OUR HERITAGE & VISION</span>
-          <h1 className="page-hero-title">Humari Kahani: Saalon Ka Anubhav</h1>
+          <h1 className="page-hero-title">Our Story: Years of Experience</h1>
           <p className="page-hero-subtitle">
             Crafting indelible culinary memories and royal celebratory banquets for over 15+ years.
           </p>
@@ -38,7 +38,7 @@ export default function AboutPage() {
 
       <main className="dedicated-page-main">
         <div className="container">
-          {/* Story Intro Split */}
+          {/* 2. Introduction Section */}
           <div className="about-story-split">
             <div className="story-split-text">
               <span className="service-gold-tag">15+ YEARS OF CULINARY EXCELLENCE</span>
@@ -74,7 +74,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Pillars of Excellence */}
+          {/* 3. Our Core Values */}
           <div className="about-pillars-section">
             <div className="section-header-centered">
               <span className="section-pill">OUR CORE VALUES</span>
@@ -93,7 +93,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Timeline Milestones */}
+          {/* 4. Our Journey */}
           <div className="timeline-section">
             <div className="section-header-centered">
               <span className="section-pill">OUR JOURNEY</span>
@@ -111,14 +111,14 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Bottom Call to Action */}
+          {/* 5. Call to Action (CTA) Section */}
           <div className="services-cta-banner" style={{ marginTop: '70px' }}>
             <div className="banner-gold-glow"></div>
             <h3>Let Us Craft Your Celebration</h3>
             <p>Schedule a complimentary menu consultation and private food tasting session with our culinary directors.</p>
             <div className="banner-btns">
               <Link href="/book" className="btn btn-gold btn-large">
-                Reserve Date & Food Tasting 👑
+                RESERVE DATE & FOOD TASTING
               </Link>
               <Link href="/menu" className="btn btn-outline btn-large">
                 Explore Full Menu
@@ -128,7 +128,7 @@ export default function AboutPage() {
         </div>
       </main>
 
-      {/* Footer */}
+      {/* 6. Footer */}
       <footer>
         <div className="container">
           <div className="footer-grid">

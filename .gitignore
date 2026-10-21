@@ -5,3 +5,14 @@ build
 dist
 .DS_Store
 *.log
+
+# Python / Django
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+backend/__pycache__/
+backend/api/__pycache__/
+backend/guruji_caterers/__pycache__/
