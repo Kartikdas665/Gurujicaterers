@@ -28,6 +28,83 @@ class UserManager(BaseUserManager):
 
 
 # ==========================================
+# 0. DYNAMIC ROLES & PERMISSION MATRIX MODULE
+# ==========================================
+class Role(models.Model):
+    """
+    Dynamic role model allowing administrators to define roles,
+    e.g., Super Admin, Admin, HR Manager, Event Manager, Payroll Manager, Employee, etc.
+    """
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True, blank=True)
+    description = models.TextField(blank=True, default='')
+    is_active = models.BooleanField(default=True)
+    is_system = models.BooleanField(default=False, help_text="System roles cannot be deleted")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            self.slug = slugify(self.name).replace('-', '_')
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
+class RolePermission(models.Model):
+    """
+    Per-module permission matrix for a role:
+    Modules: Employee, Holidays, Leaves, Events, Sales, Training, Reports, Tickets, Payroll, Packages, Inventory
+    Actions: read, write, create, delete, import_perm, export_perm
+    """
+    MODULE_CHOICES = [
+        ('employee', 'Employee / Staff'),
+        ('holidays', 'Holidays'),
+        ('leaves', 'Leaves'),
+        ('events', 'Events'),
+        ('sales', 'Sales'),
+        ('purchases', 'Purchases & Vendors'),
+        ('training', 'Training'),
+        ('reports', 'Reports / Analytics'),
+        ('tickets', 'Tickets & Inquiries'),
+        ('payroll', 'Payroll & Expenses'),
+        ('packages', 'Menu & Packages'),
+        ('inventory', 'Inventory & Assets'),
+    ]
+
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, related_name='permissions')
+    module_key = models.CharField(max_length=50)
+    module_label = models.CharField(max_length=100, blank=True, default='')
+
+    # Granular Action Flags
+    allow_all = models.BooleanField(default=False)
+    can_read = models.BooleanField(default=True)
+    can_write = models.BooleanField(default=False)
+    can_create = models.BooleanField(default=False)
+    can_delete = models.BooleanField(default=False)
+    can_import = models.BooleanField(default=False)
+    can_export = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('role', 'module_key')
+
+    def save(self, *args, **kwargs):
+        if self.allow_all:
+            self.can_read = True
+            self.can_write = True
+            self.can_create = True
+            self.can_delete = True
+            self.can_import = True
+            self.can_export = True
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.role.name} - {self.module_key} ({'ALL' if self.allow_all else 'Custom'})"
+
+
+# ==========================================
 # 1. ACCOUNTS & USERS MODULE
 # ==========================================
 class User(AbstractUser):
@@ -38,7 +115,8 @@ class User(AbstractUser):
         ('employee', 'Employee'),
     ]
 
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='employee')
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES, default='employee')
+    dynamic_role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True, blank=True, related_name='users')
     phone = models.CharField(max_length=20, blank=True, default='')
     branch = models.CharField(max_length=120, blank=True, default='Main Branch')
     department = models.CharField(max_length=100, blank=True, default='Catering Operations')

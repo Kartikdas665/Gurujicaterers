@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 
 from .models import (
-    User, MenuItem, MenuPackage, Event, EventInventoryAllocation,
+    User, Role, RolePermission, MenuItem, MenuPackage, Event, EventInventoryAllocation,
     InventoryItem, Task, EventBilling, VendorExpense, Inquiry, Review,
     Vendor, PurchaseOrder, PurchaseOrderItem, SalesInvoice, SalesInvoiceItem,
     PaymentTransaction
@@ -18,6 +18,8 @@ from .models import (
 from .serializers import (
     CustomTokenObtainPairSerializer,
     UserSerializer,
+    RoleSerializer,
+    RolePermissionSerializer,
     MenuItemSerializer,
     MenuPackageSerializer,
     InventoryItemSerializer,
@@ -428,6 +430,55 @@ class PaymentTransactionViewSet(viewsets.ModelViewSet):
         caller = self.request.user if self.request.user.is_authenticated else None
         serializer.save(receipt_number=rcpt, recorded_by=caller)
 
+
+
+# ==========================================
+# 6.5 ROLES & PERMISSION MATRIX MANAGEMENT
+# ==========================================
+class RoleViewSet(viewsets.ModelViewSet):
+    """
+    CRUD for dynamic roles with nested permissions matrix
+    """
+    queryset = Role.objects.all().prefetch_related('permissions').order_by('id')
+    serializer_class = RoleSerializer
+    permission_classes = [AllowAny]
+
+    def destroy(self, request, *args, **kwargs):
+        role = self.get_object()
+        if role.is_system or role.name.lower() in ['admin', 'super admin', 'superadmin']:
+            return Response({'error': 'System role cannot be deleted'}, status=status.HTTP_400_BAD_REQUEST)
+        return super().destroy(request, *args, **kwargs)
+
+    @action(detail=True, methods=['GET', 'POST', 'PUT'])
+    def permissions(self, request, pk=None):
+        role = self.get_object()
+        if request.method == 'GET':
+            perms = role.permissions.all().order_by('id')
+            return Response(RolePermissionSerializer(perms, many=True).data)
+
+        # Batch update permissions matrix for this role
+        perms_data = request.data if isinstance(request.data, list) else request.data.get('permissions', [])
+        for p in perms_data:
+            m_key = p.get('module_key')
+            if not m_key:
+                continue
+            allow_all = p.get('allow_all', False)
+            RolePermission.objects.update_or_create(
+                role=role,
+                module_key=m_key,
+                defaults={
+                    'module_label': p.get('module_label', m_key.capitalize()),
+                    'allow_all': allow_all,
+                    'can_read': True if allow_all else p.get('can_read', True),
+                    'can_write': True if allow_all else p.get('can_write', False),
+                    'can_create': True if allow_all else p.get('can_create', False),
+                    'can_delete': True if allow_all else p.get('can_delete', False),
+                    'can_import': True if allow_all else p.get('can_import', False),
+                    'can_export': True if allow_all else p.get('can_export', False),
+                }
+            )
+        updated_perms = role.permissions.all().order_by('id')
+        return Response(RolePermissionSerializer(updated_perms, many=True).data)
 
 
 # ==========================================

@@ -15,6 +15,7 @@ router.register(r'suppliers', views.VendorViewSet, basename='supplier')
 router.register(r'purchases', views.PurchaseOrderViewSet, basename='purchase')
 router.register(r'sales', views.SalesInvoiceViewSet, basename='sale')
 router.register(r'payments', views.PaymentTransactionViewSet, basename='payment')
+router.register(r'roles', views.RoleViewSet, basename='role')
 
 urlpatterns = [
     # JWT Authentication Endpoints

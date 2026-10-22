@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import (
-    User, MenuItem, MenuPackage, Event, EventInventoryAllocation,
+    User, Role, RolePermission, MenuItem, MenuPackage, Event, EventInventoryAllocation,
     InventoryItem, Task, EventBilling, VendorExpense, Inquiry, Review,
     Vendor, PurchaseOrder, PurchaseOrderItem, SalesInvoice, SalesInvoiceItem,
     PaymentTransaction
@@ -30,6 +30,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             'first_name': user.first_name,
             'last_name': user.last_name,
             'role': user.role,
+            'role_name': user.dynamic_role.name if user.dynamic_role else user.get_role_display(),
             'branch': user.branch,
             'phone': user.phone,
             'department': user.department,
@@ -39,16 +40,108 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 # ==========================================
+# 0. ROLES & PERMISSIONS SERIALIZERS
+# ==========================================
+class RolePermissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RolePermission
+        fields = [
+            'id', 'module_key', 'module_label', 'allow_all',
+            'can_read', 'can_write', 'can_create', 'can_delete',
+            'can_import', 'can_export'
+        ]
+
+
+class RoleSerializer(serializers.ModelSerializer):
+    permissions = RolePermissionSerializer(many=True, required=False)
+    users_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Role
+        fields = [
+            'id', 'name', 'slug', 'description', 'is_active', 'is_system',
+            'created_at', 'updated_at', 'permissions', 'users_count'
+        ]
+
+    def get_users_count(self, obj):
+        return obj.users.count()
+
+    def create(self, validated_data):
+        permissions_data = validated_data.pop('permissions', [])
+        role = Role.objects.create(**validated_data)
+        
+        default_modules = [
+            ('employee', 'Employee'),
+            ('holidays', 'Holidays'),
+            ('leaves', 'Leaves'),
+            ('events', 'Events'),
+            ('sales', 'Sales'),
+            ('training', 'Training'),
+            ('reports', 'Reports'),
+            ('tickets', 'Tickets'),
+            ('payroll', 'Payroll'),
+            ('packages', 'Packages'),
+            ('inventory', 'Inventory'),
+        ]
+        
+        perm_map = {p.get('module_key'): p for p in permissions_data}
+        for mod_key, mod_lbl in default_modules:
+            p_data = perm_map.get(mod_key, {})
+            RolePermission.objects.create(
+                role=role,
+                module_key=mod_key,
+                module_label=mod_lbl,
+                allow_all=p_data.get('allow_all', False),
+                can_read=p_data.get('can_read', True),
+                can_write=p_data.get('can_write', False),
+                can_create=p_data.get('can_create', False),
+                can_delete=p_data.get('can_delete', False),
+                can_import=p_data.get('can_import', False),
+                can_export=p_data.get('can_export', False),
+            )
+        return role
+
+    def update(self, instance, validated_data):
+        permissions_data = validated_data.pop('permissions', None)
+        instance.name = validated_data.get('name', instance.name)
+        instance.description = validated_data.get('description', instance.description)
+        instance.is_active = validated_data.get('is_active', instance.is_active)
+        instance.save()
+
+        if permissions_data is not None:
+            for p_dict in permissions_data:
+                m_key = p_dict.get('module_key')
+                if not m_key:
+                    continue
+                RolePermission.objects.update_or_create(
+                    role=instance,
+                    module_key=m_key,
+                    defaults={
+                        'module_label': p_dict.get('module_label', m_key.capitalize()),
+                        'allow_all': p_dict.get('allow_all', False),
+                        'can_read': p_dict.get('can_read', True),
+                        'can_write': p_dict.get('can_write', False),
+                        'can_create': p_dict.get('can_create', False),
+                        'can_delete': p_dict.get('can_delete', False),
+                        'can_import': p_dict.get('can_import', False),
+                        'can_export': p_dict.get('can_export', False),
+                    }
+                )
+        return instance
+
+
+# ==========================================
 # 1. ACCOUNTS SERIALIZER
 # ==========================================
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
+    role_name = serializers.CharField(source='dynamic_role.name', read_only=True)
 
     class Meta:
         model = User
         fields = [
             'id', 'username', 'email', 'first_name', 'last_name',
-            'role', 'branch', 'phone', 'department', 'profile_picture',
+            'role', 'dynamic_role', 'role_name', 'branch', 'phone', 'department', 'profile_picture',
             'is_active', 'password', 'date_joined'
         ]
 

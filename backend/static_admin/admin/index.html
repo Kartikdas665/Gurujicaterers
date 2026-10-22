@@ -632,10 +632,15 @@
         </button>
       </li>
 
-      <div class="nav-section-title" data-roles="superadmin,admin">Team & Public CMS</div>
+      <div class="nav-section-title" data-roles="superadmin,admin">Team & Access Control</div>
+      <li data-roles="superadmin,admin">
+        <button id="nav-btn-roles" class="nav-btn" onclick="switchTab('roles')">
+          <span>🛡️</span> Roles & Permissions
+        </button>
+      </li>
       <li data-roles="superadmin,admin">
         <button id="nav-btn-users" class="nav-btn" onclick="switchTab('users')">
-          <span>👥</span> Staff & RBAC Roles
+          <span>👥</span> Staff Directory
         </button>
       </li>
       <li data-roles="superadmin,admin,manager">
@@ -1027,7 +1032,104 @@
         </div>
       </section>
 
-      <!-- Tab 6: Staff & Roles -->
+      <!-- Tab 5.5: Roles & Permissions Matrix Management -->
+      <section id="tab-roles" class="tab-panel" style="display: none;">
+        <!-- View A: Roles List (Matching User Screenshot 1) -->
+        <div id="roles-list-view" class="card-panel">
+          <div class="panel-header" style="flex-wrap: wrap; gap: 12px;">
+            <div>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                <span>🏠</span> &gt; <span>User Management</span> &gt; <span style="color:var(--text-main); font-weight:600;">Roles &amp; Permissions</span>
+              </div>
+              <h3 class="panel-title" style="font-size: 1.25rem;">Roles Master</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Configure system roles and assign custom granular permission matrices</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn-secondary" onclick="exportRolesCSV()">⎘ Export Roles ▾</button>
+              <button class="btn-gold" onclick="openAddRoleModal()">⊕ Add Role</button>
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table style="width: 100%;">
+              <thead>
+                <tr>
+                  <th style="width: 40px;"><input type="checkbox" id="roles-select-all" onclick="toggleSelectAllRoles(this)" /></th>
+                  <th style="cursor: pointer;" onclick="sortRoles('name')">Role ⬍</th>
+                  <th style="cursor: pointer;" onclick="sortRoles('created_at')">Created Date ⬍</th>
+                  <th style="cursor: pointer;" onclick="sortRoles('is_active')">Status ⬍</th>
+                  <th style="text-align: right; width: 140px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="roles-tbody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 0.8rem; color: var(--text-muted);">
+            <span id="roles-pagination-info">Showing 1-10 of 10 entries</span>
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <button class="btn-secondary" style="padding: 4px 10px;" onclick="changeRolePage(-1)">&lt;</button>
+              <span id="roles-page-badge" style="background: #e65100; color: #fff; padding: 4px 10px; border-radius: 50%; font-weight: bold; font-size: 0.75rem;">1</span>
+              <button class="btn-secondary" style="padding: 4px 10px;" onclick="changeRolePage(1)">&gt;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- View B: Granular Permissions Matrix (Matching User Screenshot 2) -->
+        <div id="role-matrix-view" class="card-panel" style="display: none; margin-top: 20px;">
+          <div class="panel-header" style="flex-wrap: wrap; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 18px;">
+            <div>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                <span>🏠</span> &gt; <span>User Management</span> &gt; <span style="color:var(--text-main); font-weight:600;">Permissions</span>
+              </div>
+              <h2 style="font-size: 1.4rem; font-weight: 700; color: #fff;">Permissions</h2>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <button class="btn-secondary" onclick="exportRolePermissionsJSON()">⎘ Export ▾</button>
+              <button class="btn-secondary" onclick="closeRoleMatrixView()">⌃ Back to Roles List</button>
+              <button class="btn-gold" onclick="saveRolePermissionMatrix()" style="background:#e65100; border-color:#e65100;">💾 Save Changes</button>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin: 18px 0 14px;">
+            <h4 style="font-size: 1.05rem; font-weight: 600;">Permissions Matrix</h4>
+            <div style="font-size: 0.88rem; font-weight: 600;">
+              Role Name : <span id="matrix-role-name" style="color: #60a5fa; font-weight: 700;">Admin</span>
+              <input type="hidden" id="matrix-role-id" />
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="matrix-table" style="width: 100%; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;">
+              <thead>
+                <tr style="background: rgba(255,255,255,0.04);">
+                  <th style="padding: 14px 16px; font-weight: 700; width: 180px;">Modules</th>
+                  <th style="padding: 14px 12px; text-align: center;">Allow All</th>
+                  <th style="padding: 14px 12px; text-align: center;">Read</th>
+                  <th style="padding: 14px 12px; text-align: center;">Write</th>
+                  <th style="padding: 14px 12px; text-align: center;">Create</th>
+                  <th style="padding: 14px 12px; text-align: center;">Delete</th>
+                  <th style="padding: 14px 12px; text-align: center;">Import</th>
+                  <th style="padding: 14px 12px; text-align: center;">Export</th>
+                </tr>
+              </thead>
+              <tbody id="permission-matrix-tbody">
+                <!-- Dynamically generated module rows matching screenshot:
+                     Employee, Holidays, Leaves, Events, Sales, Training, Reports, Tickets, Payroll, Packages, Inventory -->
+              </tbody>
+            </table>
+          </div>
+
+          <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 12px;">
+            <button class="btn-secondary" onclick="closeRoleMatrixView()">Cancel</button>
+            <button class="btn-gold" style="background:#e65100; border-color:#e65100; padding: 10px 24px;" onclick="saveRolePermissionMatrix()">Save Permissions</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab 6: Staff Directory -->
       <section id="tab-users" class="tab-panel" style="display: none;">
         <div class="card-panel">
           <div class="panel-header">
@@ -1270,6 +1372,32 @@
     </div>
   </div>
 
+  <!-- Create / Edit Role Modal -->
+  <div id="role-modal" class="modal">
+    <div class="modal-box" style="max-width: 480px;">
+      <h3 id="role-modal-title">⊕ Add New Role</h3>
+      <form onsubmit="saveRole(event)">
+        <input type="hidden" id="ro-id" />
+        <div class="form-group">
+          <label>Role Name</label>
+          <input type="text" id="ro-name" required placeholder="e.g. Catering Supervisor, HR Executive" />
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="ro-desc" rows="2" placeholder="Responsibilities and scope of this role"></textarea>
+        </div>
+        <div class="form-group" style="flex-direction: row; align-items: center; gap: 10px; margin-top: 8px;">
+          <input type="checkbox" id="ro-status" checked style="width: 18px; height: 18px;" />
+          <label for="ro-status" style="margin: 0; cursor: pointer; color: #fff;">Role is Active</label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn-gold" style="background:#e65100; border-color:#e65100;">Save Role</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Create User Modal -->
   <div id="user-modal" class="modal">
     <div class="modal-box">
@@ -1279,13 +1407,21 @@
           <label>Username</label>
           <input type="text" id="u-username" required placeholder="e.g. chef_karan" />
         </div>
-        <div class="form-group">
-          <label>Role Tier</label>
-          <select id="u-role">
-            <option value="admin">Admin (Branch Head)</option>
-            <option value="manager">Manager (Event Lead)</option>
-            <option value="employee" selected>Employee (Chef / Ground Staff)</option>
-          </select>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>System Tier</label>
+            <select id="u-role">
+              <option value="admin">Admin (Branch Head)</option>
+              <option value="manager">Manager (Event Lead)</option>
+              <option value="employee" selected>Employee (Ground Staff)</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Assigned Role (Custom)</label>
+            <select id="u-dynamic-role">
+              <!-- Populated dynamically from roles -->
+            </select>
+          </div>
         </div>
         <div style="display:flex; gap:10px;">
           <div class="form-group" style="flex:1">
@@ -1635,6 +1771,7 @@
       safeExec(loadPackages, 'loadPackages');
       safeExec(loadInventory, 'loadInventory');
       if (role === 'superadmin' || role === 'admin') {
+        safeExec(loadRoles, 'loadRoles');
         safeExec(loadUsers, 'loadUsers');
       }
       if (role !== 'employee') {
@@ -1710,6 +1847,7 @@
         'financial-report': 'Executive Financial & P&L Report',
         packages: 'Menu Packages & Per-Plate Costing',
         inventory: 'Inventory & Asset Pool Tracking',
+        roles: 'Roles & Permissions Access Control',
         users: 'Staff & User Role Hierarchy',
         inquiries: 'Public Event Leads',
         menu: 'Dish Catalog Management',
@@ -1732,6 +1870,7 @@
       if (tab === 'financial-report') loadFinancialReport();
       if (tab === 'packages') loadPackages();
       if (tab === 'inventory') loadInventory();
+      if (tab === 'roles') loadRoles();
       if (tab === 'users') loadUsers();
       if (tab === 'inquiries') loadInquiries();
       if (tab === 'menu') loadMenu();
@@ -2023,7 +2162,357 @@
       }
     }
 
-    // 5. Staff & Users
+    // ==========================================
+    // 5.0 ROLES & PERMISSIONS MATRIX SYSTEM
+    // ==========================================
+    let cachedRoles = [];
+    let currentMatrixRole = null;
+    let rolesSortField = 'id';
+    let rolesSortAsc = true;
+    let roleCurrentPage = 1;
+    const rolePageSize = 10;
+
+    async function loadRoles() {
+      try {
+        const res = await fetch(`${API_URL}/roles/`);
+        cachedRoles = await res.json();
+        renderRolesTable();
+        populateRoleDropdowns();
+      } catch (e) {
+        console.error('Error loading roles:', e);
+      }
+    }
+
+    function populateRoleDropdowns() {
+      const uDynSelect = document.getElementById('u-dynamic-role');
+      if (uDynSelect) {
+        uDynSelect.innerHTML = cachedRoles.map(r => `<option value="${r.id}">${r.name}</option>`).join('');
+      }
+    }
+
+    function renderRolesTable() {
+      const tbody = document.getElementById('roles-tbody');
+      if (!tbody) return;
+
+      if (!cachedRoles || cachedRoles.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:24px; color:var(--text-muted)">No roles configured yet.</td></tr>`;
+        return;
+      }
+
+      // Sort
+      const sorted = [...cachedRoles].sort((a, b) => {
+        let valA = a[rolesSortField];
+        let valB = b[rolesSortField];
+        if (typeof valA === 'string') return rolesSortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        return rolesSortAsc ? (valA - valB) : (valB - valA);
+      });
+
+      const totalEntries = sorted.length;
+      const startIdx = (roleCurrentPage - 1) * rolePageSize;
+      const paginated = sorted.slice(startIdx, startIdx + rolePageSize);
+
+      tbody.innerHTML = paginated.map(r => {
+        const createdDate = r.created_at ? new Date(r.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '12 Sep 2024';
+        const isActive = r.is_active;
+        const statusBadge = isActive
+          ? `<span style="background: #10b981; color: #fff; padding: 4px 14px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">● Active</span>`
+          : `<span style="background: #ef4444; color: #fff; padding: 4px 14px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">● Inactive</span>`;
+
+        return `
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <td style="width: 40px;"><input type="checkbox" class="role-row-chk" value="${r.id}" /></td>
+            <td>
+              <strong style="color: #fff; font-size: 0.88rem;">${r.name}</strong>
+              ${r.is_system ? `<span style="margin-left: 6px; font-size: 0.65rem; background: rgba(197, 155, 39, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 4px;">System</span>` : ''}
+              ${r.users_count > 0 ? `<br><small style="color: var(--text-muted); font-size: 0.72rem;">${r.users_count} assigned staff members</small>` : ''}
+            </td>
+            <td style="color: #d1d5db; font-size: 0.85rem;">${createdDate}</td>
+            <td>${statusBadge}</td>
+            <td style="text-align: right;">
+              <div style="display: inline-flex; gap: 8px; align-items: center; justify-content: flex-end;">
+                <!-- Permissions Shield Icon (matching screenshot) -->
+                <button title="Configure Permissions Matrix" onclick="openRoleMatrix(${r.id})" style="background: none; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #60a5fa; cursor: pointer; padding: 6px 10px; font-size: 0.85rem; transition: all 0.2s;">
+                  🛡️
+                </button>
+                <!-- Edit Icon (matching screenshot) -->
+                <button title="Edit Role" onclick="editRole(${r.id})" style="background: none; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fbbf24; cursor: pointer; padding: 6px 10px; font-size: 0.85rem; transition: all 0.2s;">
+                  ✏️
+                </button>
+                <!-- Trash / Delete Icon (matching screenshot) -->
+                <button title="Delete Role" onclick="deleteRole(${r.id})" ${r.is_system ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : 'style="background: none; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #f87171; cursor: pointer; padding: 6px 10px; font-size: 0.85rem;"'}>
+                  🗑️
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      const endIdx = Math.min(startIdx + rolePageSize, totalEntries);
+      const infoEl = document.getElementById('roles-pagination-info');
+      if (infoEl) infoEl.innerText = `Showing ${totalEntries > 0 ? startIdx + 1 : 0}-${endIdx} of ${totalEntries} entries`;
+      const badgeEl = document.getElementById('roles-page-badge');
+      if (badgeEl) badgeEl.innerText = roleCurrentPage;
+    }
+
+    function sortRoles(field) {
+      if (rolesSortField === field) {
+        rolesSortAsc = !rolesSortAsc;
+      } else {
+        rolesSortField = field;
+        rolesSortAsc = true;
+      }
+      renderRolesTable();
+    }
+
+    function changeRolePage(dir) {
+      const maxPage = Math.ceil(cachedRoles.length / rolePageSize) || 1;
+      const next = roleCurrentPage + dir;
+      if (next >= 1 && next <= maxPage) {
+        roleCurrentPage = next;
+        renderRolesTable();
+      }
+    }
+
+    function toggleSelectAllRoles(master) {
+      document.querySelectorAll('.role-row-chk').forEach(c => c.checked = master.checked);
+    }
+
+    function openAddRoleModal() {
+      document.getElementById('ro-id').value = '';
+      document.getElementById('ro-name').value = '';
+      document.getElementById('ro-desc').value = '';
+      document.getElementById('ro-status').checked = true;
+      document.getElementById('role-modal-title').innerText = '⊕ Add New Role';
+      document.getElementById('role-modal').classList.add('active');
+    }
+
+    function editRole(id) {
+      const role = cachedRoles.find(r => r.id === id);
+      if (!role) return;
+      document.getElementById('ro-id').value = role.id;
+      document.getElementById('ro-name').value = role.name;
+      document.getElementById('ro-desc').value = role.description || '';
+      document.getElementById('ro-status').checked = role.is_active;
+      document.getElementById('role-modal-title').innerText = `✏️ Edit Role: ${role.name}`;
+      document.getElementById('role-modal').classList.add('active');
+    }
+
+    async function saveRole(e) {
+      e.preventDefault();
+      const roleId = document.getElementById('ro-id').value;
+      const payload = {
+        name: document.getElementById('ro-name').value.trim(),
+        description: document.getElementById('ro-desc').value.trim(),
+        is_active: document.getElementById('ro-status').checked,
+      };
+
+      const url = roleId ? `${API_URL}/roles/${roleId}/` : `${API_URL}/roles/`;
+      const method = roleId ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method: method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        closeModals();
+        loadRoles();
+      } else {
+        const err = await res.json();
+        alert(JSON.stringify(err));
+      }
+    }
+
+    async function deleteRole(id) {
+      const role = cachedRoles.find(r => r.id === id);
+      if (!role) return;
+      if (role.is_system) {
+        alert('System roles cannot be removed.');
+        return;
+      }
+      if (confirm(`Are you sure you want to delete role "${role.name}"?`)) {
+        const res = await fetch(`${API_URL}/roles/${id}/`, { method: 'DELETE' });
+        if (res.ok) {
+          loadRoles();
+        } else {
+          const err = await res.json();
+          alert(err.error || 'Unable to delete role.');
+        }
+      }
+    }
+
+    // ==========================================
+    // PERMISSIONS MATRIX INTERACTION (Screenshot 2)
+    // ==========================================
+    const DEFAULT_MODULE_LIST = [
+      { key: 'employee', label: 'Employee' },
+      { key: 'holidays', label: 'Holidays' },
+      { key: 'leaves', label: 'Leaves' },
+      { key: 'events', label: 'Events' },
+      { key: 'sales', label: 'Sales' },
+      { key: 'training', label: 'Training' },
+      { key: 'reports', label: 'Reports' },
+      { key: 'tickets', label: 'Tickets' },
+      { key: 'payroll', label: 'Payroll' },
+      { key: 'packages', label: 'Packages' },
+      { key: 'inventory', label: 'Inventory' },
+    ];
+
+    async function openRoleMatrix(roleId) {
+      const role = cachedRoles.find(r => r.id === roleId);
+      if (!role) return;
+      currentMatrixRole = role;
+
+      document.getElementById('matrix-role-name').innerText = role.name;
+      document.getElementById('matrix-role-id').value = role.id;
+
+      // Render matrix table rows
+      const tbody = document.getElementById('permission-matrix-tbody');
+      const permMap = {};
+      if (role.permissions) {
+        role.permissions.forEach(p => permMap[p.module_key] = p);
+      }
+
+      tbody.innerHTML = DEFAULT_MODULE_LIST.map(mod => {
+        const p = permMap[mod.key] || {
+          allow_all: false, can_read: true, can_write: false,
+          can_create: false, can_delete: false, can_import: false, can_export: false
+        };
+
+        return `
+          <tr data-mod-key="${mod.key}" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <td style="padding: 12px 16px; font-weight: 600; color: #fff;">
+              ${mod.label}
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-allow-all" ${p.allow_all ? 'checked' : ''} onchange="toggleAllowAllRow(this, '${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-read perm-action-${mod.key}" ${p.can_read ? 'checked' : ''} onchange="onPermActionChange('${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-write perm-action-${mod.key}" ${p.can_write ? 'checked' : ''} onchange="onPermActionChange('${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-create perm-action-${mod.key}" ${p.can_create ? 'checked' : ''} onchange="onPermActionChange('${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-delete perm-action-${mod.key}" ${p.can_delete ? 'checked' : ''} onchange="onPermActionChange('${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-import perm-action-${mod.key}" ${p.can_import ? 'checked' : ''} onchange="onPermActionChange('${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-export perm-action-${mod.key}" ${p.can_export ? 'checked' : ''} onchange="onPermActionChange('${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // Show Matrix View, Scroll into view
+      document.getElementById('roles-list-view').style.display = 'none';
+      document.getElementById('role-matrix-view').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleAllowAllRow(allCheckbox, modKey) {
+      const row = allCheckbox.closest('tr');
+      const actionChecks = row.querySelectorAll(`.perm-action-${modKey}`);
+      actionChecks.forEach(c => c.checked = allCheckbox.checked);
+    }
+
+    function onPermActionChange(modKey) {
+      const row = document.querySelector(`tr[data-mod-key="${modKey}"]`);
+      if (!row) return;
+      const allBox = row.querySelector('.perm-allow-all');
+      const actionChecks = row.querySelectorAll(`.perm-action-${modKey}`);
+      const allChecked = Array.from(actionChecks).every(c => c.checked);
+      allBox.checked = allChecked;
+    }
+
+    function closeRoleMatrixView() {
+      document.getElementById('role-matrix-view').style.display = 'none';
+      document.getElementById('roles-list-view').style.display = 'block';
+    }
+
+    async function saveRolePermissionMatrix() {
+      const roleId = document.getElementById('matrix-role-id').value;
+      if (!roleId) return;
+
+      const matrixRows = document.querySelectorAll('#permission-matrix-tbody tr');
+      const permissionsPayload = [];
+
+      matrixRows.forEach(row => {
+        const modKey = row.getAttribute('data-mod-key');
+        const allowAll = row.querySelector('.perm-allow-all').checked;
+        const canRead = row.querySelector('.perm-read').checked;
+        const canWrite = row.querySelector('.perm-write').checked;
+        const canCreate = row.querySelector('.perm-create').checked;
+        const canDelete = row.querySelector('.perm-delete').checked;
+        const canImport = row.querySelector('.perm-import').checked;
+        const canExport = row.querySelector('.perm-export').checked;
+
+        permissionsPayload.push({
+          module_key: modKey,
+          module_label: modKey.charAt(0).toUpperCase() + modKey.slice(1),
+          allow_all: allowAll,
+          can_read: allowAll || canRead,
+          can_write: allowAll || canWrite,
+          can_create: allowAll || canCreate,
+          can_delete: allowAll || canDelete,
+          can_import: allowAll || canImport,
+          can_export: allowAll || canExport,
+        });
+      });
+
+      try {
+        const res = await fetch(`${API_URL}/roles/${roleId}/permissions/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(permissionsPayload)
+        });
+
+        if (res.ok) {
+          alert(`Permissions successfully updated for role "${currentMatrixRole ? currentMatrixRole.name : ''}"!`);
+          await loadRoles();
+          closeRoleMatrixView();
+        } else {
+          const err = await res.json();
+          alert('Error saving permissions: ' + JSON.stringify(err));
+        }
+      } catch (e) {
+        alert('Network error saving permissions: ' + e.message);
+      }
+    }
+
+    function exportRolesCSV() {
+      if (!cachedRoles || cachedRoles.length === 0) return alert('No roles to export.');
+      let csv = 'ID,Role Name,Slug,Created Date,Status,Users Count\n';
+      cachedRoles.forEach(r => {
+        csv += `"${r.id}","${r.name}","${r.slug}","${r.created_at}","${r.is_active ? 'Active' : 'Inactive'}","${r.users_count || 0}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `roles_export_${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+    }
+
+    function exportRolePermissionsJSON() {
+      if (!currentMatrixRole) return;
+      const jsonStr = JSON.stringify(currentMatrixRole.permissions || [], null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${currentMatrixRole.slug || 'role'}_permissions.json`;
+      a.click();
+    }
+
+    // 5. Staff & Users Directory
     async function loadUsers() {
       try {
         const res = await fetch(`${API_URL}/users`);
@@ -2042,7 +2531,9 @@
           tbody.innerHTML = cachedStaff.map(u => `
             <tr>
               <td><strong>${u.username}</strong><br><small style="color:var(--text-muted)">${u.first_name || ''} ${u.last_name || ''}</small></td>
-              <td><span class="badge-role role-${u.role}">${u.role}</span></td>
+              <td>
+                <span class="badge-role role-${u.role}">${u.role_name || u.role}</span>
+              </td>
               <td>${u.branch || 'Main Branch'}</td>
               <td>${u.department || 'Operations'}</td>
               <td>${u.phone || '—'}</td>
@@ -2143,6 +2634,7 @@
       document.getElementById('task-modal').classList.add('active');
     }
     function openUserModal() {
+      populateRoleDropdowns();
       document.getElementById('user-modal').classList.add('active');
     }
     function openMenuModal() {
@@ -2232,6 +2724,7 @@
       const payload = {
         username: document.getElementById('u-username').value,
         role: document.getElementById('u-role').value,
+        dynamic_role: document.getElementById('u-dynamic-role').value || null,
         first_name: document.getElementById('u-fname').value,
         last_name: document.getElementById('u-lname').value,
         email: document.getElementById('u-email').value,
