@@ -5,20 +5,7 @@ import Image from 'next/image';
 import Navbar from './components/Navbar';
 
 export default function Home() {
-  // Interactive Form State
-  const [selectedEventType, setSelectedEventType] = useState('wedding');
-  const [dietaryOptions, setDietaryOptions] = useState<string[]>(['veg', 'dessert']);
-  const [guestCount, setGuestCount] = useState<number>(150);
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
-  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-
-  const toggleDietary = (item: string) => {
-    if (dietaryOptions.includes(item)) {
-      setDietaryOptions(dietaryOptions.filter((d) => d !== item));
-    } else {
-      setDietaryOptions([...dietaryOptions, item]);
-    }
-  };
 
   const faqs = [
     {
@@ -542,183 +529,79 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 7. Booking / Lead Generation Form */}
-        <section id="book" className="interactive-book-section">
+        {/* 7. Ready to Plan Luxury CTA Section */}
+        <section id="book" className="luxury-cta-banner-section">
           <div className="container">
-            <div className="book-card-container">
-              <div className="book-card-left">
-                <span className="section-pill">LIVE QUOTE & BOOKING</span>
-                <h2>Design Your Dream Catering Experience</h2>
-                <p>Tell us about your upcoming event, and our culinary experts will craft a customized proposal just for you.</p>
+            <div className="cta-banner-wrapper">
+              {/* Left Column: Heading, description & value bullet points */}
+              <div className="cta-banner-left">
+                <span className="cta-pill-tag">✦ Bespoke Catering & Events</span>
+                <h2 className="cta-main-title">
+                  Ready to host an unforgettable royal culinary experience?
+                </h2>
+                <p className="cta-description">
+                  From intimate celebrations to grand destination weddings across India. 
+                  Experience masterchef craft, tailored authentic menus, and flawless hospitality.
+                </p>
 
-                {/* Event Type Selector */}
-                <div className="booking-option-group">
-                  <label className="group-label">1. Event Type</label>
-                  <div className="event-pills-row">
-                    {[
-                      { id: 'wedding', label: '💍 Destination Wedding' },
-                      { id: 'corporate', label: '💼 Corporate Catering' },
-                      { id: 'private', label: '🎉 Social & Private Events' },
-                      { id: 'celebrity', label: '🌟 Celebrity VIP' },
-                    ].map((type) => (
-                      <button
-                        key={type.id}
-                        type="button"
-                        onClick={() => setSelectedEventType(type.id)}
-                        className={`event-type-pill ${selectedEventType === type.id ? 'active' : ''}`}
-                      >
-                        {type.label}
-                      </button>
-                    ))}
+                <div className="cta-features-list">
+                  <div className="cta-feature-item">
+                    <span className="cta-check-icon">✓</span>
+                    <span>Curated royal & global menus tailored to your guest palate</span>
                   </div>
-                </div>
-
-                {/* Live Guest Slider */}
-                <div className="booking-option-group">
-                  <div className="slider-label-row">
-                    <label className="group-label">2. Estimated Guest Count</label>
-                    <span className="slider-val-badge">{guestCount} Guests</span>
+                  <div className="cta-feature-item">
+                    <span className="cta-check-icon">✓</span>
+                    <span>Live Delhi chaat, sigri tandoor, artisanal mocktails & dessert studios</span>
                   </div>
-                  <input
-                    type="range"
-                    min="50"
-                    max="1500"
-                    step="25"
-                    value={guestCount}
-                    onChange={(e) => setGuestCount(Number(e.target.value))}
-                    className="guest-range-slider"
-                  />
-                  <div className="slider-scale">
-                    <span>50 Guests</span>
-                    <span>500</span>
-                    <span>1,000</span>
-                    <span>1,500+ Guests</span>
-                  </div>
-                </div>
-
-                {/* Dietary & Service Addons */}
-                <div className="booking-option-group">
-                  <label className="group-label">3. Culinary Stations & Add-ons</label>
-                  <div className="addon-chips-grid">
-                    {[
-                      { id: 'veg', label: '🥗 Pure Veg & Jain Counter' },
-                      { id: 'chaat', label: '🥘 Live Delhi Chaat Studio' },
-                      { id: 'live-tandoor', label: '🔥 Live Sigri Tandoor' },
-                      { id: 'dessert', label: '🍨 Royal Dessert Studio' },
-                      { id: 'mocktails', label: '🍹 Signature Mocktail Lounge' },
-                    ].map((addon) => (
-                      <button
-                        key={addon.id}
-                        type="button"
-                        onClick={() => toggleDietary(addon.id)}
-                        className={`addon-chip ${dietaryOptions.includes(addon.id) ? 'active' : ''}`}
-                      >
-                        <span className="chip-check">{dietaryOptions.includes(addon.id) ? '✓' : '+'}</span>
-                        {addon.label}
-                      </button>
-                    ))}
+                  <div className="cta-feature-item">
+                    <span className="cta-check-icon">✓</span>
+                    <span>Dedicated event hospitality manager & complimentary food tasting</span>
                   </div>
                 </div>
               </div>
 
-              {/* Right Side: Direct Inquiry Form */}
-              <div className="book-card-right">
-                <div className="inquiry-header-badge">
-                  <div className="inquiry-badge-tag">✦ BESPOKE RESERVATION</div>
-                  <h3 className="inquiry-badge-title">Request a Custom Proposal</h3>
-                  <p className="inquiry-badge-sub">
-                    Share your event details below. Our culinary team will review your menu preferences and provide a personalized proposal within 2 hours.
+              {/* Right Column: Clean Floating Action Card */}
+              <div className="cta-banner-right">
+                <div className="cta-action-card">
+                  <h3 className="cta-card-heading">Talk to our culinary experts</h3>
+                  <p className="cta-card-sub">Get quick estimates or connect with our banquet specialists directly.</p>
+
+                  <div className="cta-input-group">
+                    <label htmlFor="cta-phone" className="cta-input-label">Phone or Email</label>
+                    <input
+                      id="cta-phone"
+                      type="text"
+                      placeholder="e.g. +91 98765 43210 or your@email.com"
+                      className="cta-card-input"
+                    />
+                  </div>
+
+                  <a href="/book" className="cta-primary-btn">
+                    <span>Plan Your Event</span>
+                    <span className="cta-btn-arrow">→</span>
+                  </a>
+
+                  <div className="cta-quick-contacts">
+                    <span className="cta-quick-divider">or connect instantly</span>
+                    <div className="cta-contact-links">
+                      <a href="tel:+919876543210" className="cta-contact-pill">
+                        📞 Call +91 98765 43210
+                      </a>
+                      <a 
+                        href="https://wa.me/919876543210?text=Hi%20Guruji%20Caterers,%20I%20would%20like%20to%20discuss%20catering%20for%20my%20event." 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="cta-contact-pill whatsapp"
+                      >
+                        💬 WhatsApp Us
+                      </a>
+                    </div>
+                  </div>
+
+                  <p className="cta-card-footnote">
+                    Fast response within 2 hours • Complimentary tasting session
                   </p>
                 </div>
-
-                {formSubmitted ? (
-                  <div className="booking-success-box">
-                    <div className="success-icon">🎉</div>
-                    <h3>Booking Request Received!</h3>
-                    <p>Thank you! Our culinary director will connect with you within 2 business hours with a bespoke tasting menu and detailed proposal.</p>
-                    <button
-                      type="button"
-                      onClick={() => setFormSubmitted(false)}
-                      className="btn btn-outline"
-                      style={{ marginTop: '16px' }}
-                    >
-                      Plan Another Event
-                    </button>
-                  </div>
-                ) : (
-                  <form
-                    className="interactive-form-inputs"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      setFormSubmitted(true);
-                    }}
-                  >
-                    <div className="form-input-field">
-                      <label>Full Name</label>
-                      <input type="text" placeholder="e.g. Alexander Vance" required />
-                    </div>
-
-                    <div className="form-input-field">
-                      <label>Email Address</label>
-                      <input type="email" placeholder="alexander@example.com" required />
-                    </div>
-
-                    <div className="form-input-field">
-                      <label>Phone Number</label>
-                      <input type="tel" placeholder="+91 98765 43210" required />
-                    </div>
-
-                    <div className="form-input-row">
-                      <div className="form-input-field">
-                        <label>Event Date</label>
-                        <input type="date" required />
-                      </div>
-                      <div className="form-input-field">
-                        <label>Event Type</label>
-                        <select
-                          value={selectedEventType}
-                          onChange={(e) => setSelectedEventType(e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '12px 14px',
-                            background: '#151515',
-                            border: '1px solid #333',
-                            borderRadius: '8px',
-                            color: '#fff',
-                            fontSize: '0.95rem'
-                          }}
-                        >
-                          <option value="private">Social & Private Events</option>
-                          <option value="corporate">Corporate Catering</option>
-                          <option value="wedding">Destination Weddings</option>
-                          <option value="celebrity">Celebrity & VIP Events</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="form-input-field">
-                      <label>Estimated Guest Count</label>
-                      <input
-                        type="number"
-                        min="50"
-                        value={guestCount}
-                        onChange={(e) => setGuestCount(Number(e.target.value))}
-                        required
-                      />
-                    </div>
-
-                    <div className="form-input-field">
-                      <label>Special Requirements</label>
-                      <textarea rows={2} placeholder="Dietary restrictions (vegan, gluten-free, Jain), chef live counters, or event themes..."></textarea>
-                    </div>
-
-                    <button type="submit" className="btn-luxury-submit">
-                      <span>Request a Bespoke Tasting</span>
-                      <span className="btn-arrow">→</span>
-                    </button>
-                    <p className="guarantee-text">🔒 100% Privacy • No Spam • Complimentary Food Tasting</p>
-                  </form>
-                )}
               </div>
             </div>
           </div>
