@@ -18,6 +18,7 @@ router.register(r'payments', views.PaymentTransactionViewSet, basename='payment'
 router.register(r'roles', views.RoleViewSet, basename='role')
 router.register(r'projects', views.ProjectViewSet, basename='project')
 router.register(r'task-statuses', views.TaskStatusViewSet, basename='task-status')
+router.register(r'task-categories', views.TaskCategoryViewSet, basename='task-category')
 
 urlpatterns = [
     # JWT Authentication Endpoints

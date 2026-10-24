@@ -368,6 +368,28 @@ class TaskStatus(models.Model):
 
 
 # ==========================================
+# 4.7. TASK EVENT / CATEGORY MASTER MODULE
+# (e.g. Design, Development, Bug, Feature, Setup, Logistics, etc.)
+# ==========================================
+class TaskCategory(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True, blank=True)
+    color = models.CharField(max_length=20, default='#38bdf8', help_text="HEX color e.g. #38bdf8")
+    description = models.TextField(blank=True, default='')
+    order = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            self.slug = slugify(self.name).replace('-', '_')
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
+# ==========================================
 # 5. TASKS & REAL-TIME STAFF TRACKING MODULE
 # ==========================================
 class Task(models.Model):
@@ -396,6 +418,13 @@ class Task(models.Model):
     )
     custom_status = models.ForeignKey(
         TaskStatus,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='tasks'
+    )
+    task_category = models.ForeignKey(
+        TaskCategory,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

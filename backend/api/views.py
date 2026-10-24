@@ -13,7 +13,7 @@ from .models import (
     User, Role, RolePermission, MenuItem, MenuPackage, Event, EventInventoryAllocation,
     InventoryItem, Task, EventBilling, VendorExpense, Inquiry, Review,
     Vendor, PurchaseOrder, PurchaseOrderItem, SalesInvoice, SalesInvoiceItem,
-    PaymentTransaction, Project, TaskStatus
+    PaymentTransaction, Project, TaskStatus, TaskCategory
 )
 from .serializers import (
     CustomTokenObtainPairSerializer,
@@ -27,6 +27,7 @@ from .serializers import (
     EventSerializer,
     ProjectSerializer,
     TaskStatusSerializer,
+    TaskCategorySerializer,
     TaskSerializer,
     TaskStatusUpdateSerializer,
     EventBillingSerializer,
@@ -289,6 +290,15 @@ class ProjectViewSet(viewsets.ModelViewSet):
 class TaskStatusViewSet(viewsets.ModelViewSet):
     queryset = TaskStatus.objects.all().order_by('order', 'id')
     serializer_class = TaskStatusSerializer
+    permission_classes = [AllowAny]
+
+
+# ==========================================
+# 4.7. TASK CATEGORY / EVENT TYPE VIEWSET
+# ==========================================
+class TaskCategoryViewSet(viewsets.ModelViewSet):
+    queryset = TaskCategory.objects.all().order_by('order', 'id')
+    serializer_class = TaskCategorySerializer
     permission_classes = [AllowAny]
 
 
@@ -597,13 +607,22 @@ def analytics_view(request):
     user = request.user
     if user.is_authenticated and user.role == 'employee':
         # Employees get operational metrics only, zeroed financials
-        my_tasks = Task.objects.filter(assigned_to=user)
+        my_tasks = Task.objects.filter(assigned_to=user).select_related('project', 'custom_status', 'task_category')
+        todo_count = my_tasks.filter(Q(status='pending') | Q(custom_status__slug='pending')).count()
+        in_progress_count = my_tasks.filter(Q(status='in_progress') | Q(custom_status__slug='in-progress')).count()
+        completed_count = my_tasks.filter(Q(status='completed') | Q(custom_status__is_completed_state=True)).count()
+        cancelled_count = my_tasks.filter(Q(status='cancelled') | Q(custom_status__slug='cancelled')).count()
+
         return Response({
+            'is_employee': True,
             'total_events': Event.objects.filter(tasks__assigned_to=user).distinct().count(),
             'active_events': Event.objects.filter(tasks__assigned_to=user, status__in=['confirmed', 'in_progress']).distinct().count(),
             'total_tasks': my_tasks.count(),
-            'pending_tasks': my_tasks.filter(status='pending').count(),
-            'completed_tasks': my_tasks.filter(status='completed').count(),
+            'pending_tasks': todo_count,
+            'in_progress_tasks': in_progress_count,
+            'completed_tasks': completed_count,
+            'cancelled_tasks': cancelled_count,
+            'my_tasks': TaskSerializer(my_tasks.order_by('-created_at')[:10], many=True).data,
             'finance': {
                 'total_revenue': 0.0,
                 'total_advances': 0.0,

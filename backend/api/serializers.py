@@ -4,7 +4,7 @@ from .models import (
     User, Role, RolePermission, MenuItem, MenuPackage, Event, EventInventoryAllocation,
     InventoryItem, Task, EventBilling, VendorExpense, Inquiry, Review,
     Vendor, PurchaseOrder, PurchaseOrderItem, SalesInvoice, SalesInvoiceItem,
-    PaymentTransaction, Project, TaskStatus
+    PaymentTransaction, Project, TaskStatus, TaskCategory
 )
 
 
@@ -308,6 +308,17 @@ class TaskStatusSerializer(serializers.ModelSerializer):
         return obj.tasks.count()
 
 
+class TaskCategorySerializer(serializers.ModelSerializer):
+    tasks_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = TaskCategory
+        fields = ['id', 'name', 'slug', 'color', 'description', 'order', 'tasks_count', 'created_at']
+
+    def get_tasks_count(self, obj):
+        return obj.tasks.count()
+
+
 # ==========================================
 # 6. TASKS SERIALIZERS
 # ==========================================
@@ -316,6 +327,8 @@ class TaskSerializer(serializers.ModelSerializer):
     project_name = serializers.ReadOnlyField(source='project.name')
     custom_status_name = serializers.ReadOnlyField(source='custom_status.name')
     custom_status_color = serializers.ReadOnlyField(source='custom_status.color')
+    task_category_name = serializers.ReadOnlyField(source='task_category.name')
+    task_category_color = serializers.ReadOnlyField(source='task_category.color')
     assigned_by_name = serializers.ReadOnlyField(source='assigned_by.username')
     assigned_to_name = serializers.ReadOnlyField(source='assigned_to.username')
 
@@ -324,6 +337,7 @@ class TaskSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'title', 'description', 'department', 'priority',
             'project', 'project_name',
+            'task_category', 'task_category_name', 'task_category_color',
             'event', 'event_name',
             'assigned_by', 'assigned_by_name',
             'assigned_to', 'assigned_to_name',
