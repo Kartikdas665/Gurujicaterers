@@ -1491,8 +1491,8 @@
             </select>
           </div>
           <div class="form-group" style="flex:1">
-            <label>Due Date & Time</label>
-            <input type="datetime-local" id="tk-due" />
+            <label>Due Date</label>
+            <input type="date" id="tk-due" />
           </div>
         </div>
         <div class="form-group">
@@ -3550,7 +3550,7 @@
         priority: document.getElementById('tk-priority').value,
         assigned_to: document.getElementById('tk-user').value,
         description: document.getElementById('tk-desc').value,
-        due_date: dueVal ? new Date(dueVal).toISOString() : null,
+        due_date: dueVal ? new Date(`${dueVal}T23:59:59`).toISOString() : null,
         status: 'pending'
       };
 
