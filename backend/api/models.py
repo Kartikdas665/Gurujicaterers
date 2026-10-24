@@ -141,11 +141,19 @@ class User(AbstractUser):
             if existing.exists():
                 raise ValidationError('A Super Admin already exists. You cannot create another Super Admin.')
 
-        if self.dynamic_role and self.role != 'superadmin':
-            role_slug = self.dynamic_role.slug.lower()
-            if 'admin' in role_slug:
+        # Role assignment logic:
+        # If dynamic_role is assigned, derive from dynamic_role name/slug;
+        # otherwise, normalize role input: admin -> 'admin', manager -> 'manager', else 'employee'.
+        if self.role != 'superadmin':
+            input_val = ''
+            if self.dynamic_role:
+                input_val = f"{self.dynamic_role.name} {self.dynamic_role.slug}".lower()
+            elif self.role:
+                input_val = str(self.role).lower().strip()
+
+            if 'admin' in input_val:
                 self.role = 'admin'
-            elif 'manager' in role_slug:
+            elif 'manager' in input_val:
                 self.role = 'manager'
             else:
                 self.role = 'employee'

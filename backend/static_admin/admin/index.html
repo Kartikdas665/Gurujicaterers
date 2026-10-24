@@ -2003,10 +2003,9 @@
       safeExec(loadEvents, 'loadEvents');
       safeExec(loadTasks, 'loadTasks');
       safeExec(loadPackages, 'loadPackages');
-      safeExec(loadInventory, 'loadInventory');
+      safeExec(loadUsers, 'loadUsers');
       if (user.role === 'superadmin' || user.role === 'admin') {
         safeExec(loadRoles, 'loadRoles');
-        safeExec(loadUsers, 'loadUsers');
       }
       if (user.role !== 'employee') {
         safeExec(loadSales, 'loadSales');
@@ -2102,7 +2101,7 @@
 
       if (tab === 'dashboard' || tab === 'events') loadEvents();
       if (tab === 'projects') loadProjects();
-      if (tab === 'tasks') { loadProjects(); loadTaskStatuses(); loadTasks(); }
+      if (tab === 'tasks') { loadProjects(); loadTaskStatuses(); loadUsers(); loadEvents(); loadTasks(); }
       if (tab === 'task-statuses') loadTaskStatuses();
       if (tab === 'sales') loadSales();
       if (tab === 'purchases') loadPurchases();
@@ -2147,7 +2146,8 @@
         // Populate Event select for tasks modal
         const evSelect = document.getElementById('tk-event');
         if (evSelect) {
-          evSelect.innerHTML = cachedEvents.map(e => `<option value="${e.id}">${e.name} (${e.date})</option>`).join('');
+          const evOptions = cachedEvents.map(e => `<option value="${e.id}">${e.name} (${e.date})</option>`).join('');
+          evSelect.innerHTML = `<option value="">General / None</option>` + evOptions;
         }
 
         // Render Dashboard Table
@@ -2999,11 +2999,18 @@
         const users = await res.json();
         cachedStaff = users.filter(u => u.role !== 'superadmin');
 
-        // Populate employee select for tasks modal
+        // Populate assign-to select for tasks modal (all staff/employees)
         const tkUser = document.getElementById('tk-user');
         if (tkUser) {
-          const employees = users.filter(u => u.role === 'employee');
-          tkUser.innerHTML = employees.map(u => `<option value="${u.id}">${u.first_name || u.username} (${u.department})</option>`).join('');
+          const assignees = users.filter(u => u.role !== 'superadmin');
+          if (assignees.length > 0) {
+            tkUser.innerHTML = assignees.map(u => {
+              const label = `${u.first_name || u.username} (${u.role_name || u.role} - ${u.department || 'General'})`;
+              return `<option value="${u.id}">${label}</option>`;
+            }).join('');
+          } else {
+            tkUser.innerHTML = `<option value="">No staff available</option>`;
+          }
         }
 
         const tbody = document.getElementById('users-tbody');
@@ -3118,6 +3125,16 @@
     function openTaskModal() {
       populateProjectDropdowns();
       populateTaskStatusDropdowns();
+      
+      const tkUser = document.getElementById('tk-user');
+      if (tkUser && (!tkUser.children || tkUser.children.length === 0)) {
+        loadUsers();
+      }
+      const tkEvent = document.getElementById('tk-event');
+      if (tkEvent && (!tkEvent.children || tkEvent.children.length === 0)) {
+        loadEvents();
+      }
+
       document.getElementById('task-modal').classList.add('active');
     }
     function openUserModal() {
