@@ -1960,15 +1960,15 @@
       safeExec(loadTasks, 'loadTasks');
       safeExec(loadPackages, 'loadPackages');
       safeExec(loadInventory, 'loadInventory');
-      if (role === 'superadmin' || role === 'admin') {
+      if (user.role === 'superadmin' || user.role === 'admin') {
         safeExec(loadRoles, 'loadRoles');
         safeExec(loadUsers, 'loadUsers');
       }
-      if (role !== 'employee') {
+      if (user.role !== 'employee') {
         safeExec(loadSales, 'loadSales');
         safeExec(loadPurchases, 'loadPurchases');
         safeExec(loadPayments, 'loadPayments');
-        if (role === 'superadmin' || role === 'admin') {
+        if (user.role === 'superadmin' || user.role === 'admin') {
           safeExec(loadFinancialReport, 'loadFinancialReport');
         }
       }
