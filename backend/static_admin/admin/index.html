@@ -1838,21 +1838,65 @@
     let cachedPackages = [];
     let cachedStaff = [];
 
+    const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes in milliseconds
+
+    function recordUserActivity() {
+      if (localStorage.getItem('guruji_auth_user')) {
+        localStorage.setItem('guruji_auth_last_active', Date.now().toString());
+      }
+    }
+
+    // Attach listeners for user interactions to refresh 30-min idle timer
+    ['mousedown', 'keydown', 'scroll', 'touchstart'].forEach(evt => {
+      window.addEventListener(evt, recordUserActivity, { passive: true });
+    });
+
     // Auth Guard
     function checkAuth() {
       const savedUser = localStorage.getItem('guruji_auth_user');
+      const lastActive = localStorage.getItem('guruji_auth_last_active');
+      const now = Date.now();
+
       if (savedUser) {
+        // If inactive for more than 30 minutes, force session logout
+        if (lastActive && (now - parseInt(lastActive, 10)) > SESSION_TIMEOUT_MS) {
+          localStorage.removeItem('guruji_auth_user');
+          localStorage.removeItem('guruji_auth_last_active');
+          document.getElementById('auth-screen').style.display = 'flex';
+          const errBox = document.getElementById('auth-error');
+          if (errBox) {
+            errBox.innerText = 'Session expired due to 30 minutes of inactivity. Please sign in again.';
+            errBox.style.display = 'block';
+          }
+          return false;
+        }
+
         try {
           const user = JSON.parse(savedUser);
+          recordUserActivity();
           applyAuthenticatedUser(user);
           return true;
         } catch (e) {
           localStorage.removeItem('guruji_auth_user');
+          localStorage.removeItem('guruji_auth_last_active');
         }
       }
       document.getElementById('auth-screen').style.display = 'flex';
       return false;
     }
+
+    // Periodic check every 1 minute to auto-logout if tab stays open with no activity
+    setInterval(() => {
+      const savedUser = localStorage.getItem('guruji_auth_user');
+      const lastActive = localStorage.getItem('guruji_auth_last_active');
+      if (savedUser && lastActive) {
+        if ((Date.now() - parseInt(lastActive, 10)) > SESSION_TIMEOUT_MS) {
+          localStorage.removeItem('guruji_auth_user');
+          localStorage.removeItem('guruji_auth_last_active');
+          location.reload();
+        }
+      }
+    }, 60000);
 
     let currentUser = null;
 
@@ -1991,6 +2035,7 @@
         const data = await res.json();
         if (res.ok && data.success) {
           localStorage.setItem('guruji_auth_user', JSON.stringify(data.user));
+          localStorage.setItem('guruji_auth_last_active', Date.now().toString());
           applyAuthenticatedUser(data.user);
         } else {
           errBox.innerText = data.error || 'Authentication failed.';
@@ -2015,6 +2060,7 @@
           await fetch(`${API_URL}/auth/signout`, { method: 'POST' });
         } catch (e) {}
         localStorage.removeItem('guruji_auth_user');
+        localStorage.removeItem('guruji_auth_last_active');
         location.reload();
       }
     }
