@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Guruji Caterers | Luxury CMS Admin Portal (Django)</title>
+  <title>Guruji Caterers | Luxury Catering & Event Management Portal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,6 +16,9 @@
       --border-color: rgba(197, 155, 39, 0.22);
       --text-main: #fcf9f2;
       --text-muted: #9ca3af;
+      --emerald: #10b981;
+      --red: #ef4444;
+      --blue: #3b82f6;
     }
     * {
       box-sizing: border-box;
@@ -53,7 +56,7 @@
     }
     .auth-brand {
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
     .auth-brand .logo-icon {
       font-size: 2.4rem;
@@ -95,7 +98,7 @@
 
     /* Sidebar */
     .sidebar {
-      width: 270px;
+      width: 280px;
       background: #110d14;
       border-right: 1px solid var(--border-color);
       display: flex;
@@ -104,55 +107,70 @@
     }
     .sidebar-brand {
       padding: 24px 20px;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #ffffff;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .brand-gold { color: var(--primary-hover); }
-    .nav-list {
-      list-style: none;
-      padding: 20px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .nav-btn {
-      width: 100%;
-      text-align: left;
-      background: transparent;
-      border: 1px solid transparent;
-      color: #d1d5db;
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-size: 0.92rem;
-      font-weight: 500;
-      cursor: pointer;
+      border-bottom: 1px solid var(--border-color);
       display: flex;
       align-items: center;
       gap: 12px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+    }
+    .brand-gold {
+      color: var(--primary);
+    }
+    .nav-list {
+      list-style: none;
+      padding: 15px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow-y: auto;
+    }
+    .nav-section-title {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #6b7280;
+      padding: 10px 14px 4px;
+      font-weight: 600;
+    }
+    .nav-btn {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 10px 14px;
+      text-align: left;
+      border-radius: 8px;
+      color: #d1d5db;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       transition: all 0.2s;
     }
-    .nav-btn:hover, .nav-btn.active {
-      background: rgba(197, 155, 39, 0.15);
-      border-color: var(--border-color);
+    .nav-btn:hover {
+      background: rgba(197, 155, 39, 0.1);
       color: var(--primary-hover);
     }
+    .nav-btn.active {
+      background: linear-gradient(90deg, rgba(197, 155, 39, 0.25), rgba(197, 155, 39, 0.05));
+      color: var(--primary);
+      font-weight: 600;
+      border-left: 3px solid var(--primary);
+    }
     .django-link-btn {
-      margin-top: 10px;
-      background: rgba(43, 107, 79, 0.2);
-      border: 1px solid rgba(43, 107, 79, 0.5);
-      color: #34d399;
       text-decoration: none;
-      font-size: 0.85rem;
-      padding: 10px 14px;
+      color: #86efac;
+      background: rgba(43, 107, 79, 0.2);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      font-size: 0.82rem;
+      padding: 8px 12px;
       border-radius: 8px;
       display: flex;
       align-items: center;
       gap: 8px;
+      margin: 10px 6px;
       transition: all 0.2s;
     }
     .django-link-btn:hover {
@@ -161,9 +179,9 @@
     }
     .sidebar-footer {
       margin-top: auto;
-      padding: 20px;
+      padding: 16px 20px;
       border-top: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
     }
 
@@ -173,6 +191,7 @@
       display: flex;
       flex-direction: column;
       overflow-y: auto;
+      min-width: 0;
     }
     .topbar {
       height: 70px;
@@ -185,7 +204,7 @@
       backdrop-filter: blur(10px);
     }
     .topbar h2 {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 600;
     }
     .admin-profile {
@@ -194,8 +213,8 @@
       gap: 12px;
     }
     .admin-avatar {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: var(--primary);
       display: flex;
@@ -203,6 +222,7 @@
       justify-content: center;
       font-weight: 700;
       color: #0c090e;
+      font-size: 0.85rem;
     }
     .btn-signout {
       background: transparent;
@@ -220,7 +240,7 @@
     }
 
     .content-area {
-      padding: 35px;
+      padding: 30px;
       flex: 1;
     }
 
@@ -228,93 +248,109 @@
     .stats-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-bottom: 35px;
+      gap: 18px;
+      margin-bottom: 24px;
     }
     .stat-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 14px;
-      padding: 24px;
+      padding: 18px 22px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
       position: relative;
       overflow: hidden;
     }
     .stat-card::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: var(--primary);
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--primary), transparent);
     }
     .stat-title {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      font-weight: 500;
     }
     .stat-val {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      color: var(--text-main);
+      color: #fff;
+    }
+    .stat-sub {
+      font-size: 0.72rem;
+      color: var(--primary);
     }
 
-    /* Cards & Tables */
+    /* Panels & Tables */
     .card-panel {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 25px;
-      margin-bottom: 30px;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 25px;
     }
     .panel-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .panel-title {
       font-size: 1.15rem;
       font-weight: 600;
     }
     .btn-gold {
-      background: linear-gradient(135deg, #c59b27, #eac159);
+      background: var(--primary);
       color: #0c090e;
       border: none;
-      padding: 10px 18px;
+      padding: 8px 16px;
       border-radius: 8px;
       font-weight: 600;
+      font-size: 0.82rem;
       cursor: pointer;
-      font-size: 0.85rem;
       transition: all 0.2s;
     }
     .btn-gold:hover {
-      box-shadow: 0 6px 18px rgba(197, 155, 39, 0.4);
+      background: var(--primary-hover);
+      box-shadow: 0 0 15px rgba(197, 155, 39, 0.4);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 0.88rem;
     }
     th {
-      color: var(--text-muted);
-      font-weight: 600;
+      background: #110d14;
       padding: 12px 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
       text-transform: uppercase;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       letter-spacing: 0.8px;
+      border-bottom: 1px solid var(--border-color);
     }
     td {
-      padding: 14px;
+      padding: 13px 14px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       color: #e5e7eb;
+      font-size: 0.85rem;
+      vertical-align: middle;
     }
     tr:hover td {
       background: rgba(255, 255, 255, 0.02);
@@ -322,17 +358,21 @@
     .badge-status {
       padding: 4px 10px;
       border-radius: 999px;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 600;
       text-transform: capitalize;
+      display: inline-block;
     }
-    .status-confirmed { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
-    .status-pending { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-confirmed, .status-settled { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .status-pending, .status-inquiry, .status-quoted { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-in_progress, .status-dispatched { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .status-completed, .status-returned { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .status-cancelled { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
 
     .badge-role {
       padding: 3px 10px;
       border-radius: 6px;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -346,12 +386,12 @@
       background: transparent;
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: #d1d5db;
-      padding: 5px 10px;
+      padding: 4px 9px;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       transition: all 0.2s;
-      margin-right: 6px;
+      margin-right: 4px;
     }
     .btn-action:hover {
       border-color: var(--primary);
@@ -360,6 +400,15 @@
     .btn-delete:hover {
       border-color: #ef4444;
       color: #ef4444;
+    }
+    .btn-alert-action {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+    }
+    .btn-alert-action:hover {
+      background: #f59e0b;
+      color: #000;
     }
 
     /* Modal Form */
@@ -370,37 +419,43 @@
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 100;
+      z-index: 999;
+      padding: 20px;
     }
-    .modal.active { display: flex; }
+    .modal.active {
+      display: flex;
+    }
     .modal-box {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      width: 480px;
+      width: 100%;
+      max-width: 520px;
       border-radius: 14px;
-      padding: 28px;
+      padding: 26px;
+      max-height: 90vh;
+      overflow-y: auto;
     }
     .modal-box h3 {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
+      font-size: 1.15rem;
+      margin-bottom: 18px;
     }
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
     .form-group label {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
     }
     .form-group input, .form-group select, .form-group textarea {
       background: #0d0a0f;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 8px;
-      padding: 10px 14px;
+      padding: 9px 12px;
       color: #fff;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
       outline: none;
@@ -416,9 +471,64 @@
       background: transparent;
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #fff;
-      padding: 8px 16px;
+      padding: 7px 14px;
       border-radius: 8px;
       cursor: pointer;
+      font-size: 0.82rem;
+    }
+
+    /* Kanban Board Layout for Tasks */
+    .kanban-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .kanban-col {
+      background: #110d14;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px;
+      min-height: 400px;
+    }
+    .kanban-col-header {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .kanban-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(197, 155, 39, 0.2);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+      transition: all 0.2s;
+    }
+    .kanban-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .kanban-card h4 {
+      font-size: 0.88rem;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+    .kanban-card p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .kanban-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: #9ca3af;
     }
   </style>
 </head>
@@ -429,29 +539,23 @@
     <div class="auth-card">
       <div class="auth-brand">
         <span class="logo-icon">🍽️</span>
-        <h1>GURUJI <span class="brand-gold">CATERERS</span></h1>
-        <p>Private Management Portal &bull; Python Django</p>
+        <h1>Guruji Caterers</h1>
+        <p>Luxury Catering & Event Management Portal</p>
       </div>
-
       <div class="auth-notice">
-        🔒 <strong>Authorized Staff Only</strong><br>
-        Public registrations are disabled. Credentials are provided by Super Admin.
+        Enter credentials provided for Super Admin, Admin, Manager, or Employee.
       </div>
-
       <div id="auth-error" class="auth-alert alert-error"></div>
-
-      <form id="signin-form" onsubmit="handleSignIn(event)">
+      <form onsubmit="handleSignIn(event)">
         <div class="form-group">
-          <label>Username or Email Address</label>
-          <input type="text" id="auth-login" required placeholder="e.g. kartik_das or admin@gurujicaterers.com" />
+          <label>Username or Work Email</label>
+          <input type="text" id="auth-login" required placeholder="superadmin or manager@gurujicaterers.com" />
         </div>
         <div class="form-group">
           <label>Password</label>
-          <input type="password" id="auth-pwd" required placeholder="Enter your portal password" />
+          <input type="password" id="auth-pwd" required placeholder="••••••••" />
         </div>
-        <button type="submit" class="btn-gold" style="width: 100%; padding: 12px; margin-top: 10px; font-size: 0.95rem;">
-          Sign In to Portal →
-        </button>
+        <button type="submit" class="btn-gold" style="width: 100%; margin-top: 14px; padding: 12px; font-weight:600;">Sign In to Portal</button>
       </form>
     </div>
   </div>
@@ -459,113 +563,716 @@
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-brand">
-      <span>🍽️</span> GURUJI <span class="brand-gold">DJANGO CMS</span>
+      <span>🍽️</span> GURUJI <span class="brand-gold">PORTAL</span>
     </div>
     <ul class="nav-list">
-      <li>
-        <button class="nav-btn active" onclick="switchTab('dashboard')">
-          <span>📊</span> Overview Dashboard
+      <div class="nav-section-title" data-section-for="dashboard,events,projects,tasks,task-statuses">Core Operations</div>
+      <li data-module="dashboard">
+        <button id="nav-btn-dashboard" class="nav-btn active" onclick="switchTab('dashboard')">
+          <span>📊</span> Dashboard
         </button>
       </li>
-      <li>
-        <button class="nav-btn" onclick="switchTab('users')">
-          <span>👥</span> User & Role Management
+      <li data-module="events">
+        <button id="nav-btn-events" class="nav-btn" onclick="switchTab('events')">
+          <span>🎪</span> Event Bookings
         </button>
       </li>
-      <li>
-        <button class="nav-btn" onclick="switchTab('inquiries')">
-          <span>📩</span> Event Inquiries
+      <li data-module="projects">
+        <button id="nav-btn-projects" class="nav-btn" onclick="switchTab('projects')">
+          <span>🚀</span> Projects
         </button>
       </li>
-      <li>
-        <button class="nav-btn" onclick="switchTab('menu')">
-          <span>📖</span> Menu Catalog
+      <li data-module="tasks">
+        <button id="nav-btn-tasks" class="nav-btn" onclick="switchTab('tasks')">
+          <span>📋</span> Tasks
         </button>
       </li>
-      <li>
-        <button class="nav-btn" onclick="switchTab('reviews')">
-          <span>⭐</span> Google Reviews
+      <li data-module="task-statuses">
+        <button id="nav-btn-task-statuses" class="nav-btn" onclick="switchTab('task-statuses')">
+          <span>🏷️</span> Task Statuses
         </button>
       </li>
-      <li>
+      <li data-module="task-categories">
+        <button id="nav-btn-task-categories" class="nav-btn" onclick="switchTab('task-categories')">
+          <span>⚡</span> Task Events (Categories)
+        </button>
+      </li>
+
+      <div class="nav-section-title" data-section-for="sales,purchases,payments,financial-report">Sales, Purchase & Finance</div>
+      <li data-module="sales">
+        <button id="nav-btn-sales" class="nav-btn" onclick="switchTab('sales')">
+          <span>💰</span> Sales Invoices & Billing
+        </button>
+      </li>
+      <li data-module="purchases">
+        <button id="nav-btn-purchases" class="nav-btn" onclick="switchTab('purchases')">
+          <span>🛒</span> Purchase Orders & Vendors
+        </button>
+      </li>
+      <li data-module="payments">
+        <button id="nav-btn-payments" class="nav-btn" onclick="switchTab('payments')">
+          <span>💳</span> Payment History & Cashflow
+        </button>
+      </li>
+      <li data-module="financial-report">
+        <button id="nav-btn-financial-report" class="nav-btn" onclick="switchTab('financial-report')">
+          <span>📈</span> Executive Financial Report
+        </button>
+      </li>
+
+      <div class="nav-section-title" data-section-for="packages,inventory,menu">Catering & Assets</div>
+      <li data-module="packages">
+        <button id="nav-btn-packages" class="nav-btn" onclick="switchTab('packages')">
+          <span>🍱</span> Menu Packages & Costing
+        </button>
+      </li>
+      <li data-module="inventory">
+        <button id="nav-btn-inventory" class="nav-btn" onclick="switchTab('inventory')">
+          <span>📦</span> Inventory & Asset
+        </button>
+      </li>
+      <li data-module="menu">
+        <button id="nav-btn-menu" class="nav-btn" onclick="switchTab('menu')">
+          <span>📖</span> Dish Catalog
+        </button>
+      </li>
+
+      <div class="nav-section-title" data-section-for="roles,users,inquiries,reviews">Team & Access Control</div>
+      <li data-module="roles">
+        <button id="nav-btn-roles" class="nav-btn" onclick="switchTab('roles')">
+          <span>🛡️</span> Roles & Permissions
+        </button>
+      </li>
+      <li data-module="users">
+        <button id="nav-btn-users" class="nav-btn" onclick="switchTab('users')">
+          <span>👥</span> Users
+        </button>
+      </li>
+      <li data-module="inquiries">
+        <button id="nav-btn-inquiries" class="nav-btn" onclick="switchTab('inquiries')">
+          <span>📩</span> Client Leads
+        </button>
+      </li>
+      <li data-module="reviews">
+        <button id="nav-btn-reviews" class="nav-btn" onclick="switchTab('reviews')">
+          <span>⭐</span> Testimonials
+        </button>
+      </li>
+
+      <li data-module="django-admin">
         <a href="/django-admin/" target="_blank" class="django-link-btn">
-          <span>🛡️</span> Open Django Admin Suite ↗
+          <span>🛡️</span> Open Native Django Admin ↗
         </a>
       </li>
     </ul>
     <div class="sidebar-footer">
-      Guruji Caterers v2.0<br>
-      Python 3.9 + Django 4.2 + DRF
+      Guruji Caterers & Event Suite<br>
+      Django 4.2 REST Framework Backend
     </div>
   </aside>
 
   <!-- Main View -->
   <main class="main-content">
     <header class="topbar">
-      <h2 id="page-title">CMS Dashboard Overview</h2>
+      <h2 id="page-title">Executive Dashboard & P&L Overview</h2>
       <div class="admin-profile">
         <div class="admin-avatar" id="header-avatar">SA</div>
         <div>
-          <span id="header-name" style="font-weight: 600; font-size: 0.9rem;">Super Admin</span><br>
-          <small id="header-role" style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">superadmin</small>
+          <span id="header-name" style="font-weight: 600; font-size: 0.88rem;">Super Admin</span><br>
+          <small id="header-role" style="color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase;">superadmin</small>
         </div>
         <button class="btn-signout" onclick="handleSignOut()">Sign Out</button>
       </div>
     </header>
 
     <div class="content-area">
-      <!-- 1. Stats Row -->
-      <div class="stats-row">
+      <!-- 1. Stats Row for Admin / Managers -->
+      <div class="stats-row" id="admin-stats-row">
         <div class="stat-card">
-          <span class="stat-title">Total Inquiries</span>
-          <span class="stat-val" id="stat-inquiries">-</span>
+          <span class="stat-title">Total Revenue Booked</span>
+          <span class="stat-val" id="stat-revenue">₹0</span>
+          <span class="stat-sub" id="stat-profit">Profit Margin: 0%</span>
         </div>
         <div class="stat-card">
-          <span class="stat-title">Pending Quotes</span>
-          <span class="stat-val" id="stat-pending">-</span>
+          <span class="stat-title">Advance Collected</span>
+          <span class="stat-val" id="stat-advance" style="color: #34d399">₹0</span>
+          <span class="stat-sub" id="stat-balance" style="color: #f87171">Balance Due: ₹0</span>
         </div>
         <div class="stat-card">
-          <span class="stat-title">Staff / Roles</span>
-          <span class="stat-val" id="stat-staff">-</span>
+          <span class="stat-title">Confirmed Events</span>
+          <span class="stat-val" id="stat-events">0</span>
+          <span class="stat-sub" id="stat-active-events">0 Live/Ongoing</span>
         </div>
         <div class="stat-card">
-          <span class="stat-title">Catalog Menu Items</span>
-          <span class="stat-val" id="stat-menu">-</span>
+          <span class="stat-title">On-Ground Tasks</span>
+          <span class="stat-val" id="stat-tasks">0</span>
+          <span class="stat-sub" id="stat-pending-tasks">0 Pending Tasks</span>
         </div>
       </div>
 
-      <!-- Tab 1: Dashboard Overview & Inquiries -->
+      <!-- 1.1 Stats Row for Staff / Employees (Assigned Task Workflow) -->
+      <div class="stats-row" id="employee-stats-row" style="display: none;">
+        <div class="stat-card" style="border-left: 3px solid #60a5fa;">
+          <span class="stat-title">⏳ To Do / Pending</span>
+          <span class="stat-val" id="emp-stat-pending" style="color: #60a5fa;">0</span>
+          <span class="stat-sub">Assigned to you</span>
+        </div>
+        <div class="stat-card" style="border-left: 3px solid #f59e0b;">
+          <span class="stat-title">⚙️ In Progress</span>
+          <span class="stat-val" id="emp-stat-progress" style="color: #f59e0b;">0</span>
+          <span class="stat-sub">Currently working</span>
+        </div>
+        <div class="stat-card" style="border-left: 3px solid #10b981;">
+          <span class="stat-title">✅ Completed</span>
+          <span class="stat-val" id="emp-stat-completed" style="color: #10b981;">0</span>
+          <span class="stat-sub">Successfully done</span>
+        </div>
+        <div class="stat-card" style="border-left: 3px solid #ef4444;">
+          <span class="stat-title">🚫 Cancelled</span>
+          <span class="stat-val" id="emp-stat-cancelled" style="color: #ef4444;">0</span>
+          <span class="stat-sub">Closed / Aborted</span>
+        </div>
+      </div>
+
+      <!-- Tab 1: Dashboard Overview (Events & Billing Summary) -->
       <section id="tab-dashboard" class="tab-panel">
-        <div class="card-panel">
+        <!-- Admin Events View -->
+        <div class="card-panel" id="dashboard-admin-view">
           <div class="panel-header">
-            <h3 class="panel-title">Recent Event Inquiries (Live Leads)</h3>
-            <span style="font-size: 0.8rem; color: var(--text-muted)">Real-time DB synced via Django</span>
+            <div>
+              <h3 class="panel-title">Active Events & Financial Status</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Live bookings, revenue breakdown, and quick actions</p>
+            </div>
+            <button class="btn-gold" onclick="switchTab('events')">View All Events ➔</button>
           </div>
           <table>
             <thead>
               <tr>
-                <th>Client</th>
-                <th>Event Type</th>
-                <th>Guests</th>
-                <th>Event Date</th>
+                <th>Event & Client</th>
+                <th>Event Date & Venue</th>
+                <th>Pax (Guests)</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th>Quotation / Total</th>
+                <th>P&L Net Profit</th>
+                <th>Quick Actions</th>
               </tr>
             </thead>
-            <tbody id="inquiries-tbody">
+            <tbody id="dashboard-events-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Employee Assigned Tasks View -->
+        <div class="card-panel" id="dashboard-employee-view" style="display: none;">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">My Assigned Tasks</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Your live operational duties across active projects and events</p>
+            </div>
+            <button class="btn-gold" onclick="switchTab('tasks')">Open Task Board ➔</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Task Title</th>
+                <th>Project</th>
+                <th>Task Type</th>
+                <th>Priority</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Quick Action</th>
+              </tr>
+            </thead>
+            <tbody id="dashboard-emp-tasks-tbody">
               <!-- Rendered dynamically -->
             </tbody>
           </table>
         </div>
       </section>
 
-      <!-- Tab: Users & Roles Management -->
+      <!-- Tab 2: Events Management (SOP Lifecycle) -->
+      <section id="tab-events" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Event Bookings & SOP Tracking</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Inquiry ➔ Quotation ➔ Confirmation (Asset Blocking) ➔ Settlement</p>
+            </div>
+            <button class="btn-gold" onclick="openEventModal()">+ Create New Event</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Event Name</th>
+                <th>Client Details</th>
+                <th>Date / Venue</th>
+                <th>Guests</th>
+                <th>Menu Package</th>
+                <th>Status</th>
+                <th>Billing / Due</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="events-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tab 2.5: Projects Management -->
+      <section id="tab-projects" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Projects Master</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Define projects to organize client deliverables and tasks</p>
+            </div>
+            <button class="btn-gold" onclick="openProjectModal()">+ Add New Project</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Project Name / Code</th>
+                <th>Client / Category</th>
+                <th>Timeline</th>
+                <th>Tasks Count</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="projects-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tab 3: Task Management -->
+      <section id="tab-tasks" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Staff Task Management & Real-Time Tracking</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Live accountability across Projects, Events, Kitchen & Logistics</p>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <select id="task-filter-project" onchange="filterTasks()" style="background:#0d0a0f; border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:8px; padding:6px 12px; font-size:0.8rem;">
+                <option value="all">All Projects</option>
+              </select>
+              <button class="btn-secondary" onclick="toggleTaskViewMode()" id="btn-task-view-mode">Switch to Table View</button>
+              <button class="btn-gold" onclick="openTaskModal()">+ Assign New Task</button>
+            </div>
+          </div>
+
+          <!-- Kanban View -->
+          <div id="task-kanban-view" class="kanban-grid">
+            <div class="kanban-col">
+              <div class="kanban-col-header" style="color:#f59e0b">
+                <span>⏳ PENDING PREP</span>
+                <span id="kanban-count-pending">0</span>
+              </div>
+              <div id="kanban-pending-list"></div>
+            </div>
+            <div class="kanban-col">
+              <div class="kanban-col-header" style="color:#60a5fa">
+                <span>⚙️ IN PROGRESS</span>
+                <span id="kanban-count-progress">0</span>
+              </div>
+              <div id="kanban-progress-list"></div>
+            </div>
+            <div class="kanban-col">
+              <div class="kanban-col-header" style="color:#34d399">
+                <span>✅ COMPLETED</span>
+                <span id="kanban-count-completed">0</span>
+              </div>
+              <div id="kanban-completed-list"></div>
+            </div>
+          </div>
+
+          <!-- Table View (Alternating) -->
+          <div id="task-table-view" style="display:none;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Project</th>
+                  <th>Priority</th>
+                  <th>Event</th>
+                  <th>Assigned Staff</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tasks-table-tbody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab 3.5: Task Status Master -->
+      <section id="tab-task-statuses" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Task Status Master</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Configure custom workflow statuses, colors, and kanban badges</p>
+            </div>
+            <button class="btn-gold" onclick="openTaskStatusModal()">+ Add New Status</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Status Name</th>
+                <th>Color Badge</th>
+                <th>Display Order</th>
+                <th>Is Completion State?</th>
+                <th>Assigned Tasks</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="task-statuses-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tab 3.6: Task Events / Categories Master -->
+      <section id="tab-task-categories" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Task Events & Types Master</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Define task types (Design, Development, Bug, Feature, Setup, Maintenance)</p>
+            </div>
+            <button class="btn-gold" onclick="openTaskCategoryModal()">+ Add Task Event / Type</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Event / Type Name</th>
+                <th>Tag Badge</th>
+                <th>Description</th>
+                <th>Order</th>
+                <th>Linked Tasks</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="task-categories-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tab: Sales Invoices & Billing -->
+      <section id="tab-sales" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Sales Invoices & Client Billing</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Invoices, GST breakdown, advance receipts, and pending balances</p>
+            </div>
+            <button class="btn-gold" onclick="openSalesInvoiceModal()">+ Generate Sales Invoice</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Invoice #</th>
+                <th>Client Name & Phone</th>
+                <th>Linked Event</th>
+                <th>Invoice Date</th>
+                <th>Total (Inc. GST)</th>
+                <th>Amount Paid</th>
+                <th>Balance Due</th>
+                <th>Payment Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sales-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tab: Purchase Orders & Vendors -->
+      <section id="tab-purchases" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Procurement & Purchase Orders (PO)</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Raw material sourcing, dairy, mutton, tent rentals & vendor dues</p>
+            </div>
+            <button class="btn-gold" onclick="openPurchaseModal()">+ Raise Purchase Order</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>PO #</th>
+                <th>Vendor / Supplier</th>
+                <th>Linked Event</th>
+                <th>Order Date</th>
+                <th>Total Amount</th>
+                <th>Paid to Vendor</th>
+                <th>PO Status</th>
+                <th>Payment</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="purchases-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tab: Payment History & Cashflow Transactions -->
+      <section id="tab-payments" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Payment History & Cash Flow Ledger</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Complete audit trail of all Inflows (Client advances) & Outflows (Vendor payouts)</p>
+            </div>
+            <button class="btn-gold" onclick="openPaymentModal()">+ Record New Payment</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Receipt / Voucher #</th>
+                <th>Type</th>
+                <th>Party Name</th>
+                <th>Amount</th>
+                <th>Mode</th>
+                <th>Reference / UTR</th>
+                <th>Date</th>
+                <th>Linked Doc</th>
+              </tr>
+            </thead>
+            <tbody id="payments-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tab: Executive Financial Report & P&L -->
+      <section id="tab-financial-report" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Executive Financial & Event-wise P&L Report</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Comprehensive revenue, costs, net profit, and profit margins</p>
+            </div>
+            <button class="btn-secondary" onclick="loadFinancialReport()">Refresh Financials ⟳</button>
+          </div>
+
+          <!-- Financial Snapshot Cards -->
+          <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; margin-bottom:20px;">
+            <div style="background:#110d14; border:1px solid rgba(255,255,255,0.08); padding:16px; border-radius:10px;">
+              <small style="color:var(--text-muted)">Gross Contract Revenue</small>
+              <h3 style="color:#fff; font-size:1.3rem; margin-top:4px;" id="fr-gross-revenue">₹0</h3>
+            </div>
+            <div style="background:#110d14; border:1px solid rgba(255,255,255,0.08); padding:16px; border-radius:10px;">
+              <small style="color:var(--text-muted)">Total Operating Costs</small>
+              <h3 style="color:#f87171; font-size:1.3rem; margin-top:4px;" id="fr-total-costs">₹0</h3>
+            </div>
+            <div style="background:#110d14; border:1px solid rgba(255,255,255,0.08); padding:16px; border-radius:10px;">
+              <small style="color:var(--text-muted)">Net Operating Profit</small>
+              <h3 style="color:#34d399; font-size:1.3rem; margin-top:4px;" id="fr-net-profit">₹0</h3>
+            </div>
+            <div style="background:#110d14; border:1px solid rgba(255,255,255,0.08); padding:16px; border-radius:10px;">
+              <small style="color:var(--text-muted)">Receivables Pending</small>
+              <h3 style="color:#fbbf24; font-size:1.3rem; margin-top:4px;" id="fr-receivables">₹0</h3>
+            </div>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Event & Date</th>
+                <th>Pax</th>
+                <th>Revenue</th>
+                <th>Food Cost</th>
+                <th>Staff & Transport</th>
+                <th>Vendor Expenses</th>
+                <th>Net Profit</th>
+                <th>Margin %</th>
+              </tr>
+            </thead>
+            <tbody id="financial-report-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+
+      <!-- Tab 4: Menu Packages & Costing -->
+      <section id="tab-packages" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Catering Menu Packages & Per-Plate Costing</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Calculate kitchen cost, selling price and gross margin per plate</p>
+            </div>
+            <button class="btn-gold" onclick="openPackageModal()">+ New Package</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Package Name</th>
+                <th>Selling Price / Plate</th>
+                <th>Base Food Cost</th>
+                <th>Gross Margin</th>
+                <th>Dishes Included</th>
+              </tr>
+            </thead>
+            <tbody id="packages-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tab 5: Inventory & Asset -->
+      <section id="tab-inventory" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Inventory, Tents & Equipment Pool</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Auto-blocks on Event Confirmation to prevent shortage or theft</p>
+            </div>
+            <button class="btn-gold" onclick="openInventoryModal()">+ Add Asset Item</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Item / Asset</th>
+                <th>Category</th>
+                <th>Available Quantity</th>
+                <th>Total Stock</th>
+                <th>Replacement Cost</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tab 5.5: Roles & Permissions Matrix Management -->
+      <section id="tab-roles" class="tab-panel" style="display: none;">
+        <!-- View A: Roles List (Matching User Screenshot 1) -->
+        <div id="roles-list-view" class="card-panel">
+          <div class="panel-header" style="flex-wrap: wrap; gap: 12px;">
+            <div>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                <span>🏠</span> &gt; <span>User Management</span> &gt; <span style="color:var(--text-main); font-weight:600;">Roles &amp; Permissions</span>
+              </div>
+              <h3 class="panel-title" style="font-size: 1.25rem;">Roles Master</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Configure system roles and assign custom granular permission matrices</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn-secondary" onclick="exportRolesCSV()">⎘ Export Roles ▾</button>
+              <button class="btn-gold" onclick="openAddRoleModal()">⊕ Add Role</button>
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table style="width: 100%;">
+              <thead>
+                <tr>
+                  <th style="width: 40px;"><input type="checkbox" id="roles-select-all" onclick="toggleSelectAllRoles(this)" /></th>
+                  <th style="cursor: pointer;" onclick="sortRoles('name')">Role ⬍</th>
+                  <th style="cursor: pointer;" onclick="sortRoles('created_at')">Created Date ⬍</th>
+                  <th style="cursor: pointer;" onclick="sortRoles('is_active')">Status ⬍</th>
+                  <th style="text-align: right; width: 140px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="roles-tbody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 0.8rem; color: var(--text-muted);">
+            <span id="roles-pagination-info">Showing 1-10 of 10 entries</span>
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <button class="btn-secondary" style="padding: 4px 10px;" onclick="changeRolePage(-1)">&lt;</button>
+              <span id="roles-page-badge" style="background: #e65100; color: #fff; padding: 4px 10px; border-radius: 50%; font-weight: bold; font-size: 0.75rem;">1</span>
+              <button class="btn-secondary" style="padding: 4px 10px;" onclick="changeRolePage(1)">&gt;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- View B: Granular Permissions Matrix (Matching User Screenshot 2) -->
+        <div id="role-matrix-view" class="card-panel" style="display: none; margin-top: 20px;">
+          <div class="panel-header" style="flex-wrap: wrap; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 18px;">
+            <div>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                <span>🏠</span> &gt; <span>User Management</span> &gt; <span style="color:var(--text-main); font-weight:600;">Permissions</span>
+              </div>
+              <h2 style="font-size: 1.4rem; font-weight: 700; color: #fff;">Permissions</h2>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <button class="btn-secondary" onclick="exportRolePermissionsJSON()">⎘ Export ▾</button>
+              <button class="btn-secondary" onclick="closeRoleMatrixView()">⌃ Back to Roles List</button>
+              <button class="btn-gold" onclick="saveRolePermissionMatrix()" style="background:#e65100; border-color:#e65100;">💾 Save Changes</button>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin: 18px 0 14px;">
+            <h4 style="font-size: 1.05rem; font-weight: 600;">Permissions Matrix</h4>
+            <div style="font-size: 0.88rem; font-weight: 600;">
+              Role Name : <span id="matrix-role-name" style="color: #60a5fa; font-weight: 700;">Admin</span>
+              <input type="hidden" id="matrix-role-id" />
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="matrix-table" style="width: 100%; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;">
+              <thead>
+                <tr style="background: rgba(255,255,255,0.04);">
+                  <th style="padding: 14px 16px; font-weight: 700; width: 180px;">Modules</th>
+                  <th style="padding: 14px 12px; text-align: center;">Allow All</th>
+                  <th style="padding: 14px 12px; text-align: center;">Read</th>
+                  <th style="padding: 14px 12px; text-align: center;">Write</th>
+                  <th style="padding: 14px 12px; text-align: center;">Create</th>
+                  <th style="padding: 14px 12px; text-align: center;">Delete</th>
+                  <th style="padding: 14px 12px; text-align: center;">Import</th>
+                  <th style="padding: 14px 12px; text-align: center;">Export</th>
+                </tr>
+              </thead>
+              <tbody id="permission-matrix-tbody">
+                <!-- Dynamically generated module rows matching screenshot:
+                     Employee, Holidays, Leaves, Events, Sales, Training, Reports, Tickets, Payroll, Packages, Inventory -->
+              </tbody>
+            </table>
+          </div>
+
+          <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 12px;">
+            <button class="btn-secondary" onclick="closeRoleMatrixView()">Cancel</button>
+            <button class="btn-gold" style="background:#e65100; border-color:#e65100; padding: 10px 24px;" onclick="saveRolePermissionMatrix()">Save Permissions</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab 6: Users -->
       <section id="tab-users" class="tab-panel" style="display: none;">
         <div class="card-panel">
           <div class="panel-header">
             <div>
-              <h3 class="panel-title">Staff & User Roles</h3>
-              <p style="font-size: 0.82rem; color: var(--text-muted)">Super Admin, Admin, Manager, and Employee tier controls</p>
+              <h3 class="panel-title">Users</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Admin, Manager, and Employee tier controls</p>
             </div>
             <button id="btn-open-user-modal" class="btn-gold" onclick="openUserModal()">+ Add New User</button>
           </div>
@@ -574,9 +1281,9 @@
               <tr>
                 <th>Username</th>
                 <th>Role Tier</th>
+                <th>Branch</th>
                 <th>Department</th>
                 <th>Contact</th>
-                <th>Email</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -588,11 +1295,35 @@
         </div>
       </section>
 
-      <!-- Tab 2: Menu Items -->
+      <!-- Tab 7: Inquiries -->
+      <section id="tab-inquiries" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Public Event Inquiries (Incoming Leads)</h3>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Client</th>
+                <th>Event Type</th>
+                <th>Guests</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="inquiries-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tab 8: Dish Catalog -->
       <section id="tab-menu" class="tab-panel" style="display: none;">
         <div class="card-panel">
           <div class="panel-header">
-            <h3 class="panel-title">Menu Catalog Management</h3>
+            <h3 class="panel-title">Menu Dish Catalog</h3>
             <button class="btn-gold" onclick="openMenuModal()">+ Add New Dish</button>
           </div>
           <table>
@@ -600,7 +1331,8 @@
               <tr>
                 <th>Dish Name</th>
                 <th>Category</th>
-                <th>Price</th>
+                <th>Selling Price</th>
+                <th>Cost Price</th>
                 <th>Type</th>
                 <th>Badge</th>
                 <th>Actions</th>
@@ -613,7 +1345,7 @@
         </div>
       </section>
 
-      <!-- Tab 3: Reviews -->
+      <!-- Tab 9: Reviews -->
       <section id="tab-reviews" class="tab-panel" style="display: none;">
         <div class="card-panel">
           <div class="panel-header">
@@ -639,86 +1371,388 @@
     </div>
   </main>
 
-  <!-- Add User Modal (Internal Team User Creation by Superadmin/Admin) -->
-  <div id="user-modal" class="modal">
+  <!-- ================= MODALS ================= -->
+
+  <!-- Last Minute Plate Change Alert Modal -->
+  <div id="extra-plate-modal" class="modal">
     <div class="modal-box">
-      <h3>Create New Staff Account</h3>
-      <form id="user-form" onsubmit="saveUser(event)">
+      <h3>🚨 Last-Minute Plate Revision ("50 Plates Badha Do")</h3>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 14px;">
+        Immediately adjusts client billing and sends an instant High-Priority Alert to the Head Chef and Kitchen staff.
+      </p>
+      <form onsubmit="submitExtraPlates(event)">
+        <input type="hidden" id="ep-event-id" />
         <div class="form-group">
-          <label>Username</label>
-          <input type="text" id="u-username" required placeholder="e.g. chef_karan" />
+          <label>Additional Plates Count</label>
+          <input type="number" id="ep-count" required min="1" value="50" />
         </div>
         <div class="form-group">
-          <label>Role Tier</label>
-          <select id="u-role">
-            <!-- Superadmin option is permanently blocked from creation -->
-            <option value="admin">Admin (CMS & Lead Management - Only Super Admin can create)</option>
-            <option value="manager">Manager (Kitchen & Menu Supervision)</option>
-            <option value="employee" selected>Employee (Ground Staff / Crew)</option>
-          </select>
-          <small id="u-role-hint" style="font-size:0.75rem; color:#f59e0b;"></small>
-        </div>
-        <div class="form-group">
-          <label>Full Name</label>
-          <div style="display: flex; gap: 10px;">
-            <input type="text" id="u-fname" placeholder="First Name" style="flex:1" />
-            <input type="text" id="u-lname" placeholder="Last Name" style="flex:1" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="u-email" placeholder="user@gurujicaterers.com" />
-        </div>
-        <div class="form-group">
-          <label>Phone</label>
-          <input type="text" id="u-phone" placeholder="+91 98765 43210" />
-        </div>
-        <div class="form-group">
-          <label>Department</label>
-          <input type="text" id="u-department" placeholder="e.g. Live Counters / Banquets" />
-        </div>
-        <div class="form-group">
-          <label>Initial Password</label>
-          <input type="password" id="u-password" required placeholder="Password" />
+          <label>Urgent Kitchen / Halwai Note</label>
+          <textarea id="ep-note" rows="2" placeholder="e.g. VIP guests arrived, prepare extra 50 portions Biryani and Dal Bukhara immediately."></textarea>
         </div>
         <div class="modal-actions">
           <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
-          <button type="submit" class="btn-gold">Create Account</button>
+          <button type="submit" class="btn-gold" style="background:#f59e0b; color:#000;">Alert Kitchen & Update Billing</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Add Menu Modal -->
+  <!-- Create Event Modal -->
+  <div id="event-modal" class="modal">
+    <div class="modal-box">
+      <h3>Create New Event Booking</h3>
+      <form onsubmit="saveEvent(event)">
+        <div class="form-group">
+          <label>Event Name / Title</label>
+          <input type="text" id="ev-name" required placeholder="e.g. Kapoor Grand Wedding Sangeet" />
+        </div>
+        <div class="form-group">
+          <label>Client Name</label>
+          <input type="text" id="ev-client" required placeholder="e.g. Vikram Kapoor" />
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Client Phone</label>
+            <input type="text" id="ev-phone" required placeholder="+91 98765 43210" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Client Email</label>
+            <input type="email" id="ev-email" placeholder="client@email.com" />
+          </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Event Date</label>
+            <input type="date" id="ev-date" required />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Guest Count (Pax)</label>
+            <input type="number" id="ev-pax" required min="10" value="250" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Venue Location</label>
+          <input type="text" id="ev-venue" required placeholder="e.g. The Taj Palace Ballroom" />
+        </div>
+        <div class="form-group">
+          <label>Menu Package</label>
+          <select id="ev-package"></select>
+        </div>
+        <div class="form-group">
+          <label>Booking Status</label>
+          <select id="ev-status">
+            <option value="inquiry">Lead / Inquiry</option>
+            <option value="quoted">Quotation Generated</option>
+            <option value="confirmed" selected>Confirmed (Advance Received - Block Assets)</option>
+            <option value="in_progress">In Progress (Live Event)</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn-gold">Create Event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Task Modal -->
+  <!-- Create Task Modal -->
+  <div id="task-modal" class="modal">
+    <div class="modal-box">
+      <h3>Assign Task</h3>
+      <form onsubmit="saveTask(event)">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="tk-title" required placeholder="e.g. Prep 200kg Marinated Paneer & Tikka" />
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Project</label>
+            <select id="tk-project">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Status</label>
+            <select id="tk-custom-status">
+              <!-- Populated dynamically from task statuses -->
+            </select>
+          </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Priority</label>
+            <select id="tk-priority">
+              <option value="low">Low Priority</option>
+              <option value="medium" selected>Medium Priority</option>
+              <option value="high">High Priority</option>
+              <option value="urgent">🚨 Urgent Priority</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Due Date & Time</label>
+            <input type="datetime-local" id="tk-due" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Task Event / Type</label>
+          <select id="tk-category">
+            <!-- Populated dynamically from Task Events (Design, Development, Bug, etc.) -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Assign To</label>
+          <select id="tk-user"></select>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="tk-desc" rows="2" placeholder="Specific steps, safety precautions..."></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn-gold">Assign Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Project Modal -->
+  <div id="project-modal" class="modal">
+    <div class="modal-box" style="max-width: 480px;">
+      <h3 id="project-modal-title">Define New Project</h3>
+      <form onsubmit="saveProject(event)">
+        <input type="hidden" id="prj-id" value="" />
+        <div class="form-group">
+          <label>Project Name</label>
+          <input type="text" id="prj-name" required placeholder="e.g. Royal Wedding Season 2026" />
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Project Code (Optional)</label>
+            <input type="text" id="prj-code" placeholder="e.g. PRJ-2026" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Status</label>
+            <select id="prj-status">
+              <option value="planning">Planning</option>
+              <option value="active" selected>Active</option>
+              <option value="on_hold">On Hold</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Client / Category</label>
+          <input type="text" id="prj-client" placeholder="e.g. Luxury Banquets / Kapoor Family" />
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Start Date</label>
+            <input type="date" id="prj-start" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Target End Date</label>
+            <input type="date" id="prj-end" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description / Scope</label>
+          <textarea id="prj-desc" rows="2" placeholder="Project deliverables, deliverables and operational scope"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn-gold">Save Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Task Status Modal -->
+  <div id="task-status-modal" class="modal">
+    <div class="modal-box" style="max-width: 440px;">
+      <h3 id="task-status-modal-title">Add Task Status</h3>
+      <form onsubmit="saveTaskStatus(event)">
+        <input type="hidden" id="ts-id" value="" />
+        <div class="form-group">
+          <label>Status Name</label>
+          <input type="text" id="ts-name" required placeholder="e.g. Quality Check, Ready for Dispatch" />
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Badge Color (HEX)</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="color" id="ts-color-picker" value="#60a5fa" onchange="document.getElementById('ts-color').value = this.value" style="width:40px; height:38px; padding:2px; border-radius:6px; cursor:pointer;" />
+              <input type="text" id="ts-color" value="#60a5fa" required style="flex:1" onchange="document.getElementById('ts-color-picker').value = this.value" />
+            </div>
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Display Order</label>
+            <input type="number" id="ts-order" value="1" min="1" max="100" />
+          </div>
+        </div>
+        <div class="form-group" style="flex-direction:row; align-items:center; gap:10px; margin-top:8px;">
+          <input type="checkbox" id="ts-completed" style="width:18px; height:18px;" />
+          <label for="ts-completed" style="margin:0; cursor:pointer; color:#fff;">Mark as "Completed / Final" State</label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn-gold">Save Status</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create / Edit Task Category (Event Type) Modal -->
+  <div id="task-category-modal" class="modal">
+    <div class="modal-box" style="max-width: 440px;">
+      <h3 id="task-category-modal-title">Add Task Event / Type</h3>
+      <form onsubmit="saveTaskCategory(event)">
+        <input type="hidden" id="tc-id" value="" />
+        <div class="form-group">
+          <label>Event / Type Name</label>
+          <input type="text" id="tc-name" required placeholder="e.g. Design, Development, Bug, Feature" />
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Tag Color (HEX)</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="color" id="tc-color-picker" value="#ec4899" onchange="document.getElementById('tc-color').value = this.value" style="width:40px; height:38px; padding:2px; border-radius:6px; cursor:pointer;" />
+              <input type="text" id="tc-color" value="#ec4899" required style="flex:1" onchange="document.getElementById('tc-color-picker').value = this.value" />
+            </div>
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Order</label>
+            <input type="number" id="tc-order" value="1" min="1" max="100" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description / Scope (Optional)</label>
+          <input type="text" id="tc-desc" placeholder="e.g. UI/UX designs, Bug fixes, New features" />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn-gold">Save Task Event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create / Edit Role Modal -->
+  <div id="role-modal" class="modal">
+    <div class="modal-box" style="max-width: 480px;">
+      <h3 id="role-modal-title">⊕ Add New Role</h3>
+      <form onsubmit="saveRole(event)">
+        <input type="hidden" id="ro-id" />
+        <div class="form-group">
+          <label>Role Name</label>
+          <input type="text" id="ro-name" required placeholder="e.g. Catering Supervisor, HR Executive" />
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="ro-desc" rows="2" placeholder="Responsibilities and scope of this role"></textarea>
+        </div>
+        <div class="form-group" style="flex-direction: row; align-items: center; gap: 10px; margin-top: 8px;">
+          <input type="checkbox" id="ro-status" checked style="width: 18px; height: 18px;" />
+          <label for="ro-status" style="margin: 0; cursor: pointer; color: #fff;">Role is Active</label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn-gold" style="background:#e65100; border-color:#e65100;">Save Role</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create / Edit User Modal -->
+  <div id="user-modal" class="modal">
+    <div class="modal-box">
+      <h3 id="user-modal-title">Create Staff Account</h3>
+      <form onsubmit="saveUser(event)">
+        <input type="hidden" id="u-id" value="" />
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="u-username" required placeholder="e.g. chef_karan" />
+        </div>
+        <div class="form-group">
+          <label>Assigned Role (Custom)</label>
+          <select id="u-dynamic-role">
+            <!-- Populated dynamically from roles -->
+          </select>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>First Name</label>
+            <input type="text" id="u-fname" placeholder="First Name" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Last Name</label>
+            <input type="text" id="u-lname" placeholder="Last Name" />
+          </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Email</label>
+            <input type="email" id="u-email" placeholder="staff@gurujicaterers.com" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Mobile Number</label>
+            <input type="tel" id="u-phone" placeholder="e.g. +91 98765 43210" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Department</label>
+          <input type="text" id="u-department" placeholder="e.g. Kitchen Operations" />
+        </div>
+        <div class="form-group">
+          <label id="u-password-label">Password</label>
+          <input type="password" id="u-password" placeholder="Leave empty to keep current password" />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" id="u-submit-btn" class="btn-gold">Save Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Menu Modal -->
   <div id="menu-modal" class="modal">
     <div class="modal-box">
-      <h3>Add New Menu Dish</h3>
-      <form id="menu-form" onsubmit="saveMenuItem(event)">
+      <h3>Add New Dish</h3>
+      <form onsubmit="saveMenuItem(event)">
         <div class="form-group">
           <label>Dish Name</label>
-          <input type="text" id="m-name" required placeholder="e.g. Awadhi Dum Biryani" />
+          <input type="text" id="m-name" required placeholder="e.g. Hyderabadi Mirchi Ka Salan" />
         </div>
         <div class="form-group">
           <label>Category</label>
           <select id="m-category">
-            <option value="starters">Starters & Tandoor</option>
-            <option value="mains">Main Courses</option>
-            <option value="live">Live Interactive Counters</option>
-            <option value="desserts">Artisanal Desserts</option>
+            <option value="starters">Starters</option>
+            <option value="mains" selected>Main Course</option>
+            <option value="live">Live Stations</option>
+            <option value="desserts">Desserts</option>
             <option value="beverages">Beverages</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Price (₹ per plate / station)</label>
-          <input type="number" id="m-price" required placeholder="450" />
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Selling Price (₹)</label>
+            <input type="number" id="m-price" required value="280" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Cost Price (₹)</label>
+            <input type="number" id="m-cost" required value="90" />
+          </div>
         </div>
         <div class="form-group">
           <label>Badge</label>
-          <input type="text" id="m-badge" placeholder="Chef Special / Signature" />
+          <input type="text" id="m-badge" placeholder="e.g. Signature" />
         </div>
         <div class="form-group">
           <label>Description</label>
-          <textarea id="m-desc" rows="3" placeholder="Description of spices, preparation..."></textarea>
+          <textarea id="m-desc" rows="2" placeholder="Ingredients & flavor notes..."></textarea>
         </div>
         <div class="modal-actions">
           <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
@@ -728,30 +1762,30 @@
     </div>
   </div>
 
-  <!-- Add Review Modal -->
+  <!-- Create Review Modal -->
   <div id="review-modal" class="modal">
     <div class="modal-box">
-      <h3>Add Client Testimonial</h3>
-      <form id="review-form" onsubmit="saveReview(event)">
+      <h3>Add Testimonial</h3>
+      <form onsubmit="saveReview(event)">
         <div class="form-group">
           <label>Client Name</label>
-          <input type="text" id="r-author" required placeholder="e.g. Mr. Sanjay Mittal" />
+          <input type="text" id="r-author" required placeholder="e.g. Mr. S. K. Mittal" />
         </div>
         <div class="form-group">
           <label>Occasion / Role</label>
-          <input type="text" id="r-role" placeholder="e.g. Grand Wedding, Delhi" />
+          <input type="text" id="r-role" placeholder="e.g. Wedding Reception, Grand Hyatt" />
         </div>
         <div class="form-group">
-          <label>Rating (1 to 5)</label>
+          <label>Rating</label>
           <select id="r-rating">
-            <option value="5">5 ★★★★★ (Outstanding)</option>
-            <option value="4">4 ★★★★☆ (Very Good)</option>
-            <option value="3">3 ★★★☆☆ (Good)</option>
+            <option value="5">5 ★★★★★</option>
+            <option value="4">4 ★★★★☆</option>
+            <option value="3">3 ★★★☆☆</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Review Comment</label>
-          <textarea id="r-comment" required rows="3" placeholder="Feedback about food and hospitality..."></textarea>
+          <label>Feedback</label>
+          <textarea id="r-comment" required rows="3"></textarea>
         </div>
         <div class="modal-actions">
           <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
@@ -759,36 +1793,348 @@
         </div>
       </form>
     </div>
+  <!-- Create Sales Invoice Modal -->
+  <div id="sales-invoice-modal" class="modal">
+    <div class="modal-box" style="max-width: 580px;">
+      <h3>Generate Sales Invoice</h3>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 14px;">
+        Issue official GST invoice with itemized charges and advance reconciliation.
+      </p>
+      <form onsubmit="saveSalesInvoice(event)">
+        <div class="form-group">
+          <label>Linked Event</label>
+          <select id="si-event" required>
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Client Name</label>
+            <input type="text" id="si-client-name" required placeholder="Client / Company" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Client Phone</label>
+            <input type="text" id="si-client-phone" required placeholder="+91 98765 43210" />
+          </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Subtotal (₹)</label>
+            <input type="number" id="si-subtotal" required min="0" value="150000" oninput="calculateInvoiceTotal()" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>GST Rate</label>
+            <select id="si-gst-rate" onchange="calculateInvoiceTotal()">
+              <option value="5" selected>5% (Catering / Food GST)</option>
+              <option value="18">18% (Standard Services)</option>
+              <option value="0">0% (Exempted / Composite)</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Advance Received (₹)</label>
+            <input type="number" id="si-advance" min="0" value="50000" oninput="calculateInvoiceTotal()" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Computed Total (₹)</label>
+            <input type="text" id="si-total-display" readonly style="background:rgba(255,255,255,0.05); font-weight:700; color:var(--primary)" value="₹1,57,500" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Notes / Terms</label>
+          <textarea id="si-notes" rows="2" placeholder="50% balance payable at completion. Thank you for your business."></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn-gold">Create Invoice</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Purchase Order Modal -->
+  <div id="purchase-modal" class="modal">
+    <div class="modal-box" style="max-width: 580px;">
+      <h3>Raise Purchase Order (PO)</h3>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 14px;">
+        Order raw materials, dairy, poultry, tent rentals from registered vendors.
+      </p>
+      <form onsubmit="savePurchaseOrder(event)">
+        <div class="form-group">
+          <label>Vendor / Supplier</label>
+          <select id="po-vendor" required>
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Linked Event (Optional)</label>
+          <select id="po-event">
+            <option value="">General Stock / Central Kitchen</option>
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Order Amount (₹)</label>
+            <input type="number" id="po-amount" required min="1" value="25000" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Expected Delivery Date</label>
+            <input type="date" id="po-delivery-date" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Items / Specifications</label>
+          <textarea id="po-items-desc" rows="3" placeholder="e.g. 50 Liters Fresh Full Cream Buffalo Milk, 20 Kgs Malai Paneer, 15 Kgs Ghee."></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn-gold">Issue PO</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Record Payment Transaction Modal -->
+  <div id="payment-modal" class="modal">
+    <div class="modal-box" style="max-width: 540px;">
+      <h3>Record Payment Transaction</h3>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 14px;">
+        Log cash, UPI, NEFT or cheque inflows (client advance) or outflows (vendor payout).
+      </p>
+      <form onsubmit="savePayment(event)">
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Transaction Type</label>
+            <select id="pm-type" required onchange="togglePaymentParties()">
+              <option value="inflow" selected>💰 Cash Inflow (Client Receipt)</option>
+              <option value="outflow">📤 Cash Outflow (Vendor Payment)</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Amount (₹)</label>
+            <input type="number" id="pm-amount" required min="1" value="20000" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Party Name (Client or Vendor)</label>
+          <input type="text" id="pm-party" required placeholder="e.g. S. K. Mittal or Delhi Dairy Supplies" />
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Payment Mode</label>
+            <select id="pm-mode">
+              <option value="bank_transfer" selected>NEFT / RTGS / IMPS</option>
+              <option value="upi">UPI / QR Code</option>
+              <option value="cash">Cash Counter</option>
+              <option value="cheque">Cheque</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>UTR / Transaction Ref</label>
+            <input type="text" id="pm-ref" placeholder="e.g. UTR-98234823" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Linked Event (Optional)</label>
+          <select id="pm-event">
+            <option value="">General / None</option>
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn-gold">Record Payment</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script>
     const API_URL = '/api';
+    let cachedEvents = [];
+    let cachedPackages = [];
+    let cachedStaff = [];
 
-    // Check Session Auth on Load
+    const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes in milliseconds
+
+    function recordUserActivity() {
+      if (localStorage.getItem('guruji_auth_user')) {
+        localStorage.setItem('guruji_auth_last_active', Date.now().toString());
+      }
+    }
+
+    // Attach listeners for user interactions to refresh 30-min idle timer
+    ['mousedown', 'keydown', 'scroll', 'touchstart'].forEach(evt => {
+      window.addEventListener(evt, recordUserActivity, { passive: true });
+    });
+
+    // Auth Guard
     function checkAuth() {
       const savedUser = localStorage.getItem('guruji_auth_user');
+      const lastActive = localStorage.getItem('guruji_auth_last_active');
+      const now = Date.now();
+
       if (savedUser) {
+        // If inactive for more than 30 minutes, force session logout
+        if (lastActive && (now - parseInt(lastActive, 10)) > SESSION_TIMEOUT_MS) {
+          localStorage.removeItem('guruji_auth_user');
+          localStorage.removeItem('guruji_auth_last_active');
+          document.getElementById('auth-screen').style.display = 'flex';
+          const errBox = document.getElementById('auth-error');
+          if (errBox) {
+            errBox.innerText = 'Session expired due to 30 minutes of inactivity. Please sign in again.';
+            errBox.style.display = 'block';
+          }
+          return false;
+        }
+
         try {
           const user = JSON.parse(savedUser);
+          recordUserActivity();
           applyAuthenticatedUser(user);
           return true;
         } catch (e) {
           localStorage.removeItem('guruji_auth_user');
+          localStorage.removeItem('guruji_auth_last_active');
         }
       }
       document.getElementById('auth-screen').style.display = 'flex';
       return false;
     }
 
+    // Periodic check every 1 minute to auto-logout if tab stays open with no activity
+    setInterval(() => {
+      const savedUser = localStorage.getItem('guruji_auth_user');
+      const lastActive = localStorage.getItem('guruji_auth_last_active');
+      if (savedUser && lastActive) {
+        if ((Date.now() - parseInt(lastActive, 10)) > SESSION_TIMEOUT_MS) {
+          localStorage.removeItem('guruji_auth_user');
+          localStorage.removeItem('guruji_auth_last_active');
+          location.reload();
+        }
+      }
+    }, 60000);
+
+    let currentUser = null;
+
     function applyAuthenticatedUser(user) {
+      currentUser = user;
       document.getElementById('auth-screen').style.display = 'none';
       const initials = (user.first_name ? user.first_name[0] : '') + (user.last_name ? user.last_name[0] : '') || user.username.slice(0, 2).toUpperCase();
       document.getElementById('header-avatar').innerText = initials;
       document.getElementById('header-name').innerText = `${user.first_name || ''} ${user.last_name || ''}`.trim() || user.username;
-      document.getElementById('header-role').innerText = user.role || 'Staff';
+      
+      const roleLabels = {
+        superadmin: '👑 Super Admin',
+        admin: '🏢 Admin (Branch Head)',
+        manager: '📋 Event Manager',
+        employee: '👨‍🍳 Staff / Employee'
+      };
+      const displayRole = user.role_name || roleLabels[user.role] || user.role;
+      document.getElementById('header-role').innerText = displayRole.startsWith('👑') || displayRole.startsWith('🏢') || displayRole.startsWith('📋') || displayRole.startsWith('👨‍🍳') || displayRole.startsWith('🛡️') 
+        ? displayRole 
+        : `🛡️ ${displayRole}`;
 
-      fetchAnalytics();
-      loadInquiries();
+      // Apply Dynamic Module Permissions to Sidebar Navigation
+      const isSuperAdmin = user.role === 'superadmin';
+      const userPerms = user.permissions || {};
+
+      function canAccessModule(modKey) {
+        if (isSuperAdmin) return true;
+        // Native django-admin link only for superadmin
+        if (modKey === 'django-admin') return isSuperAdmin;
+        
+        // If user has dynamic role permissions defined
+        if (userPerms && Object.keys(userPerms).length > 0) {
+          const p = userPerms[modKey];
+          if (!p) return false;
+          return !!(p.allow_all || p.can_read);
+        }
+
+        // Fallback for default built-in roles if no custom matrix assigned:
+        if (user.role === 'admin') return true;
+        if (user.role === 'manager') {
+          return ['dashboard', 'events', 'tasks', 'sales', 'purchases', 'payments', 'packages', 'inventory', 'menu', 'inquiries', 'reviews'].includes(modKey);
+        }
+        if (user.role === 'employee') {
+          return ['events', 'tasks', 'inventory', 'menu'].includes(modKey);
+        }
+        return false;
+      }
+
+      // Hide or show each nav item
+      let firstAccessibleTab = null;
+      document.querySelectorAll('li[data-module]').forEach(li => {
+        const modKey = li.getAttribute('data-module');
+        if (canAccessModule(modKey)) {
+          li.style.display = '';
+          if (!firstAccessibleTab && modKey !== 'django-admin') {
+            firstAccessibleTab = modKey;
+          }
+        } else {
+          li.style.display = 'none';
+        }
+      });
+
+      // Hide or show nav section titles based on child items
+      document.querySelectorAll('.nav-section-title[data-section-for]').forEach(sec => {
+        const forKeys = sec.getAttribute('data-section-for').split(',').map(k => k.trim());
+        const hasVisibleChild = forKeys.some(k => canAccessModule(k));
+        sec.style.display = hasVisibleChild ? 'block' : 'none';
+      });
+
+      // Role & Permission action restrictions:
+      const btnAddEvent = document.querySelector('button[onclick="openEventModal()"]');
+      if (btnAddEvent) {
+        const canCreateEvent = isSuperAdmin || (userPerms.events ? (userPerms.events.allow_all || userPerms.events.can_create) : (user.role !== 'employee'));
+        btnAddEvent.style.display = canCreateEvent ? 'inline-block' : 'none';
+      }
+
+      const btnAddUser = document.getElementById('btn-open-user-modal');
+      if (btnAddUser) {
+        const canCreateUser = isSuperAdmin || (userPerms.users ? (userPerms.users.allow_all || userPerms.users.can_create) : (user.role === 'admin'));
+        btnAddUser.style.display = canCreateUser ? 'inline-block' : 'none';
+      }
+
+      // Default landing tab based on permissions
+      try {
+        if (firstAccessibleTab) {
+          switchTab(firstAccessibleTab);
+        } else {
+          switchTab('tasks');
+        }
+      } catch (err) {
+        console.error('switchTab error:', err);
+      }
+
+      const safeExec = (fn, name) => {
+        try {
+          const res = fn();
+          if (res && res.catch) res.catch(e => console.warn(`Error running ${name}:`, e));
+        } catch (e) {
+          console.warn(`Synchronous error in ${name}:`, e);
+        }
+      };
+
+      safeExec(fetchAnalytics, 'fetchAnalytics');
+      safeExec(loadEvents, 'loadEvents');
+      safeExec(loadTasks, 'loadTasks');
+      safeExec(loadPackages, 'loadPackages');
+      safeExec(loadUsers, 'loadUsers');
+      if (user.role === 'superadmin' || user.role === 'admin') {
+        safeExec(loadRoles, 'loadRoles');
+      }
+      if (user.role !== 'employee') {
+        safeExec(loadSales, 'loadSales');
+        safeExec(loadPurchases, 'loadPurchases');
+        safeExec(loadPayments, 'loadPayments');
+        if (user.role === 'superadmin' || user.role === 'admin') {
+          safeExec(loadFinancialReport, 'loadFinancialReport');
+        }
+      }
+      safeExec(loadInquiries, 'loadInquiries');
     }
 
     async function handleSignIn(e) {
@@ -807,295 +2153,1329 @@
         const data = await res.json();
         if (res.ok && data.success) {
           localStorage.setItem('guruji_auth_user', JSON.stringify(data.user));
+          localStorage.setItem('guruji_auth_last_active', Date.now().toString());
           applyAuthenticatedUser(data.user);
         } else {
           errBox.innerText = data.error || 'Authentication failed.';
           errBox.style.display = 'block';
         }
       } catch (err) {
-        errBox.innerText = 'Unable to connect to backend server.';
+        errBox.innerText = 'Unable to connect to Django backend server.';
         errBox.style.display = 'block';
       }
     }
 
+    async function quickLogin(login, pwd) {
+      document.getElementById('auth-login').value = login;
+      document.getElementById('auth-pwd').value = pwd;
+      const fakeEvent = { preventDefault: () => {} };
+      await handleSignIn(fakeEvent);
+    }
+
     async function handleSignOut() {
-      if (confirm('Are you sure you want to sign out?')) {
+      if (confirm('Sign out from Django Catering Portal?')) {
         try {
           await fetch(`${API_URL}/auth/signout`, { method: 'POST' });
         } catch (e) {}
         localStorage.removeItem('guruji_auth_user');
+        localStorage.removeItem('guruji_auth_last_active');
         location.reload();
       }
     }
 
+    // Tab Navigation
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+      const target = document.getElementById(`tab-${tab}`);
+      if (target) target.style.display = 'block';
+
+      const titleMap = {
+        dashboard: 'Executive Dashboard & P&L Overview',
+        events: 'Event Bookings & SOP Lifecycle',
+        projects: 'Projects Master & Execution Scope',
+        tasks: 'Staff Task Board & Execution Tracking',
+        'task-statuses': 'Task Status Workflow Master',
+        'task-categories': 'Task Events & Types Master (Design, Bug, etc.)',
+        sales: 'Sales Invoices & Client Billing',
+        purchases: 'Procurement & Purchase Orders (PO)',
+        payments: 'Payment History & Cash Flow Ledger',
+        'financial-report': 'Executive Financial & P&L Report',
+        packages: 'Menu Packages & Per-Plate Costing',
+        inventory: 'Inventory & Asset Tracking',
+        roles: 'Roles & Permissions Access Control',
+        users: 'Staff & User Role Hierarchy',
+        inquiries: 'Public Event Leads',
+        menu: 'Dish Catalog Management',
+        reviews: 'Testimonials'
+      };
+      document.getElementById('page-title').innerText = titleMap[tab] || 'Admin Portal';
+
+      const navBtn = document.getElementById(`nav-btn-${tab}`);
+      if (navBtn) {
+        navBtn.classList.add('active');
+      } else if (window.event && window.event.currentTarget && window.event.currentTarget.classList) {
+        window.event.currentTarget.classList.add('active');
+      }
+
+      if (tab === 'dashboard' || tab === 'events') loadEvents();
+      if (tab === 'projects') loadProjects();
+      if (tab === 'tasks') { loadProjects(); loadTaskStatuses(); loadTaskCategories(); loadUsers(); loadEvents(); loadTasks(); }
+      if (tab === 'task-statuses') loadTaskStatuses();
+      if (tab === 'task-categories') loadTaskCategories();
+      if (tab === 'sales') loadSales();
+      if (tab === 'purchases') loadPurchases();
+      if (tab === 'payments') loadPayments();
+      if (tab === 'financial-report') loadFinancialReport();
+      if (tab === 'packages') loadPackages();
+      if (tab === 'inventory') loadInventory();
+      if (tab === 'roles') loadRoles();
+      if (tab === 'users') loadUsers();
+      if (tab === 'inquiries') loadInquiries();
+      if (tab === 'menu') loadMenu();
+      if (tab === 'reviews') loadReviews();
+    }
+
+    // Analytics Metrics
     async function fetchAnalytics() {
       try {
         const res = await fetch(`${API_URL}/analytics`);
         const data = await res.json();
-        document.getElementById('stat-inquiries').innerText = data.totalInquiries ?? 0;
-        document.getElementById('stat-pending').innerText = data.pendingInquiries ?? 0;
-        document.getElementById('stat-staff').innerText = data.totalStaff ?? 4;
-        document.getElementById('stat-menu').innerText = data.totalMenuItems ?? 0;
+        const isEmp = (currentUser && currentUser.role === 'employee') || data.is_employee;
+        const adminStatsRow = document.getElementById('admin-stats-row');
+        const empStatsRow = document.getElementById('employee-stats-row');
+        const adminDashboardView = document.getElementById('dashboard-admin-view');
+        const empDashboardView = document.getElementById('dashboard-employee-view');
+
+        if (isEmp) {
+          if (adminStatsRow) adminStatsRow.style.display = 'none';
+          if (empStatsRow) empStatsRow.style.display = 'grid';
+          if (adminDashboardView) adminDashboardView.style.display = 'none';
+          if (empDashboardView) empDashboardView.style.display = 'block';
+
+          document.getElementById('emp-stat-pending').innerText = data.pending_tasks || 0;
+          document.getElementById('emp-stat-progress').innerText = data.in_progress_tasks || 0;
+          document.getElementById('emp-stat-completed').innerText = data.completed_tasks || 0;
+          document.getElementById('emp-stat-cancelled').innerText = data.cancelled_tasks || 0;
+
+          // Render My Assigned Tasks in Employee Dashboard
+          const empTbody = document.getElementById('dashboard-emp-tasks-tbody');
+          if (empTbody) {
+            const myTasks = data.my_tasks || [];
+            if (myTasks.length === 0) {
+              empTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:24px; color:var(--text-muted)">🎉 No pending tasks assigned to you right now.</td></tr>`;
+            } else {
+              empTbody.innerHTML = myTasks.map(t => {
+                const priorityColors = { low: '#9ca3af', medium: '#60a5fa', high: '#f59e0b', urgent: '#ef4444' };
+                const pColor = priorityColors[t.priority] || '#60a5fa';
+                const pBadge = `<span style="font-size:0.68rem; font-weight:700; text-transform:uppercase; padding:2px 8px; border-radius:4px; background:${pColor}20; color:${pColor}; border:1px solid ${pColor}50;">${t.priority || 'medium'}</span>`;
+
+                const typeBadge = t.task_category_name
+                  ? `<span style="font-size:0.68rem; font-weight:700; padding:2px 8px; border-radius:4px; background:${t.task_category_color || '#38bdf8'}20; color:${t.task_category_color || '#38bdf8'}; border:1px solid ${t.task_category_color || '#38bdf8'}60;">⚡ ${t.task_category_name}</span>`
+                  : '<span style="color:var(--text-muted); font-size:0.75rem;">General</span>';
+
+                const statusBadge = t.custom_status_name
+                  ? `<span style="font-size:0.68rem; font-weight:700; padding:2px 8px; border-radius:4px; background:${t.custom_status_color || '#60a5fa'}20; color:${t.custom_status_color || '#60a5fa'}; border:1px solid ${t.custom_status_color || '#60a5fa'}50;">${t.custom_status_name}</span>`
+                  : `<span class="badge-status status-${t.status}">${t.status}</span>`;
+
+                return `
+                  <tr>
+                    <td><strong>${t.title}</strong><br><small style="color:var(--text-muted)">${t.description ? t.description.slice(0, 50) + '...' : ''}</small></td>
+                    <td>${t.project_name ? `<span class="badge-role" style="background:rgba(99,102,241,0.15); color:#818cf8;">🚀 ${t.project_name}</span>` : '<span style="color:var(--text-muted);">General</span>'}</td>
+                    <td>${typeBadge}</td>
+                    <td>${pBadge}</td>
+                    <td>${t.due_date ? new Date(t.due_date).toLocaleString('en-IN', {dateStyle:'short', timeStyle:'short'}) : 'Flexible'}</td>
+                    <td>${statusBadge}</td>
+                    <td>
+                      <div style="display:flex; gap:6px;">
+                        ${t.status === 'pending' ? `<button class="btn-action" style="color:#60a5fa; border:1px solid #60a5fa60;" onclick="updateTaskStatus(${t.id}, 'in_progress')">Start ➔</button>` : ''}
+                        ${t.status === 'in_progress' ? `<button class="btn-action" style="color:#10b981; border:1px solid #10b98160;" onclick="promptCompleteTask(${t.id})">Complete ✓</button>` : ''}
+                        ${t.status === 'completed' ? `<span style="color:#10b981; font-size:0.8rem;">✓ Done</span>` : ''}
+                      </div>
+                    </td>
+                  </tr>
+                `;
+              }).join('');
+            }
+          }
+        } else {
+          if (adminStatsRow) adminStatsRow.style.display = 'grid';
+          if (empStatsRow) empStatsRow.style.display = 'none';
+          if (adminDashboardView) adminDashboardView.style.display = 'block';
+          if (empDashboardView) empDashboardView.style.display = 'none';
+
+          if (data.finance) {
+            document.getElementById('stat-revenue').innerText = `₹${Number(data.finance.total_revenue).toLocaleString('en-IN')}`;
+            document.getElementById('stat-advance').innerText = `₹${Number(data.finance.total_advances).toLocaleString('en-IN')}`;
+            document.getElementById('stat-balance').innerText = `Balance Due: ₹${Number(data.finance.total_balance_due).toLocaleString('en-IN')}`;
+            const margin = data.finance.total_revenue > 0 ? ((data.finance.total_profit / data.finance.total_revenue) * 100).toFixed(1) : 0;
+            document.getElementById('stat-profit').innerText = `Net Profit: ₹${Number(data.finance.total_profit).toLocaleString('en-IN')} (${margin}%)`;
+          }
+          document.getElementById('stat-events').innerText = data.total_events || 0;
+          document.getElementById('stat-active-events').innerText = `${data.active_events || 0} Confirmed/Live`;
+          document.getElementById('stat-tasks').innerText = data.total_tasks || 0;
+          document.getElementById('stat-pending-tasks').innerText = `${data.pending_tasks || 0} Tasks Pending`;
+        }
       } catch (e) {
         console.error(e);
       }
     }
 
+    // 1. Events Module (SOP)
+    async function loadEvents() {
+      try {
+        const res = await fetch(`${API_URL}/events/`);
+        cachedEvents = await res.json();
+
+        // Populate Event select for tasks modal
+        const evSelect = document.getElementById('tk-event');
+        if (evSelect) {
+          const evOptions = cachedEvents.map(e => `<option value="${e.id}">${e.name} (${e.date})</option>`).join('');
+          evSelect.innerHTML = `<option value="">General / None</option>` + evOptions;
+        }
+
+        // Render Dashboard Table
+        const dBody = document.getElementById('dashboard-events-tbody');
+        if (dBody) {
+          dBody.innerHTML = cachedEvents.map(ev => {
+            const b = ev.billing || {};
+            const profitStr = b.net_profit ? `₹${Number(b.net_profit).toLocaleString('en-IN')} (${b.profit_margin_percent || 0}%)` : 'Calculating...';
+            return `
+              <tr>
+                <td>
+                  <strong>${ev.name}</strong><br>
+                  <small style="color:var(--text-muted)">${ev.client_name} (${ev.client_phone})</small>
+                </td>
+                <td>${ev.date}<br><small style="color:var(--text-muted)">${ev.venue}</small></td>
+                <td><strong>${ev.guest_count}</strong> Pax ${ev.plate_count_revised ? `<span style="color:#fbbf24; font-size:0.75rem;">(+${ev.plate_count_revised})</span>` : ''}</td>
+                <td><span class="badge-status status-${ev.status}">${ev.status}</span></td>
+                <td>₹${Number(b.total_amount || 0).toLocaleString('en-IN')}<br><small style="color:#f87171">Due: ₹${Number(b.balance_due || 0).toLocaleString('en-IN')}</small></td>
+                <td><strong style="color:#34d399">${profitStr}</strong></td>
+                <td>
+                  <button class="btn-action btn-alert-action" onclick="openExtraPlatesModal(${ev.id})">+ Extra Plates</button>
+                  ${ev.status !== 'settled' ? `<button class="btn-action" onclick="settleEvent(${ev.id})">Settle Event</button>` : ''}
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+
+        // Render Events Table
+        const evBody = document.getElementById('events-tbody');
+        if (evBody) {
+          evBody.innerHTML = cachedEvents.map(ev => {
+            const b = ev.billing || {};
+            return `
+              <tr>
+                <td>
+                  <strong>${ev.name}</strong><br>
+                  <small style="color:var(--primary)">Manager: ${ev.assigned_manager_name || 'Unassigned'}</small>
+                </td>
+                <td>${ev.client_name}<br><small style="color:var(--text-muted)">${ev.client_phone}</small></td>
+                <td>${ev.date}<br><small style="color:var(--text-muted)">${ev.venue}</small></td>
+                <td>${ev.guest_count} Pax</td>
+                <td>${ev.menu_package_name || 'Custom Dishes'}</td>
+                <td><span class="badge-status status-${ev.status}">${ev.status}</span></td>
+                <td>Total: ₹${Number(b.total_amount || 0).toLocaleString('en-IN')}<br><small style="color:#34d399">Adv: ₹${Number(b.advance_paid || 0).toLocaleString('en-IN')}</small></td>
+                <td>
+                  <button class="btn-action btn-alert-action" onclick="openExtraPlatesModal(${ev.id})">+ Plates</button>
+                  <button class="btn-action btn-delete" onclick="deleteEvent(${ev.id})">Delete</button>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // 1.5. Projects Master Management
+    let cachedProjects = [];
+
+    async function loadProjects() {
+      try {
+        const res = await fetch(`${API_URL}/projects/`);
+        cachedProjects = await res.json();
+        renderProjectsTable();
+        populateProjectDropdowns();
+      } catch (e) {
+        console.error('Error loading projects:', e);
+      }
+    }
+
+    function populateProjectDropdowns() {
+      const tkProj = document.getElementById('tk-project');
+      const filterProj = document.getElementById('task-filter-project');
+      
+      const optionsHtml = '<option value="">General (No Project)</option>' +
+        cachedProjects.map(p => `<option value="${p.id}">${p.name} (${p.code})</option>`).join('');
+
+      if (tkProj) tkProj.innerHTML = optionsHtml;
+      if (filterProj) {
+        filterProj.innerHTML = '<option value="all">All Projects</option>' +
+          cachedProjects.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+      }
+    }
+
+    function renderProjectsTable() {
+      const tbody = document.getElementById('projects-tbody');
+      if (!tbody) return;
+      if (!cachedProjects || cachedProjects.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:24px; color:var(--text-muted)">No projects defined yet. Click "+ Add New Project" to create one.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = cachedProjects.map(p => `
+        <tr>
+          <td><strong>${p.name}</strong><br><small style="color:var(--text-muted); font-family:monospace;">${p.code}</small></td>
+          <td>${p.client_name || '—'}</td>
+          <td><small>${p.start_date || '—'} ➔ ${p.end_date || 'Flexible'}</small></td>
+          <td><span class="badge-role">${p.tasks_count || 0} Tasks</span></td>
+          <td><span class="badge-status status-${p.status === 'completed' ? 'confirmed' : (p.status === 'cancelled' ? 'cancelled' : 'in_progress')}">${p.status}</span></td>
+          <td>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-action" style="color:#f59e0b;" onclick="editProject(${p.id})">Edit</button>
+              <button class="btn-action btn-delete" onclick="deleteProject(${p.id})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openProjectModal() {
+      document.getElementById('prj-id').value = '';
+      document.getElementById('prj-name').value = '';
+      document.getElementById('prj-code').value = '';
+      document.getElementById('prj-status').value = 'active';
+      document.getElementById('prj-client').value = '';
+      document.getElementById('prj-start').value = '';
+      document.getElementById('prj-end').value = '';
+      document.getElementById('prj-desc').value = '';
+      document.getElementById('project-modal-title').innerText = 'Define New Project';
+      document.getElementById('project-modal').classList.add('active');
+    }
+
+    function editProject(id) {
+      const p = cachedProjects.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('prj-id').value = p.id;
+      document.getElementById('prj-name').value = p.name;
+      document.getElementById('prj-code').value = p.code || '';
+      document.getElementById('prj-status').value = p.status || 'active';
+      document.getElementById('prj-client').value = p.client_name || '';
+      document.getElementById('prj-start').value = p.start_date || '';
+      document.getElementById('prj-end').value = p.end_date || '';
+      document.getElementById('prj-desc').value = p.description || '';
+      document.getElementById('project-modal-title').innerText = `✏️ Edit Project: ${p.name}`;
+      document.getElementById('project-modal').classList.add('active');
+    }
+
+    async function saveProject(e) {
+      e.preventDefault();
+      const id = document.getElementById('prj-id').value;
+      const payload = {
+        name: document.getElementById('prj-name').value.trim(),
+        code: document.getElementById('prj-code').value.trim() || undefined,
+        status: document.getElementById('prj-status').value,
+        client_name: document.getElementById('prj-client').value.trim(),
+        start_date: document.getElementById('prj-start').value || null,
+        end_date: document.getElementById('prj-end').value || null,
+        description: document.getElementById('prj-desc').value.trim(),
+      };
+      const url = id ? `${API_URL}/projects/${id}/` : `${API_URL}/projects/`;
+      const method = id ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        closeModals();
+        loadProjects();
+      } else {
+        const err = await res.json();
+        alert(JSON.stringify(err));
+      }
+    }
+
+    async function deleteProject(id) {
+      if (confirm('Delete this project? Associated tasks will remain but become general.')) {
+        await fetch(`${API_URL}/projects/${id}/`, { method: 'DELETE' });
+        loadProjects();
+      }
+    }
+
+    // 1.6. Task Status Master Management
+    let cachedTaskStatuses = [];
+
+    async function loadTaskStatuses() {
+      try {
+        const res = await fetch(`${API_URL}/task-statuses/`);
+        cachedTaskStatuses = await res.json();
+        renderTaskStatusesTable();
+        populateTaskStatusDropdowns();
+      } catch (e) {
+        console.error('Error loading task statuses:', e);
+      }
+    }
+
+    function populateTaskStatusDropdowns() {
+      const tkStatus = document.getElementById('tk-custom-status');
+      if (tkStatus) {
+        if (!cachedTaskStatuses || cachedTaskStatuses.length === 0) {
+          tkStatus.innerHTML = '<option value="">Standard Pending</option>';
+        } else {
+          tkStatus.innerHTML = cachedTaskStatuses.map(s => 
+            `<option value="${s.id}">${s.name}</option>`
+          ).join('');
+        }
+      }
+    }
+
+    function renderTaskStatusesTable() {
+      const tbody = document.getElementById('task-statuses-tbody');
+      if (!tbody) return;
+      if (!cachedTaskStatuses || cachedTaskStatuses.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:24px; color:var(--text-muted)">No custom statuses created yet.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = cachedTaskStatuses.map(s => `
+        <tr>
+          <td><strong>${s.name}</strong></td>
+          <td><span style="display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:12px; font-size:0.75rem; font-weight:600; background:${s.color}20; color:${s.color}; border:1px solid ${s.color}60;"><span style="width:8px; height:8px; border-radius:50%; background:${s.color};"></span>${s.color}</span></td>
+          <td>#${s.order}</td>
+          <td><span class="badge-status ${s.is_completed_state ? 'status-confirmed' : 'status-pending'}">${s.is_completed_state ? 'Yes (Final)' : 'No (In-Flight)'}</span></td>
+          <td><span class="badge-role">${s.tasks_count || 0} Tasks</span></td>
+          <td>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-action" style="color:#f59e0b;" onclick="editTaskStatus(${s.id})">Edit</button>
+              <button class="btn-action btn-delete" onclick="deleteTaskStatus(${s.id})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openTaskStatusModal() {
+      document.getElementById('ts-id').value = '';
+      document.getElementById('ts-name').value = '';
+      document.getElementById('ts-color').value = '#60a5fa';
+      document.getElementById('ts-color-picker').value = '#60a5fa';
+      document.getElementById('ts-order').value = (cachedTaskStatuses.length + 1);
+      document.getElementById('ts-completed').checked = false;
+      document.getElementById('task-status-modal-title').innerText = 'Add Task Status';
+      document.getElementById('task-status-modal').classList.add('active');
+    }
+
+    function editTaskStatus(id) {
+      const s = cachedTaskStatuses.find(x => x.id === id);
+      if (!s) return;
+      document.getElementById('ts-id').value = s.id;
+      document.getElementById('ts-name').value = s.name;
+      document.getElementById('ts-color').value = s.color || '#60a5fa';
+      document.getElementById('ts-color-picker').value = s.color || '#60a5fa';
+      document.getElementById('ts-order').value = s.order || 1;
+      document.getElementById('ts-completed').checked = s.is_completed_state;
+      document.getElementById('task-status-modal-title').innerText = `✏️ Edit Status: ${s.name}`;
+      document.getElementById('task-status-modal').classList.add('active');
+    }
+
+    async function saveTaskStatus(e) {
+      e.preventDefault();
+      const id = document.getElementById('ts-id').value;
+      const payload = {
+        name: document.getElementById('ts-name').value.trim(),
+        color: document.getElementById('ts-color').value.trim(),
+        order: Number(document.getElementById('ts-order').value) || 1,
+        is_completed_state: document.getElementById('ts-completed').checked,
+      };
+      const url = id ? `${API_URL}/task-statuses/${id}/` : `${API_URL}/task-statuses/`;
+      const method = id ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        closeModals();
+        loadTaskStatuses();
+      } else {
+        const err = await res.json();
+        alert(JSON.stringify(err));
+      }
+    }
+
+    async function deleteTaskStatus(id) {
+      if (confirm('Delete this task status?')) {
+        await fetch(`${API_URL}/task-statuses/${id}/`, { method: 'DELETE' });
+        loadTaskStatuses();
+      }
+    }
+
+    // ==========================================
+    // TASK EVENTS / CATEGORIES MODULE JS
+    // ==========================================
+    let cachedTaskCategories = [];
+
+    async function loadTaskCategories() {
+      try {
+        const res = await fetch(`${API_URL}/task-categories/`);
+        cachedTaskCategories = await res.json();
+        populateTaskCategoryDropdowns();
+        renderTaskCategoriesTable();
+      } catch (e) {
+        console.error('Error loading task categories:', e);
+      }
+    }
+
+    function populateTaskCategoryDropdowns() {
+      const tkCat = document.getElementById('tk-category');
+      if (tkCat) {
+        if (!cachedTaskCategories || cachedTaskCategories.length === 0) {
+          tkCat.innerHTML = '<option value="">General / None</option>';
+        } else {
+          tkCat.innerHTML = '<option value="">Select Task Event / Type</option>' + cachedTaskCategories.map(c => 
+            `<option value="${c.id}">${c.name}</option>`
+          ).join('');
+        }
+      }
+    }
+
+    function renderTaskCategoriesTable() {
+      const tbody = document.getElementById('task-categories-tbody');
+      if (!tbody) return;
+      if (!cachedTaskCategories || cachedTaskCategories.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:24px; color:var(--text-muted)">No task events/types created yet.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = cachedTaskCategories.map(c => `
+        <tr>
+          <td><strong>${c.name}</strong></td>
+          <td><span style="display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:12px; font-size:0.75rem; font-weight:600; background:${c.color}20; color:${c.color}; border:1px solid ${c.color}60;"><span style="width:8px; height:8px; border-radius:50%; background:${c.color};"></span>${c.name}</span></td>
+          <td><span style="color:var(--text-muted); font-size:0.85rem;">${c.description || '—'}</span></td>
+          <td>#${c.order || 1}</td>
+          <td><span class="badge-role">${c.tasks_count || 0} Tasks</span></td>
+          <td>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-action" style="color:#f59e0b;" onclick="editTaskCategory(${c.id})">Edit</button>
+              <button class="btn-action btn-delete" onclick="deleteTaskCategory(${c.id})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openTaskCategoryModal() {
+      document.getElementById('tc-id').value = '';
+      document.getElementById('tc-name').value = '';
+      document.getElementById('tc-color').value = '#ec4899';
+      document.getElementById('tc-color-picker').value = '#ec4899';
+      document.getElementById('tc-order').value = (cachedTaskCategories.length + 1);
+      document.getElementById('tc-desc').value = '';
+      document.getElementById('task-category-modal-title').innerText = 'Add Task Event / Type';
+      document.getElementById('task-category-modal').classList.add('active');
+    }
+
+    function editTaskCategory(id) {
+      const c = cachedTaskCategories.find(x => x.id === id);
+      if (!c) return;
+      document.getElementById('tc-id').value = c.id;
+      document.getElementById('tc-name').value = c.name;
+      document.getElementById('tc-color').value = c.color || '#ec4899';
+      document.getElementById('tc-color-picker').value = c.color || '#ec4899';
+      document.getElementById('tc-order').value = c.order || 1;
+      document.getElementById('tc-desc').value = c.description || '';
+      document.getElementById('task-category-modal-title').innerText = `✏️ Edit: ${c.name}`;
+      document.getElementById('task-category-modal').classList.add('active');
+    }
+
+    async function saveTaskCategory(e) {
+      e.preventDefault();
+      const id = document.getElementById('tc-id').value;
+      const payload = {
+        name: document.getElementById('tc-name').value.trim(),
+        color: document.getElementById('tc-color').value.trim(),
+        order: Number(document.getElementById('tc-order').value) || 1,
+        description: document.getElementById('tc-desc').value.trim(),
+      };
+      const url = id ? `${API_URL}/task-categories/${id}/` : `${API_URL}/task-categories/`;
+      const method = id ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        closeModals();
+        loadTaskCategories();
+      } else {
+        const err = await res.json();
+        alert(JSON.stringify(err));
+      }
+    }
+
+    async function deleteTaskCategory(id) {
+      if (confirm('Delete this task event/type?')) {
+        await fetch(`${API_URL}/task-categories/${id}/`, { method: 'DELETE' });
+        loadTaskCategories();
+      }
+    }
+
+    // 2. Staff Tasks & Advanced Task Management
+    let allTasksCache = [];
+    let isTaskTableView = false;
+
+    function toggleTaskViewMode() {
+      isTaskTableView = !isTaskTableView;
+      document.getElementById('task-kanban-view').style.display = isTaskTableView ? 'none' : 'grid';
+      document.getElementById('task-table-view').style.display = isTaskTableView ? 'block' : 'none';
+      document.getElementById('btn-task-view-mode').innerText = isTaskTableView ? 'Switch to Kanban Board' : 'Switch to Table View';
+      renderTasks(allTasksCache);
+    }
+
+    function filterTasks() {
+      const projId = document.getElementById('task-filter-project').value;
+      if (projId === 'all') {
+        renderTasks(allTasksCache);
+      } else {
+        const filtered = allTasksCache.filter(t => String(t.project) === String(projId));
+        renderTasks(filtered);
+      }
+    }
+
+    async function loadTasks() {
+      try {
+        const res = await fetch(`${API_URL}/tasks/`);
+        allTasksCache = await res.json();
+        renderTasks(allTasksCache);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function renderTasks(tasks) {
+      const pendingCol = document.getElementById('kanban-pending-list');
+      const progressCol = document.getElementById('kanban-progress-list');
+      const completedCol = document.getElementById('kanban-completed-list');
+      const tableBody = document.getElementById('tasks-table-tbody');
+
+      let cPending = 0, cProgress = 0, cCompleted = 0;
+      if (pendingCol) pendingCol.innerHTML = '';
+      if (progressCol) progressCol.innerHTML = '';
+      if (completedCol) completedCol.innerHTML = '';
+      if (tableBody) tableBody.innerHTML = '';
+
+      tasks.forEach(t => {
+        const priorityColors = {
+          low: '#9ca3af',
+          medium: '#60a5fa',
+          high: '#f59e0b',
+          urgent: '#ef4444'
+        };
+        const pColor = priorityColors[t.priority] || '#60a5fa';
+        const pBadge = `<span style="font-size:0.68rem; font-weight:700; text-transform:uppercase; padding:2px 8px; border-radius:4px; background:${pColor}20; color:${pColor}; border:1px solid ${pColor}50;">${t.priority || 'medium'}</span>`;
+        
+        const statusBadge = t.custom_status_name
+          ? `<span style="font-size:0.68rem; font-weight:700; padding:2px 8px; border-radius:4px; background:${t.custom_status_color || '#60a5fa'}20; color:${t.custom_status_color || '#60a5fa'}; border:1px solid ${t.custom_status_color || '#60a5fa'}50;">${t.custom_status_name}</span>`
+          : `<span class="badge-status status-${t.status}">${t.status}</span>`;
+
+        const typeBadge = t.task_category_name
+          ? `<span style="font-size:0.68rem; font-weight:700; padding:2px 8px; border-radius:4px; background:${t.task_category_color || '#38bdf8'}20; color:${t.task_category_color || '#38bdf8'}; border:1px solid ${t.task_category_color || '#38bdf8'}60;">⚡ ${t.task_category_name}</span>`
+          : '';
+
+        // Kanban Card
+        const cardHtml = `
+          <div class="kanban-card" style="border-left: 3px solid ${t.custom_status_color || pColor}">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <div style="display:flex; gap:6px; align-items:center;">
+                ${pBadge}
+                ${typeBadge}
+              </div>
+              <small style="color:var(--text-muted); font-size:0.7rem;">${t.project_name ? '🚀 ' + t.project_name : (t.event_name ? t.event_name.slice(0, 20) : 'General Task')}</small>
+            </div>
+            <h4>${t.title}</h4>
+            <p>${t.description || 'No specific description.'}</p>
+            ${t.staff_notes ? `<p style="font-size:0.75rem; color:#34d399; background:rgba(52,211,153,0.1); padding:4px 8px; border-radius:4px;">📝 Note: ${t.staff_notes}</p>` : ''}
+            <div class="kanban-meta">
+              <span>👤 <strong>${t.assigned_to_name}</strong></span>
+              <div>
+                ${t.status === 'pending' ? `<button class="btn-action" onclick="updateTaskStatus(${t.id}, 'in_progress')">Start ➔</button>` : ''}
+                ${t.status === 'in_progress' ? `<button class="btn-action" style="color:#34d399" onclick="promptCompleteTask(${t.id})">Complete ✓</button>` : ''}
+                <button class="btn-action btn-delete" onclick="deleteTask(${t.id})">×</button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        if (t.status === 'pending') {
+          cPending++;
+          if (pendingCol) pendingCol.innerHTML += cardHtml;
+        } else if (t.status === 'in_progress') {
+          cProgress++;
+          if (progressCol) progressCol.innerHTML += cardHtml;
+        } else {
+          cCompleted++;
+          if (completedCol) completedCol.innerHTML += cardHtml;
+        }
+
+        // Table Row
+        if (tableBody) {
+          tableBody.innerHTML += `
+            <tr>
+              <td><strong>${t.title}</strong><br><small style="color:var(--text-muted)">${t.description || '—'}</small></td>
+              <td>${t.project_name ? `<span class="badge-role" style="background:rgba(99,102,241,0.15); color:#818cf8;">🚀 ${t.project_name}</span>` : '<span style="color:var(--text-muted);">General</span>'}</td>
+              <td>${typeBadge || '<span style="color:var(--text-muted); font-size:0.75rem;">—</span>'}</td>
+              <td>${pBadge}</td>
+              <td>${t.event_name || 'General Event'}</td>
+              <td>${t.assigned_to_name}</td>
+              <td>${t.due_date ? new Date(t.due_date).toLocaleString('en-IN', {dateStyle:'short', timeStyle:'short'}) : 'Flexible'}</td>
+              <td>${statusBadge}</td>
+              <td>
+                <div style="display:flex; gap:6px;">
+                  ${t.status === 'pending' ? `<button class="btn-action" onclick="updateTaskStatus(${t.id}, 'in_progress')">Start</button>` : ''}
+                  ${t.status === 'in_progress' ? `<button class="btn-action" style="color:#34d399" onclick="promptCompleteTask(${t.id})">Done</button>` : ''}
+                  <button class="btn-action btn-delete" onclick="deleteTask(${t.id})">Delete</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }
+      });
+
+      const elP = document.getElementById('kanban-count-pending');
+      const elPr = document.getElementById('kanban-count-progress');
+      const elC = document.getElementById('kanban-count-completed');
+      if (elP) elP.innerText = cPending;
+      if (elPr) elPr.innerText = cProgress;
+      if (elC) elC.innerText = cCompleted;
+    }
+
+    async function promptCompleteTask(id) {
+      const note = prompt('Enter task completion notes or remarks (optional):', 'Successfully executed on schedule');
+      await updateTaskStatus(id, 'completed', note);
+    }
+
+    async function updateTaskStatus(id, newStatus, notes = '') {
+      await fetch(`${API_URL}/tasks/${id}/`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus, staff_notes: notes })
+      });
+      loadTasks();
+      fetchAnalytics();
+    }
+
+    async function deleteTask(id) {
+      if (confirm('Delete this task?')) {
+        await fetch(`${API_URL}/tasks/${id}/`, { method: 'DELETE' });
+        loadTasks();
+        fetchAnalytics();
+      }
+    }
+
+    // 3. Menu Packages
+    async function loadPackages() {
+      try {
+        const res = await fetch(`${API_URL}/packages/`);
+        cachedPackages = await res.json();
+
+        const pkgSelect = document.getElementById('ev-package');
+        if (pkgSelect) {
+          pkgSelect.innerHTML = `<option value="">-- No Fixed Package --</option>` +
+            cachedPackages.map(p => `<option value="${p.id}">${p.name} (₹${p.per_plate_price}/plate)</option>`).join('');
+        }
+
+        const tbody = document.getElementById('packages-tbody');
+        if (tbody) {
+          tbody.innerHTML = cachedPackages.map(p => {
+            const margin = (p.per_plate_price - p.per_plate_cost).toFixed(2);
+            return `
+              <tr>
+                <td><strong>${p.name}</strong><br><small style="color:var(--text-muted)">${p.description}</small></td>
+                <td>₹${p.per_plate_price}</td>
+                <td>₹${p.per_plate_cost}</td>
+                <td><strong style="color:#34d399">₹${margin}</strong> / plate</td>
+                <td>${(p.items_details || []).map(i => `<span class="badge-role" style="margin:2px;">${i.name}</span>`).join('')}</td>
+              </tr>
+            `;
+          }).join('');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // 4. Inventory Pool
+    async function loadInventory() {
+      try {
+        const res = await fetch(`${API_URL}/inventory/`);
+        const items = await res.json();
+        const tbody = document.getElementById('inventory-tbody');
+        if (tbody) {
+          tbody.innerHTML = items.map(inv => {
+            const isShortage = inv.available_quantity === 0;
+            return `
+              <tr>
+                <td><strong>${inv.name}</strong></td>
+                <td><span style="text-transform:capitalize;">${inv.category.replace('_', ' ')}</span></td>
+                <td><strong style="color:${isShortage ? '#f87171' : '#34d399'}">${inv.available_quantity} ${inv.unit}</strong></td>
+                <td>${inv.total_quantity} ${inv.unit}</td>
+                <td>₹${inv.loss_damage_cost}</td>
+                <td><span class="badge-status ${isShortage ? 'status-cancelled' : 'status-confirmed'}">${isShortage ? 'All Reserved' : 'In Stock'}</span></td>
+              </tr>
+            `;
+          }).join('');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // ==========================================
+    // 5.0 ROLES & PERMISSIONS MATRIX SYSTEM
+    // ==========================================
+    let cachedRoles = [];
+    let currentMatrixRole = null;
+    let rolesSortField = 'id';
+    let rolesSortAsc = true;
+    let roleCurrentPage = 1;
+    const rolePageSize = 10;
+
+    async function loadRoles() {
+      try {
+        const res = await fetch(`${API_URL}/roles/`);
+        cachedRoles = await res.json();
+        renderRolesTable();
+        populateRoleDropdowns();
+      } catch (e) {
+        console.error('Error loading roles:', e);
+      }
+    }
+
+    function populateRoleDropdowns() {
+      const uDynSelect = document.getElementById('u-dynamic-role');
+      if (uDynSelect) {
+        if (!cachedRoles || cachedRoles.length === 0) {
+          uDynSelect.innerHTML = '<option value="">Standard Staff (No Custom Role)</option>';
+        } else {
+          uDynSelect.innerHTML = '<option value="">Standard Staff (Default)</option>' +
+            cachedRoles.map(r => `<option value="${r.id}">${r.name}</option>`).join('');
+        }
+      }
+    }
+
+    function renderRolesTable() {
+      const tbody = document.getElementById('roles-tbody');
+      if (!tbody) return;
+
+      if (!cachedRoles || cachedRoles.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:24px; color:var(--text-muted)">No roles configured yet.</td></tr>`;
+        return;
+      }
+
+      // Sort
+      const sorted = [...cachedRoles].sort((a, b) => {
+        let valA = a[rolesSortField];
+        let valB = b[rolesSortField];
+        if (typeof valA === 'string') return rolesSortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        return rolesSortAsc ? (valA - valB) : (valB - valA);
+      });
+
+      const totalEntries = sorted.length;
+      const startIdx = (roleCurrentPage - 1) * rolePageSize;
+      const paginated = sorted.slice(startIdx, startIdx + rolePageSize);
+
+      tbody.innerHTML = paginated.map(r => {
+        const createdDate = r.created_at ? new Date(r.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '12 Sep 2024';
+        const isActive = r.is_active;
+        const statusBadge = isActive
+          ? `<span style="background: #10b981; color: #fff; padding: 4px 14px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">● Active</span>`
+          : `<span style="background: #ef4444; color: #fff; padding: 4px 14px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">● Inactive</span>`;
+
+        return `
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <td style="width: 40px;"><input type="checkbox" class="role-row-chk" value="${r.id}" /></td>
+            <td>
+              <strong style="color: #fff; font-size: 0.88rem;">${r.name}</strong>
+              ${r.is_system ? `<span style="margin-left: 6px; font-size: 0.65rem; background: rgba(197, 155, 39, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 4px;">System</span>` : ''}
+              ${r.users_count > 0 ? `<br><small style="color: var(--text-muted); font-size: 0.72rem;">${r.users_count} assigned staff members</small>` : ''}
+            </td>
+            <td style="color: #d1d5db; font-size: 0.85rem;">${createdDate}</td>
+            <td>${statusBadge}</td>
+            <td style="text-align: right;">
+              <div style="display: inline-flex; gap: 8px; align-items: center; justify-content: flex-end;">
+                <!-- Permissions Shield Icon (matching screenshot) -->
+                <button title="Configure Permissions Matrix" onclick="openRoleMatrix(${r.id})" style="background: none; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #60a5fa; cursor: pointer; padding: 6px 10px; font-size: 0.85rem; transition: all 0.2s;">
+                  🛡️
+                </button>
+                <!-- Edit Icon (matching screenshot) -->
+                <button title="Edit Role" onclick="editRole(${r.id})" style="background: none; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fbbf24; cursor: pointer; padding: 6px 10px; font-size: 0.85rem; transition: all 0.2s;">
+                  ✏️
+                </button>
+                <!-- Trash / Delete Icon (matching screenshot) -->
+                <button title="Delete Role" onclick="deleteRole(${r.id})" ${r.is_system ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : 'style="background: none; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #f87171; cursor: pointer; padding: 6px 10px; font-size: 0.85rem;"'}>
+                  🗑️
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      const endIdx = Math.min(startIdx + rolePageSize, totalEntries);
+      const infoEl = document.getElementById('roles-pagination-info');
+      if (infoEl) infoEl.innerText = `Showing ${totalEntries > 0 ? startIdx + 1 : 0}-${endIdx} of ${totalEntries} entries`;
+      const badgeEl = document.getElementById('roles-page-badge');
+      if (badgeEl) badgeEl.innerText = roleCurrentPage;
+    }
+
+    function sortRoles(field) {
+      if (rolesSortField === field) {
+        rolesSortAsc = !rolesSortAsc;
+      } else {
+        rolesSortField = field;
+        rolesSortAsc = true;
+      }
+      renderRolesTable();
+    }
+
+    function changeRolePage(dir) {
+      const maxPage = Math.ceil(cachedRoles.length / rolePageSize) || 1;
+      const next = roleCurrentPage + dir;
+      if (next >= 1 && next <= maxPage) {
+        roleCurrentPage = next;
+        renderRolesTable();
+      }
+    }
+
+    function toggleSelectAllRoles(master) {
+      document.querySelectorAll('.role-row-chk').forEach(c => c.checked = master.checked);
+    }
+
+    function openAddRoleModal() {
+      document.getElementById('ro-id').value = '';
+      document.getElementById('ro-name').value = '';
+      document.getElementById('ro-desc').value = '';
+      document.getElementById('ro-status').checked = true;
+      document.getElementById('role-modal-title').innerText = '⊕ Add New Role';
+      document.getElementById('role-modal').classList.add('active');
+    }
+
+    function editRole(id) {
+      const role = cachedRoles.find(r => r.id === id);
+      if (!role) return;
+      document.getElementById('ro-id').value = role.id;
+      document.getElementById('ro-name').value = role.name;
+      document.getElementById('ro-desc').value = role.description || '';
+      document.getElementById('ro-status').checked = role.is_active;
+      document.getElementById('role-modal-title').innerText = `✏️ Edit Role: ${role.name}`;
+      document.getElementById('role-modal').classList.add('active');
+    }
+
+    async function saveRole(e) {
+      e.preventDefault();
+      const roleId = document.getElementById('ro-id').value;
+      const payload = {
+        name: document.getElementById('ro-name').value.trim(),
+        description: document.getElementById('ro-desc').value.trim(),
+        is_active: document.getElementById('ro-status').checked,
+      };
+
+      const url = roleId ? `${API_URL}/roles/${roleId}/` : `${API_URL}/roles/`;
+      const method = roleId ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method: method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        closeModals();
+        loadRoles();
+      } else {
+        const err = await res.json();
+        alert(JSON.stringify(err));
+      }
+    }
+
+    async function deleteRole(id) {
+      const role = cachedRoles.find(r => r.id === id);
+      if (!role) return;
+      if (role.is_system) {
+        alert('System roles cannot be removed.');
+        return;
+      }
+      if (confirm(`Are you sure you want to delete role "${role.name}"?`)) {
+        const res = await fetch(`${API_URL}/roles/${id}/`, { method: 'DELETE' });
+        if (res.ok) {
+          loadRoles();
+        } else {
+          const err = await res.json();
+          alert(err.error || 'Unable to delete role.');
+        }
+      }
+    }
+
+    // ==========================================
+    // PERMISSIONS MATRIX INTERACTION (Screenshot 2)
+    // ==========================================
+    const DEFAULT_MODULE_LIST = [
+      { key: 'dashboard', label: 'Dashboard' },
+      { key: 'events', label: 'Event Bookings' },
+      { key: 'projects', label: 'Projects' },
+      { key: 'tasks', label: 'Tasks' },
+      { key: 'task-statuses', label: 'Task Statuses' },
+      { key: 'task-categories', label: 'Task Events / Types' },
+      { key: 'sales', label: 'Sales Invoices & Billing' },
+      { key: 'purchases', label: 'Purchase Orders & Vendors' },
+      { key: 'payments', label: 'Payment History & Cashflow' },
+      { key: 'financial-report', label: 'Executive Financial Report' },
+      { key: 'packages', label: 'Menu Packages & Costing' },
+      { key: 'inventory', label: 'Inventory & Asset' },
+      { key: 'menu', label: 'Dish Catalog' },
+      { key: 'roles', label: 'Roles & Permissions' },
+      { key: 'users', label: 'Users' },
+      { key: 'inquiries', label: 'Client Leads' },
+      { key: 'reviews', label: 'Testimonials' },
+    ];
+
+    async function openRoleMatrix(roleId) {
+      const role = cachedRoles.find(r => r.id === roleId);
+      if (!role) return;
+      currentMatrixRole = role;
+
+      document.getElementById('matrix-role-name').innerText = role.name;
+      document.getElementById('matrix-role-id').value = role.id;
+
+      // Render matrix table rows
+      const tbody = document.getElementById('permission-matrix-tbody');
+      const permMap = {};
+      if (role.permissions) {
+        role.permissions.forEach(p => permMap[p.module_key] = p);
+      }
+
+      tbody.innerHTML = DEFAULT_MODULE_LIST.map(mod => {
+        const p = permMap[mod.key] || {
+          allow_all: false, can_read: true, can_write: false,
+          can_create: false, can_delete: false, can_import: false, can_export: false
+        };
+
+        return `
+          <tr data-mod-key="${mod.key}" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <td style="padding: 12px 16px; font-weight: 600; color: #fff;">
+              ${mod.label}
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-allow-all" ${p.allow_all ? 'checked' : ''} onchange="toggleAllowAllRow(this, '${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-read perm-action-${mod.key}" ${p.can_read ? 'checked' : ''} onchange="onPermActionChange('${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-write perm-action-${mod.key}" ${p.can_write ? 'checked' : ''} onchange="onPermActionChange('${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-create perm-action-${mod.key}" ${p.can_create ? 'checked' : ''} onchange="onPermActionChange('${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-delete perm-action-${mod.key}" ${p.can_delete ? 'checked' : ''} onchange="onPermActionChange('${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-import perm-action-${mod.key}" ${p.can_import ? 'checked' : ''} onchange="onPermActionChange('${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+            <td style="text-align: center;">
+              <input type="checkbox" class="perm-export perm-action-${mod.key}" ${p.can_export ? 'checked' : ''} onchange="onPermActionChange('${mod.key}')" style="width: 17px; height: 17px; cursor: pointer;" />
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // Show Matrix View, Scroll into view
+      document.getElementById('roles-list-view').style.display = 'none';
+      document.getElementById('role-matrix-view').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleAllowAllRow(allCheckbox, modKey) {
+      const row = allCheckbox.closest('tr');
+      const actionChecks = row.querySelectorAll(`.perm-action-${modKey}`);
+      actionChecks.forEach(c => c.checked = allCheckbox.checked);
+    }
+
+    function onPermActionChange(modKey) {
+      const row = document.querySelector(`tr[data-mod-key="${modKey}"]`);
+      if (!row) return;
+      const allBox = row.querySelector('.perm-allow-all');
+      const actionChecks = row.querySelectorAll(`.perm-action-${modKey}`);
+      const allChecked = Array.from(actionChecks).every(c => c.checked);
+      allBox.checked = allChecked;
+    }
+
+    function closeRoleMatrixView() {
+      document.getElementById('role-matrix-view').style.display = 'none';
+      document.getElementById('roles-list-view').style.display = 'block';
+    }
+
+    async function saveRolePermissionMatrix() {
+      const roleId = document.getElementById('matrix-role-id').value;
+      if (!roleId) return;
+
+      const matrixRows = document.querySelectorAll('#permission-matrix-tbody tr');
+      const permissionsPayload = [];
+
+      matrixRows.forEach(row => {
+        const modKey = row.getAttribute('data-mod-key');
+        const allowAll = row.querySelector('.perm-allow-all').checked;
+        const canRead = row.querySelector('.perm-read').checked;
+        const canWrite = row.querySelector('.perm-write').checked;
+        const canCreate = row.querySelector('.perm-create').checked;
+        const canDelete = row.querySelector('.perm-delete').checked;
+        const canImport = row.querySelector('.perm-import').checked;
+        const canExport = row.querySelector('.perm-export').checked;
+
+        permissionsPayload.push({
+          module_key: modKey,
+          module_label: modKey.charAt(0).toUpperCase() + modKey.slice(1),
+          allow_all: allowAll,
+          can_read: allowAll || canRead,
+          can_write: allowAll || canWrite,
+          can_create: allowAll || canCreate,
+          can_delete: allowAll || canDelete,
+          can_import: allowAll || canImport,
+          can_export: allowAll || canExport,
+        });
+      });
+
+      try {
+        const res = await fetch(`${API_URL}/roles/${roleId}/permissions/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(permissionsPayload)
+        });
+
+        if (res.ok) {
+          alert(`Permissions successfully updated for role "${currentMatrixRole ? currentMatrixRole.name : ''}"!`);
+          await loadRoles();
+          closeRoleMatrixView();
+        } else {
+          const err = await res.json();
+          alert('Error saving permissions: ' + JSON.stringify(err));
+        }
+      } catch (e) {
+        alert('Network error saving permissions: ' + e.message);
+      }
+    }
+
+    function exportRolesCSV() {
+      if (!cachedRoles || cachedRoles.length === 0) return alert('No roles to export.');
+      let csv = 'ID,Role Name,Slug,Created Date,Status,Users Count\n';
+      cachedRoles.forEach(r => {
+        csv += `"${r.id}","${r.name}","${r.slug}","${r.created_at}","${r.is_active ? 'Active' : 'Inactive'}","${r.users_count || 0}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `roles_export_${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+    }
+
+    function exportRolePermissionsJSON() {
+      if (!currentMatrixRole) return;
+      const jsonStr = JSON.stringify(currentMatrixRole.permissions || [], null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${currentMatrixRole.slug || 'role'}_permissions.json`;
+      a.click();
+    }
+
+    // 5. Staff & Users Directory
+    async function loadUsers() {
+      try {
+        const res = await fetch(`${API_URL}/users`);
+        const users = await res.json();
+        cachedStaff = users.filter(u => u.role !== 'superadmin');
+
+        // Populate assign-to select for tasks modal (all staff/employees)
+        const tkUser = document.getElementById('tk-user');
+        if (tkUser) {
+          const assignees = users.filter(u => u.role !== 'superadmin');
+          if (assignees.length > 0) {
+            tkUser.innerHTML = assignees.map(u => {
+              const label = `${u.first_name || u.username} (${u.role_name || u.role} - ${u.department || 'General'})`;
+              return `<option value="${u.id}">${label}</option>`;
+            }).join('');
+          } else {
+            tkUser.innerHTML = `<option value="">No staff available</option>`;
+          }
+        }
+
+        const tbody = document.getElementById('users-tbody');
+        if (tbody) {
+          tbody.innerHTML = cachedStaff.map(u => `
+            <tr>
+              <td><strong>${u.username}</strong><br><small style="color:var(--text-muted)">${u.first_name || ''} ${u.last_name || ''}</small></td>
+              <td>
+                <span class="badge-role role-${u.role}">${u.role_name || u.role}</span>
+              </td>
+              <td>${u.branch || 'Main Branch'}</td>
+              <td>${u.department || 'Operations'}</td>
+              <td>${u.phone || '—'}</td>
+              <td><span class="badge-status status-confirmed">${u.is_active ? 'Active' : 'Disabled'}</span></td>
+              <td>
+                <div style="display:flex; gap:6px;">
+                  <button class="btn-action" style="background:rgba(217,119,6,0.15); color:#f59e0b; border:1px solid rgba(217,119,6,0.3);" onclick="editUser(${u.id})">Edit</button>
+                  <button class="btn-action btn-delete" onclick="deleteUser(${u.id})">Remove</button>
+                </div>
+              </td>
+            </tr>
+          `).join('');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // 6. Inquiries
     async function loadInquiries() {
       try {
         const res = await fetch(`${API_URL}/inquiries`);
         const inquiries = await res.json();
         const tbody = document.getElementById('inquiries-tbody');
-        tbody.innerHTML = '';
-        inquiries.forEach((item) => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>
-              <strong>${item.name}</strong><br>
-              <small style="color:var(--text-muted)">${item.phone}</small>
-            </td>
-            <td style="text-transform: capitalize;">${item.eventType}</td>
-            <td>${item.guestCount} Pax</td>
-            <td>${item.eventDate}</td>
-            <td>
-              <span class="badge-status status-${item.status}">${item.status}</span>
-            </td>
-            <td>
-              ${item.status === 'pending' 
-                ? `<button class="btn-action" onclick="updateInquiryStatus(${item.id}, 'confirmed')">Confirm</button>`
-                : `<button class="btn-action" onclick="updateInquiryStatus(${item.id}, 'pending')">Reopen</button>`}
-              <button class="btn-action btn-delete" onclick="deleteInquiry(${item.id})">Delete</button>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    function getLoggedInUser() {
-      try {
-        return JSON.parse(localStorage.getItem('guruji_auth_user') || '{}');
-      } catch (e) {
-        return {};
-      }
-    }
-
-    async function loadUsers() {
-      try {
-        const currentUser = getLoggedInUser();
-        const res = await fetch(`${API_URL}/users`);
-        const users = await res.json();
-        const tbody = document.getElementById('users-tbody');
-        tbody.innerHTML = '';
-
-        // Control Visibility of "+ Add New User" button based on hierarchy:
-        // Only superadmin and admin can create users. Manager and Employee cannot.
-        const addBtn = document.getElementById('btn-open-user-modal');
-        if (addBtn) {
-          if (currentUser.role === 'superadmin' || currentUser.role === 'admin') {
-            addBtn.style.display = 'inline-block';
-          } else {
-            addBtn.style.display = 'none';
-          }
+        if (tbody) {
+          tbody.innerHTML = inquiries.map(i => `
+            <tr>
+              <td><strong>${i.name}</strong><br><small style="color:var(--text-muted)">${i.phone}</small></td>
+              <td style="text-transform: capitalize;">${i.eventType}</td>
+              <td>${i.guestCount} Pax</td>
+              <td>${i.eventDate}</td>
+              <td><span class="badge-status status-${i.status}">${i.status}</span></td>
+              <td>
+                ${i.status === 'pending'
+                  ? `<button class="btn-action" onclick="updateInquiryStatus(${i.id}, 'confirmed')">Confirm</button>`
+                  : `<button class="btn-action" onclick="updateInquiryStatus(${i.id}, 'pending')">Reopen</button>`}
+                <button class="btn-action btn-delete" onclick="deleteInquiry(${i.id})">Delete</button>
+              </td>
+            </tr>
+          `).join('');
         }
-
-        users.forEach((u) => {
-          const tr = document.createElement('tr');
-          
-          // Determine if current user can delete this user:
-          // 1. Superadmin cannot be deleted by anyone
-          // 2. Manager cannot delete anyone
-          // 3. Employee cannot delete anyone
-          // 4. Admin cannot delete Superadmin or other Admins; can delete Manager and Employee
-          // 5. Superadmin can delete Admin, Manager, and Employee
-          let canDelete = false;
-          if (u.role !== 'superadmin') {
-            if (currentUser.role === 'superadmin') {
-              canDelete = true;
-            } else if (currentUser.role === 'admin' && (u.role === 'manager' || u.role === 'employee')) {
-              canDelete = true;
-            }
-          }
-
-          tr.innerHTML = `
-            <td>
-              <strong>${u.username}</strong><br>
-              <small style="color:var(--text-muted)">${u.first_name || ''} ${u.last_name || ''}</small>
-            </td>
-            <td><span class="badge-role role-${u.role}">${u.role}</span></td>
-            <td>${u.department || 'Operations'}</td>
-            <td>${u.phone || '—'}</td>
-            <td>${u.email || '—'}</td>
-            <td><span class="badge-status status-confirmed">${u.is_active ? 'Active' : 'Disabled'}</span></td>
-            <td>
-              ${canDelete 
-                ? `<button class="btn-action btn-delete" onclick="deleteUser(${u.id})">Remove</button>` 
-                : `<span style="font-size:0.75rem; color:var(--text-muted);">Protected</span>`}
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
       } catch (e) {
         console.error(e);
       }
     }
 
+    // 7. Menu Dishes
     async function loadMenu() {
       try {
         const res = await fetch(`${API_URL}/menu`);
         const menu = await res.json();
         const tbody = document.getElementById('menu-tbody');
-        tbody.innerHTML = '';
-        menu.forEach((item) => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td><strong>${item.name}</strong></td>
-            <td style="text-transform: capitalize;">${item.category}</td>
-            <td>₹${item.price}</td>
-            <td><span style="color: #10b981;">● Pure Veg</span></td>
-            <td>${item.badge ? `<span style="background: rgba(197,155,39,0.2); color: var(--primary-hover); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem;">${item.badge}</span>` : '—'}</td>
-            <td>
-              <button class="btn-action btn-delete" onclick="deleteMenuItem(${item.id})">Delete</button>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
+        if (tbody) {
+          tbody.innerHTML = menu.map(m => `
+            <tr>
+              <td><strong>${m.name}</strong><br><small style="color:var(--text-muted)">${m.description || ''}</small></td>
+              <td style="text-transform: capitalize;">${m.category}</td>
+              <td>₹${m.price}</td>
+              <td>₹${m.cost_price || 0}</td>
+              <td>${m.isVeg ? '🟢 Veg' : '🔴 Non-Veg'}</td>
+              <td>${m.badge ? `<span class="badge-role">${m.badge}</span>` : '—'}</td>
+              <td><button class="btn-action btn-delete" onclick="deleteMenuItem(${m.id})">Delete</button></td>
+            </tr>
+          `).join('');
+        }
       } catch (e) {
         console.error(e);
       }
     }
 
+    // 8. Reviews
     async function loadReviews() {
       try {
         const res = await fetch(`${API_URL}/reviews`);
         const reviews = await res.json();
         const tbody = document.getElementById('reviews-tbody');
-        tbody.innerHTML = '';
-        reviews.forEach((r) => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td><strong>${r.author}</strong></td>
-            <td>${r.role}</td>
-            <td><span style="color: #f59e0b;">${'★'.repeat(r.rating)}</span></td>
-            <td style="max-width: 320px; font-size: 0.8rem; color: #d1d5db;">${r.comment}</td>
-            <td>
-              <button class="btn-action btn-delete" onclick="deleteReview(${r.id})">Delete</button>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
+        if (tbody) {
+          tbody.innerHTML = reviews.map(r => `
+            <tr>
+              <td><strong>${r.author}</strong></td>
+              <td>${r.role}</td>
+              <td><span style="color:#fbbf24">${'★'.repeat(r.rating)}</span></td>
+              <td>${r.comment}</td>
+              <td><button class="btn-action btn-delete" onclick="deleteReview(${r.id})">Delete</button></td>
+            </tr>
+          `).join('');
+        }
       } catch (e) {
         console.error(e);
       }
     }
 
-    function switchTab(tab) {
-      document.querySelectorAll('.tab-panel').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-
-      if (tab === 'dashboard' || tab === 'inquiries') {
-        document.getElementById('tab-dashboard').style.display = 'block';
-        loadInquiries();
-      } else if (tab === 'users') {
-        document.getElementById('tab-users').style.display = 'block';
+    // Modal Operations
+    function openExtraPlatesModal(eventId) {
+      document.getElementById('ep-event-id').value = eventId;
+      document.getElementById('extra-plate-modal').classList.add('active');
+    }
+    function openEventModal() {
+      document.getElementById('ev-date').value = new Date().toISOString().split('T')[0];
+      document.getElementById('event-modal').classList.add('active');
+    }
+    function openTaskModal() {
+      populateProjectDropdowns();
+      populateTaskStatusDropdowns();
+      populateTaskCategoryDropdowns();
+      
+      const tkUser = document.getElementById('tk-user');
+      if (tkUser && (!tkUser.children || tkUser.children.length === 0)) {
         loadUsers();
-      } else if (tab === 'menu') {
-        document.getElementById('tab-menu').style.display = 'block';
-        loadMenu();
-      } else if (tab === 'reviews') {
-        document.getElementById('tab-reviews').style.display = 'block';
-        loadReviews();
       }
-      event.currentTarget.classList.add('active');
-    }
 
-    async function updateInquiryStatus(id, newStatus) {
-      await fetch(`${API_URL}/inquiries/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      loadInquiries();
-      fetchAnalytics();
+      document.getElementById('task-modal').classList.add('active');
     }
-
-    async function deleteInquiry(id) {
-      if (confirm('Delete this inquiry?')) {
-        await fetch(`${API_URL}/inquiries/${id}`, { method: 'DELETE' });
-        loadInquiries();
-        fetchAnalytics();
-      }
-    }
-
-    async function deleteUser(id) {
-      const currentUser = getLoggedInUser();
-      if (!currentUser.id) {
-        alert('Please sign in first.');
-        return;
-      }
-      if (confirm('Are you sure you want to remove this team user?')) {
-        const res = await fetch(`${API_URL}/users/${id}`, {
-          method: 'DELETE',
-          headers: {
-            'X-Requester-Id': currentUser.id.toString(),
-            'Content-Type': 'application/json',
-          }
-        });
-        const data = await res.json();
-        if (res.ok) {
-          loadUsers();
-          fetchAnalytics();
-        } else {
-          alert(data.error || 'Permission denied.');
-        }
-      }
-    }
-
-    async function deleteMenuItem(id) {
-      if (confirm('Delete this menu dish?')) {
-        await fetch(`${API_URL}/menu/${id}`, { method: 'DELETE' });
-        loadMenu();
-        fetchAnalytics();
-      }
-    }
-
-    async function deleteReview(id) {
-      if (confirm('Delete this review?')) {
-        await fetch(`${API_URL}/reviews/${id}`, { method: 'DELETE' });
-        loadReviews();
-        fetchAnalytics();
-      }
-    }
-
     function openUserModal() {
-      const currentUser = getLoggedInUser();
-      const roleSelect = document.getElementById('u-role');
-      const hint = document.getElementById('u-role-hint');
+      populateRoleDropdowns();
+      document.getElementById('user-modal-title').innerText = 'Create Staff Account';
+      document.getElementById('u-id').value = '';
+      document.getElementById('u-username').value = '';
+      document.getElementById('u-username').disabled = false;
+      document.getElementById('u-fname').value = '';
+      document.getElementById('u-lname').value = '';
+      document.getElementById('u-email').value = '';
+      document.getElementById('u-phone').value = '';
+      document.getElementById('u-department').value = '';
+      document.getElementById('u-password').value = '';
+      document.getElementById('u-password').required = true;
+      document.getElementById('u-password-label').innerText = 'Initial Password *';
+      document.getElementById('u-submit-btn').innerText = 'Create Account';
+      document.getElementById('user-modal').classList.add('active');
+    }
 
-      // Populate allowed options according to rule:
-      // Superadmin can create: Admin, Manager, Employee
-      // Admin can create: Manager, Employee
-      // Manager & Employee: cannot create anyone
-      if (currentUser.role === 'superadmin') {
-        roleSelect.innerHTML = `
-          <option value="admin">Admin (Operations & Bookings)</option>
-          <option value="manager">Manager (Kitchen & Menu Supervision)</option>
-          <option value="employee" selected>Employee (Ground Staff / Crew)</option>
-        `;
-        hint.innerText = 'As Super Admin, you can create Admin, Manager, or Employee accounts.';
-      } else if (currentUser.role === 'admin') {
-        roleSelect.innerHTML = `
-          <option value="manager">Manager (Kitchen & Menu Supervision)</option>
-          <option value="employee" selected>Employee (Ground Staff / Crew)</option>
-        `;
-        hint.innerText = 'As Admin, you can create Manager or Employee accounts.';
-      } else {
-        alert('Your role does not have permission to create staff accounts.');
-        return;
+    function editUser(id) {
+      const user = cachedStaff.find(u => u.id === id);
+      if (!user) return;
+      populateRoleDropdowns();
+      document.getElementById('user-modal-title').innerText = `Edit User: ${user.username}`;
+      document.getElementById('u-id').value = user.id;
+      document.getElementById('u-username').value = user.username || '';
+      document.getElementById('u-username').disabled = true; // username shouldn't be altered
+      if (user.dynamic_role) {
+        document.getElementById('u-dynamic-role').value = user.dynamic_role;
       }
-
+      document.getElementById('u-fname').value = user.first_name || '';
+      document.getElementById('u-lname').value = user.last_name || '';
+      document.getElementById('u-email').value = user.email || '';
+      document.getElementById('u-phone').value = user.phone || '';
+      document.getElementById('u-department').value = user.department || '';
+      document.getElementById('u-password').value = '';
+      document.getElementById('u-password').required = false;
+      document.getElementById('u-password-label').innerText = 'New Password (Optional)';
+      document.getElementById('u-submit-btn').innerText = 'Update Account';
       document.getElementById('user-modal').classList.add('active');
     }
     function openMenuModal() {
@@ -1108,42 +3488,121 @@
       document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
     }
 
+    // Form Submissions
+    async function submitExtraPlates(e) {
+      e.preventDefault();
+      const id = document.getElementById('ep-event-id').value;
+      const count = document.getElementById('ep-count').value;
+      const note = document.getElementById('ep-note').value;
+
+      const res = await fetch(`${API_URL}/events/${id}/last-minute-change/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ extra_plates: count, note: note })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert(data.message || 'Kitchen alerted and billing updated!');
+        closeModals();
+        loadEvents();
+        loadTasks();
+        fetchAnalytics();
+      } else {
+        alert(data.error || 'Failed to update plates.');
+      }
+    }
+
+    async function saveEvent(e) {
+      e.preventDefault();
+      const payload = {
+        name: document.getElementById('ev-name').value,
+        client_name: document.getElementById('ev-client').value,
+        client_phone: document.getElementById('ev-phone').value,
+        client_email: document.getElementById('ev-email').value,
+        date: document.getElementById('ev-date').value,
+        guest_count: Number(document.getElementById('ev-pax').value),
+        venue: document.getElementById('ev-venue').value,
+        menu_package: document.getElementById('ev-package').value || null,
+        status: document.getElementById('ev-status').value,
+      };
+
+      await fetch(`${API_URL}/events/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      closeModals();
+      loadEvents();
+      fetchAnalytics();
+    }
+
+    async function saveTask(e) {
+      e.preventDefault();
+      const dueVal = document.getElementById('tk-due').value;
+      const projVal = document.getElementById('tk-project').value;
+      const statusVal = document.getElementById('tk-custom-status').value;
+      const catVal = document.getElementById('tk-category').value;
+      const payload = {
+        title: document.getElementById('tk-title').value,
+        project: projVal ? projVal : null,
+        custom_status: statusVal ? statusVal : null,
+        task_category: catVal ? catVal : null,
+        priority: document.getElementById('tk-priority').value,
+        assigned_to: document.getElementById('tk-user').value,
+        description: document.getElementById('tk-desc').value,
+        due_date: dueVal ? new Date(dueVal).toISOString() : null,
+        status: 'pending'
+      };
+
+      await fetch(`${API_URL}/tasks/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      closeModals();
+      loadTasks();
+      fetchAnalytics();
+    }
+
     async function saveUser(e) {
       e.preventDefault();
-      const currentUser = getLoggedInUser();
-      if (!currentUser.id) {
-        alert('Please sign in first.');
-        return;
-      }
+      const userId = document.getElementById('u-id').value;
+      const dynRoleId = document.getElementById('u-dynamic-role').value;
+      const pwd = document.getElementById('u-password').value;
 
       const payload = {
         username: document.getElementById('u-username').value.trim(),
-        role: document.getElementById('u-role').value,
         first_name: document.getElementById('u-fname').value.trim(),
         last_name: document.getElementById('u-lname').value.trim(),
         email: document.getElementById('u-email').value.trim(),
         phone: document.getElementById('u-phone').value.trim(),
         department: document.getElementById('u-department').value.trim(),
-        password: document.getElementById('u-password').value,
-        requester_id: currentUser.id,
+        dynamic_role: dynRoleId ? Number(dynRoleId) : null,
       };
 
-      const res = await fetch(`${API_URL}/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Requester-Id': currentUser.id.toString(),
-        },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      if (res.ok) {
-        closeModals();
-        loadUsers();
-        fetchAnalytics();
-        alert('Staff account created successfully!');
-      } else {
-        alert('Error: ' + (data.error || JSON.stringify(data)));
+      if (pwd) {
+        payload.password = pwd;
+      }
+
+      const url = userId ? `${API_URL}/users/${userId}` : `${API_URL}/users`;
+      const method = userId ? 'PATCH' : 'POST';
+
+      try {
+        const res = await fetch(url, {
+          method: method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          closeModals();
+          loadUsers();
+          fetchAnalytics();
+        } else {
+          const err = await res.json();
+          alert(typeof err === 'object' ? JSON.stringify(err) : err);
+        }
+      } catch (err) {
+        alert('Network or server error while saving user account.');
       }
     }
 
@@ -1153,6 +3612,7 @@
         name: document.getElementById('m-name').value,
         category: document.getElementById('m-category').value,
         price: document.getElementById('m-price').value,
+        cost_price: document.getElementById('m-cost').value,
         badge: document.getElementById('m-badge').value,
         description: document.getElementById('m-desc').value,
         isVeg: true
@@ -1183,6 +3643,359 @@
       closeModals();
       loadReviews();
       fetchAnalytics();
+    }
+
+    async function settleEvent(id) {
+      if (confirm('Settle this event? This will mark the booking as Settled, calculate final P&L, and return allocated inventory back to the available pool.')) {
+        await fetch(`${API_URL}/events/${id}/`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: 'settled' })
+        });
+        loadEvents();
+        loadInventory();
+        fetchAnalytics();
+      }
+    }
+
+    async function deleteEvent(id) {
+      if (confirm('Delete this event booking?')) {
+        await fetch(`${API_URL}/events/${id}/`, { method: 'DELETE' });
+        loadEvents();
+        fetchAnalytics();
+      }
+    }
+
+    async function deleteUser(id) {
+      if (confirm('Remove this staff user account?')) {
+        await fetch(`${API_URL}/users/${id}`, { method: 'DELETE' });
+        loadUsers();
+        fetchAnalytics();
+      }
+    }
+
+    async function deleteMenuItem(id) {
+      if (confirm('Delete this dish from catalog?')) {
+        await fetch(`${API_URL}/menu/${id}`, { method: 'DELETE' });
+        loadMenu();
+        fetchAnalytics();
+      }
+    }
+
+    async function deleteReview(id) {
+      if (confirm('Delete this review?')) {
+        await fetch(`${API_URL}/reviews/${id}`, { method: 'DELETE' });
+        loadReviews();
+        fetchAnalytics();
+      }
+    }
+
+    async function updateInquiryStatus(id, newStatus) {
+      await fetch(`${API_URL}/inquiries/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      loadInquiries();
+      fetchAnalytics();
+    }
+
+    async function deleteInquiry(id) {
+      if (confirm('Delete this inquiry?')) {
+        await fetch(`${API_URL}/inquiries/${id}`, { method: 'DELETE' });
+        loadInquiries();
+        fetchAnalytics();
+      }
+    }
+
+    // ==========================================
+    // Sales, Purchases, Payments & Financial Report JS
+    // ==========================================
+    let cachedVendors = [];
+
+    function calculateInvoiceTotal() {
+      const subtotal = Number(document.getElementById('si-subtotal').value) || 0;
+      const gstRate = Number(document.getElementById('si-gst-rate').value) || 0;
+      const total = subtotal + (subtotal * gstRate / 100);
+      document.getElementById('si-total-display').value = `₹${Math.round(total).toLocaleString('en-IN')}`;
+    }
+
+    function togglePaymentParties() {
+      const type = document.getElementById('pm-type').value;
+      const partyInput = document.getElementById('pm-party');
+      partyInput.placeholder = (type === 'inflow') ? 'e.g. Client Name (Mr. Mittal)' : 'e.g. Vendor Name (Delhi Dairy Supplies)';
+    }
+
+    async function loadVendors() {
+      try {
+        const res = await fetch(`${API_URL}/vendors/`);
+        cachedVendors = await res.json();
+        const poVendorSelect = document.getElementById('po-vendor');
+        if (poVendorSelect) {
+          poVendorSelect.innerHTML = cachedVendors.map(v => `<option value="${v.id}">${v.name} (${v.category})</option>`).join('');
+        }
+      } catch (e) {
+        console.error('Error loading vendors:', e);
+      }
+    }
+
+    function openSalesInvoiceModal() {
+      const evSelect = document.getElementById('si-event');
+      if (evSelect && cachedEvents.length > 0) {
+        evSelect.innerHTML = cachedEvents.map(e => `<option value="${e.id}">${e.name} - ${e.client_name}</option>`).join('');
+        const ev = cachedEvents[0];
+        document.getElementById('si-client-name').value = ev.client_name || '';
+        document.getElementById('si-client-phone').value = ev.client_phone || '';
+      }
+      calculateInvoiceTotal();
+      document.getElementById('sales-invoice-modal').classList.add('active');
+    }
+
+    function openPurchaseModal() {
+      loadVendors();
+      const poEvSelect = document.getElementById('po-event');
+      if (poEvSelect) {
+        poEvSelect.innerHTML = `<option value="">General Stock / Central Kitchen</option>` + cachedEvents.map(e => `<option value="${e.id}">${e.name}</option>`).join('');
+      }
+      document.getElementById('purchase-modal').classList.add('active');
+    }
+
+    function openPaymentModal() {
+      const pmEvSelect = document.getElementById('pm-event');
+      if (pmEvSelect) {
+        pmEvSelect.innerHTML = `<option value="">General / Central Ledger</option>` + cachedEvents.map(e => `<option value="${e.id}">${e.name}</option>`).join('');
+      }
+      document.getElementById('payment-modal').classList.add('active');
+    }
+
+    async function loadSales() {
+      try {
+        const res = await fetch(`${API_URL}/sales/`);
+        const sales = await res.json();
+        const tbody = document.getElementById('sales-tbody');
+        if (tbody) {
+          if (!sales || sales.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:var(--text-muted); padding:20px;">No sales invoices generated yet.</td></tr>`;
+            return;
+          }
+          tbody.innerHTML = sales.map(s => `
+            <tr>
+              <td><strong>${s.invoice_number}</strong></td>
+              <td>${s.client_name}<br><small style="color:var(--text-muted)">${s.client_phone || '—'}</small></td>
+              <td>${s.event_name || 'Direct Billing'}</td>
+              <td>${s.invoice_date}</td>
+              <td><strong>₹${Number(s.total_amount).toLocaleString('en-IN')}</strong></td>
+              <td><span style="color:#34d399">₹${Number(s.amount_paid).toLocaleString('en-IN')}</span></td>
+              <td><span style="color:${s.balance_due > 0 ? '#fbbf24' : '#9ca3af'}">₹${Number(s.balance_due).toLocaleString('en-IN')}</span></td>
+              <td><span class="badge-status status-${s.payment_status === 'paid' ? 'confirmed' : 'pending'}">${s.payment_status}</span></td>
+              <td>
+                <button class="btn-action" onclick="alert('Printing GST Invoice #${s.invoice_number} for ${s.client_name}')">🖨️ Print</button>
+              </td>
+            </tr>
+          `).join('');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function loadPurchases() {
+      try {
+        const res = await fetch(`${API_URL}/purchases/`);
+        const purchases = await res.json();
+        const tbody = document.getElementById('purchases-tbody');
+        if (tbody) {
+          if (!purchases || purchases.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:var(--text-muted); padding:20px;">No purchase orders raised yet.</td></tr>`;
+            return;
+          }
+          tbody.innerHTML = purchases.map(p => `
+            <tr>
+              <td><strong>${p.po_number}</strong></td>
+              <td>${p.vendor_name}</td>
+              <td>${p.event_name || 'Central Kitchen'}</td>
+              <td>${p.order_date}</td>
+              <td><strong>₹${Number(p.total_amount).toLocaleString('en-IN')}</strong></td>
+              <td>₹${Number(p.amount_paid).toLocaleString('en-IN')}</td>
+              <td><span class="badge-status status-${p.status === 'received' ? 'confirmed' : 'pending'}">${p.status}</span></td>
+              <td><span class="badge-status status-${p.payment_status === 'paid' ? 'confirmed' : 'pending'}">${p.payment_status}</span></td>
+              <td>
+                ${p.status !== 'received' ? `<button class="btn-action" onclick="receivePO(${p.id})">Receive ✓</button>` : '<span style="color:#34d399">Fulfilled</span>'}
+              </td>
+            </tr>
+          `).join('');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function receivePO(id) {
+      if (confirm('Mark this Purchase Order as Received / Delivered?')) {
+        await fetch(`${API_URL}/purchases/${id}/`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: 'received' })
+        });
+        loadPurchases();
+        fetchAnalytics();
+      }
+    }
+
+    async function loadPayments() {
+      try {
+        const res = await fetch(`${API_URL}/payments/`);
+        const payments = await res.json();
+        const tbody = document.getElementById('payments-tbody');
+        if (tbody) {
+          if (!payments || payments.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:20px;">No payment transactions recorded yet.</td></tr>`;
+            return;
+          }
+          tbody.innerHTML = payments.map(pm => {
+            const isInflow = pm.transaction_type === 'inflow';
+            const color = isInflow ? '#34d399' : '#f87171';
+            const sign = isInflow ? '+₹' : '-₹';
+            return `
+              <tr>
+                <td><strong>${pm.receipt_number}</strong></td>
+                <td><span style="color:${color}; font-weight:700;">${isInflow ? 'INFLOW (Receipt)' : 'OUTFLOW (Expense)'}</span></td>
+                <td>${pm.party_name}</td>
+                <td><strong style="color:${color};">${sign}${Number(pm.amount).toLocaleString('en-IN')}</strong></td>
+                <td style="text-transform:uppercase;">${pm.payment_mode}</td>
+                <td><small style="color:var(--text-muted)">${pm.reference_number || '—'}</small></td>
+                <td>${pm.payment_date}</td>
+                <td>${pm.event_name || 'General Ledger'}</td>
+              </tr>
+            `;
+          }).join('');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function loadFinancialReport() {
+      try {
+        const res = await fetch(`${API_URL}/financial-report`);
+        if (!res.ok) {
+          return;
+        }
+        const data = await res.json();
+        if (data.summary) {
+          document.getElementById('fr-gross-revenue').innerText = `₹${Number(data.summary.total_gross_revenue).toLocaleString('en-IN')}`;
+          document.getElementById('fr-total-costs').innerText = `₹${Number(data.summary.total_expenses).toLocaleString('en-IN')}`;
+          document.getElementById('fr-net-profit').innerText = `₹${Number(data.summary.net_operating_profit).toLocaleString('en-IN')}`;
+          document.getElementById('fr-receivables').innerText = `₹${Number(data.summary.total_receivables).toLocaleString('en-IN')}`;
+        }
+
+        const tbody = document.getElementById('financial-report-tbody');
+        if (tbody && data.events_pnl) {
+          tbody.innerHTML = data.events_pnl.map(p => `
+            <tr>
+              <td><strong>${p.event_name}</strong><br><small style="color:var(--text-muted)">${p.client_name} • ${p.date}</small></td>
+              <td>${p.guest_count} Pax</td>
+              <td><strong>₹${Number(p.revenue).toLocaleString('en-IN')}</strong></td>
+              <td>₹${Number(p.food_cost).toLocaleString('en-IN')}</td>
+              <td>₹${Number(p.staff_cost + p.transport_cost).toLocaleString('en-IN')}</td>
+              <td>₹${Number(p.vendor_cost).toLocaleString('en-IN')}</td>
+              <td><strong style="color:${p.net_profit >= 0 ? '#34d399' : '#f87171'}">₹${Number(p.net_profit).toLocaleString('en-IN')}</strong></td>
+              <td><span class="badge-role" style="background:${p.margin_percent >= 30 ? 'rgba(52,211,153,0.15)' : 'rgba(251,191,36,0.15)'}; color:${p.margin_percent >= 30 ? '#34d399' : '#fbbf24'}">${p.margin_percent}%</span></td>
+            </tr>
+          `).join('');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function saveSalesInvoice(e) {
+      e.preventDefault();
+      const subtotal = Number(document.getElementById('si-subtotal').value);
+      const gstRate = Number(document.getElementById('si-gst-rate').value);
+      const taxAmount = (subtotal * gstRate) / 100;
+      const totalAmount = subtotal + taxAmount;
+      const advancePaid = Number(document.getElementById('si-advance').value) || 0;
+
+      const payload = {
+        event: document.getElementById('si-event').value,
+        client_name: document.getElementById('si-client-name').value,
+        client_phone: document.getElementById('si-client-phone').value,
+        subtotal: subtotal,
+        tax_amount: taxAmount,
+        total_amount: totalAmount,
+        amount_paid: advancePaid,
+        notes: document.getElementById('si-notes').value,
+        payment_status: advancePaid >= totalAmount ? 'paid' : (advancePaid > 0 ? 'partial' : 'pending')
+      };
+
+      const res = await fetch(`${API_URL}/sales/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        closeModals();
+        loadSales();
+        fetchAnalytics();
+      } else {
+        const err = await res.json();
+        alert(JSON.stringify(err));
+      }
+    }
+
+    async function savePurchaseOrder(e) {
+      e.preventDefault();
+      const payload = {
+        vendor: document.getElementById('po-vendor').value,
+        event: document.getElementById('po-event').value || null,
+        total_amount: Number(document.getElementById('po-amount').value),
+        expected_delivery_date: document.getElementById('po-delivery-date').value || null,
+        notes: document.getElementById('po-items-desc').value,
+        status: 'ordered',
+        payment_status: 'pending'
+      };
+
+      const res = await fetch(`${API_URL}/purchases/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        closeModals();
+        loadPurchases();
+        fetchAnalytics();
+      } else {
+        const err = await res.json();
+        alert(JSON.stringify(err));
+      }
+    }
+
+    async function savePayment(e) {
+      e.preventDefault();
+      const payload = {
+        transaction_type: document.getElementById('pm-type').value,
+        amount: Number(document.getElementById('pm-amount').value),
+        party_name: document.getElementById('pm-party').value,
+        payment_mode: document.getElementById('pm-mode').value,
+        reference_number: document.getElementById('pm-ref').value,
+        event: document.getElementById('pm-event').value || null,
+      };
+
+      const res = await fetch(`${API_URL}/payments/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        closeModals();
+        loadPayments();
+        if (payload.transaction_type === 'inflow') loadSales();
+        fetchAnalytics();
+      } else {
+        const err = await res.json();
+        alert(JSON.stringify(err));
+      }
     }
 
     // Initialize Auth Guard

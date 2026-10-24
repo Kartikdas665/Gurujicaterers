@@ -26,20 +26,20 @@ export default function BookNowPage() {
   const packages = [
     {
       id: 'Silver Classic',
-      price: 850,
-      badge: 'POPULAR',
+      badge: 'POPULAR TIER',
+      tagline: 'Refined Traditional Feast',
       features: ['4 Starters + 2 Live Counters', '8 Main Course Curries & Dal', 'Assorted Tandoori Breads & Rice', '3 Signature Desserts', 'Uniformed Service Crew'],
     },
     {
       id: 'Royal Grand Banquet',
-      price: 1350,
       badge: 'RECOMMENDED',
+      tagline: 'Grand Celebration Experience',
       features: ['6 Artisanal Starters', '4 Live Counters (Chaat, Pasta, Tandoor)', '12 Gourmet Main Courses', 'Liquid Mocktail Lounge', 'Artisanal Dessert & Kulfi Bar', 'Luxury Bone China Dinnerware'],
     },
     {
       id: 'Imperial Celebrity VIP',
-      price: 2200,
       badge: 'ULTRA LUXURY',
+      tagline: 'Masterchef Bespoke Curation',
       features: ['Personal Masterchef Curation', 'Unlimited Global Live Stations', 'Imported Gourmet Ingredients', 'Exotic Fruit & Molecular Desserts', 'Butler Style Silver Service', 'Dedicated VIP Hospitality Manager'],
     },
   ];
@@ -70,9 +70,6 @@ export default function BookNowPage() {
   };
 
   const selectedPkg = packages.find((p) => p.id === formData.packageTier) || packages[1];
-  const counterAddonRate = (formData.liveCounters.length) * 80;
-  const estimatedPerGuest = selectedPkg.price + counterAddonRate;
-  const totalInvestment = estimatedPerGuest * formData.guests;
 
   return (
     <>
@@ -260,8 +257,7 @@ export default function BookNowPage() {
                             <div className="pkg-badge">{pkg.badge}</div>
                             <h4>{pkg.id}</h4>
                             <div className="pkg-price-row">
-                              <span className="pkg-price">₹{pkg.price}</span>
-                              <span className="pkg-per">/ plate</span>
+                              <span className="pkg-price-tag">Bespoke Curation</span>
                             </div>
                             <ul className="pkg-feature-list">
                               {pkg.features.map((f, i) => (
@@ -414,19 +410,19 @@ export default function BookNowPage() {
 
                 <div className="summary-pricing">
                   <div className="price-row">
-                    <span>Base Tier:</span>
-                    <span>₹{selectedPkg.price} / plate</span>
+                    <span>Catering Package:</span>
+                    <span style={{ color: '#dfba4d', fontWeight: 600 }}>{selectedPkg.id}</span>
                   </div>
                   <div className="price-row">
-                    <span>Addon Counters:</span>
-                    <span>+₹{counterAddonRate} / plate</span>
+                    <span>Live Gourmet Counters:</span>
+                    <span style={{ color: '#ffffff' }}>{formData.liveCounters.length} Counters Included</span>
                   </div>
                   <div className="price-row total-highlight">
-                    <span>Est. Total Investment:</span>
-                    <span className="gold-total">₹{totalInvestment.toLocaleString('en-IN')}</span>
+                    <span>Proposal Format:</span>
+                    <span className="gold-total" style={{ fontSize: '1.05rem' }}>Personalized Menu Quote</span>
                   </div>
                   <div className="per-plate-note">
-                    (Approx. ₹{estimatedPerGuest} per guest all-inclusive)
+                    (Detailed chef tasting menu & itemized quote prepared within 2 hours)
                   </div>
                 </div>
 
