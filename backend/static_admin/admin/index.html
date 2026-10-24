@@ -566,85 +566,95 @@
       <span>🍽️</span> GURUJI <span class="brand-gold">PORTAL</span>
     </div>
     <ul class="nav-list">
-      <div class="nav-section-title" data-roles="superadmin,admin,manager,employee">Core Operations</div>
-      <li data-roles="superadmin,admin,manager">
+      <div class="nav-section-title" data-section-for="dashboard,events,projects,tasks,task-statuses">Core Operations</div>
+      <li data-module="dashboard">
         <button id="nav-btn-dashboard" class="nav-btn active" onclick="switchTab('dashboard')">
-          <span>📊</span> Financial & Event Overview
+          <span>📊</span> Dashboard
         </button>
       </li>
-      <li data-roles="superadmin,admin,manager,employee">
+      <li data-module="events">
         <button id="nav-btn-events" class="nav-btn" onclick="switchTab('events')">
-          <span>🎪</span> Event Bookings (SOP Lifecycle)
+          <span>🎪</span> Event Bookings
         </button>
       </li>
-      <li data-roles="superadmin,admin,manager,employee">
+      <li data-module="projects">
+        <button id="nav-btn-projects" class="nav-btn" onclick="switchTab('projects')">
+          <span>🚀</span> Projects
+        </button>
+      </li>
+      <li data-module="tasks">
         <button id="nav-btn-tasks" class="nav-btn" onclick="switchTab('tasks')">
-          <span>📋</span> Staff Tasks & Kanban
+          <span>📋</span> Tasks
+        </button>
+      </li>
+      <li data-module="task-statuses">
+        <button id="nav-btn-task-statuses" class="nav-btn" onclick="switchTab('task-statuses')">
+          <span>🏷️</span> Task Statuses
         </button>
       </li>
 
-      <div class="nav-section-title" data-roles="superadmin,admin,manager">Sales, Purchase & Finance</div>
-      <li data-roles="superadmin,admin,manager">
+      <div class="nav-section-title" data-section-for="sales,purchases,payments,financial-report">Sales, Purchase & Finance</div>
+      <li data-module="sales">
         <button id="nav-btn-sales" class="nav-btn" onclick="switchTab('sales')">
           <span>💰</span> Sales Invoices & Billing
         </button>
       </li>
-      <li data-roles="superadmin,admin,manager">
+      <li data-module="purchases">
         <button id="nav-btn-purchases" class="nav-btn" onclick="switchTab('purchases')">
           <span>🛒</span> Purchase Orders & Vendors
         </button>
       </li>
-      <li data-roles="superadmin,admin,manager">
+      <li data-module="payments">
         <button id="nav-btn-payments" class="nav-btn" onclick="switchTab('payments')">
           <span>💳</span> Payment History & Cashflow
         </button>
       </li>
-      <li data-roles="superadmin,admin">
+      <li data-module="financial-report">
         <button id="nav-btn-financial-report" class="nav-btn" onclick="switchTab('financial-report')">
           <span>📈</span> Executive Financial Report
         </button>
       </li>
 
-      <div class="nav-section-title" data-roles="superadmin,admin,manager,employee">Catering & Assets</div>
-      <li data-roles="superadmin,admin,manager">
+      <div class="nav-section-title" data-section-for="packages,inventory,menu">Catering & Assets</div>
+      <li data-module="packages">
         <button id="nav-btn-packages" class="nav-btn" onclick="switchTab('packages')">
           <span>🍱</span> Menu Packages & Costing
         </button>
       </li>
-      <li data-roles="superadmin,admin,manager,employee">
+      <li data-module="inventory">
         <button id="nav-btn-inventory" class="nav-btn" onclick="switchTab('inventory')">
-          <span>📦</span> Inventory & Asset Pool
+          <span>📦</span> Inventory & Asset
         </button>
       </li>
-      <li data-roles="superadmin,admin,manager,employee">
+      <li data-module="menu">
         <button id="nav-btn-menu" class="nav-btn" onclick="switchTab('menu')">
           <span>📖</span> Dish Catalog
         </button>
       </li>
 
-      <div class="nav-section-title" data-roles="superadmin,admin">Team & Access Control</div>
-      <li data-roles="superadmin,admin">
+      <div class="nav-section-title" data-section-for="roles,users,inquiries,reviews">Team & Access Control</div>
+      <li data-module="roles">
         <button id="nav-btn-roles" class="nav-btn" onclick="switchTab('roles')">
           <span>🛡️</span> Roles & Permissions
         </button>
       </li>
-      <li data-roles="superadmin,admin">
+      <li data-module="users">
         <button id="nav-btn-users" class="nav-btn" onclick="switchTab('users')">
-          <span>👥</span> Staff Directory
+          <span>👥</span> Users
         </button>
       </li>
-      <li data-roles="superadmin,admin,manager">
+      <li data-module="inquiries">
         <button id="nav-btn-inquiries" class="nav-btn" onclick="switchTab('inquiries')">
           <span>📩</span> Client Leads
         </button>
       </li>
-      <li data-roles="superadmin,admin,manager">
+      <li data-module="reviews">
         <button id="nav-btn-reviews" class="nav-btn" onclick="switchTab('reviews')">
           <span>⭐</span> Testimonials
         </button>
       </li>
 
-      <li data-roles="superadmin">
+      <li data-module="django-admin">
         <a href="/django-admin/" target="_blank" class="django-link-btn">
           <span>🛡️</span> Open Native Django Admin ↗
         </a>
@@ -754,21 +764,45 @@
         </div>
       </section>
 
-      <!-- Tab 3: Staff Tasks & Kanban (Task Management) -->
+      <!-- Tab 2.5: Projects Management -->
+      <section id="tab-projects" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Projects Master</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Define projects to organize client deliverables and tasks</p>
+            </div>
+            <button class="btn-gold" onclick="openProjectModal()">+ Add New Project</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Project Name / Code</th>
+                <th>Client / Category</th>
+                <th>Timeline</th>
+                <th>Tasks Count</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="projects-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tab 3: Task Management -->
       <section id="tab-tasks" class="tab-panel" style="display: none;">
         <div class="card-panel">
           <div class="panel-header">
             <div>
               <h3 class="panel-title">Staff Task Management & Real-Time Tracking</h3>
-              <p style="font-size: 0.8rem; color: var(--text-muted)">Live accountability across Kitchen, Service, Decor & Logistics</p>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Live accountability across Projects, Events, Kitchen & Logistics</p>
             </div>
             <div style="display:flex; gap:10px; align-items:center;">
-              <select id="task-filter-dept" onchange="filterTasks()" style="background:#0d0a0f; border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:8px; padding:6px 12px; font-size:0.8rem;">
-                <option value="all">All Departments</option>
-                <option value="kitchen">Kitchen & Food Prep</option>
-                <option value="decor">Decor & Furniture</option>
-                <option value="service">Live Service & Waitstaff</option>
-                <option value="transport">Logistics & Transport</option>
+              <select id="task-filter-project" onchange="filterTasks()" style="background:#0d0a0f; border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:8px; padding:6px 12px; font-size:0.8rem;">
+                <option value="all">All Projects</option>
               </select>
               <button class="btn-secondary" onclick="toggleTaskViewMode()" id="btn-task-view-mode">Switch to Table View</button>
               <button class="btn-gold" onclick="openTaskModal()">+ Assign New Task</button>
@@ -805,10 +839,10 @@
             <table>
               <thead>
                 <tr>
-                  <th>Task Title</th>
-                  <th>Department</th>
+                  <th>Title</th>
+                  <th>Project</th>
                   <th>Priority</th>
-                  <th>Linked Event</th>
+                  <th>Event</th>
                   <th>Assigned Staff</th>
                   <th>Due Date</th>
                   <th>Status</th>
@@ -820,6 +854,34 @@
               </tbody>
             </table>
           </div>
+        </div>
+      </section>
+
+      <!-- Tab 3.5: Task Status Master -->
+      <section id="tab-task-statuses" class="tab-panel" style="display: none;">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Task Status Master</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted)">Configure custom workflow statuses, colors, and kanban badges</p>
+            </div>
+            <button class="btn-gold" onclick="openTaskStatusModal()">+ Add New Status</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Status Name</th>
+                <th>Color Badge</th>
+                <th>Display Order</th>
+                <th>Is Completion State?</th>
+                <th>Assigned Tasks</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="task-statuses-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -994,7 +1056,7 @@
         </div>
       </section>
 
-      <!-- Tab 5: Inventory & Asset Pool -->
+      <!-- Tab 5: Inventory & Asset -->
       <section id="tab-inventory" class="tab-panel" style="display: none;">
         <div class="card-panel">
           <div class="panel-header">
@@ -1119,12 +1181,12 @@
         </div>
       </section>
 
-      <!-- Tab 6: Staff Directory -->
+      <!-- Tab 6: Users -->
       <section id="tab-users" class="tab-panel" style="display: none;">
         <div class="card-panel">
           <div class="panel-header">
             <div>
-              <h3 class="panel-title">Staff & Role Tier Control</h3>
+              <h3 class="panel-title">Users</h3>
               <p style="font-size: 0.8rem; color: var(--text-muted)">Admin, Manager, and Employee tier controls</p>
             </div>
             <button id="btn-open-user-modal" class="btn-gold" onclick="openUserModal()">+ Add New User</button>
@@ -1310,26 +1372,32 @@
   </div>
 
   <!-- Create Task Modal -->
+  <!-- Create Task Modal -->
   <div id="task-modal" class="modal">
     <div class="modal-box">
-      <h3>Assign New Staff Task</h3>
+      <h3>Assign Task</h3>
       <form onsubmit="saveTask(event)">
         <div class="form-group">
-          <label>Task Title</label>
+          <label>Title</label>
           <input type="text" id="tk-title" required placeholder="e.g. Prep 200kg Marinated Paneer & Tikka" />
-        </div>
-        <div class="form-group">
-          <label>Department</label>
-          <select id="tk-dept">
-            <option value="kitchen">Kitchen & Food Prep</option>
-            <option value="decor">Decor & Furniture Setup</option>
-            <option value="service">Live Service & Waitstaff</option>
-            <option value="transport">Logistics & Van Transport</option>
-          </select>
         </div>
         <div style="display:flex; gap:10px;">
           <div class="form-group" style="flex:1">
-            <label>Priority Tier</label>
+            <label>Project</label>
+            <select id="tk-project">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Status</label>
+            <select id="tk-custom-status">
+              <!-- Populated dynamically from task statuses -->
+            </select>
+          </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Priority</label>
             <select id="tk-priority">
               <option value="low">Low Priority</option>
               <option value="medium" selected>Medium Priority</option>
@@ -1343,20 +1411,110 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Linked Event</label>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <label style="margin:0;">Event</label>
+            <button type="button" class="btn-action" style="color:var(--gold); padding:2px 8px; font-size:0.75rem;" onclick="openEventModal()">+ Create Event</button>
+          </div>
           <select id="tk-event"></select>
         </div>
         <div class="form-group">
-          <label>Assign To (Employee / Chef)</label>
+          <label>Assign To</label>
           <select id="tk-user"></select>
         </div>
         <div class="form-group">
-          <label>Instructions</label>
+          <label>Description</label>
           <textarea id="tk-desc" rows="2" placeholder="Specific steps, safety precautions..."></textarea>
         </div>
         <div class="modal-actions">
           <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
           <button type="submit" class="btn-gold">Assign Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Project Modal -->
+  <div id="project-modal" class="modal">
+    <div class="modal-box" style="max-width: 480px;">
+      <h3 id="project-modal-title">Define New Project</h3>
+      <form onsubmit="saveProject(event)">
+        <input type="hidden" id="prj-id" value="" />
+        <div class="form-group">
+          <label>Project Name</label>
+          <input type="text" id="prj-name" required placeholder="e.g. Royal Wedding Season 2026" />
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Project Code (Optional)</label>
+            <input type="text" id="prj-code" placeholder="e.g. PRJ-2026" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Status</label>
+            <select id="prj-status">
+              <option value="planning">Planning</option>
+              <option value="active" selected>Active</option>
+              <option value="on_hold">On Hold</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Client / Category</label>
+          <input type="text" id="prj-client" placeholder="e.g. Luxury Banquets / Kapoor Family" />
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Start Date</label>
+            <input type="date" id="prj-start" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Target End Date</label>
+            <input type="date" id="prj-end" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description / Scope</label>
+          <textarea id="prj-desc" rows="2" placeholder="Project deliverables, deliverables and operational scope"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn-gold">Save Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Task Status Modal -->
+  <div id="task-status-modal" class="modal">
+    <div class="modal-box" style="max-width: 440px;">
+      <h3 id="task-status-modal-title">Add Task Status</h3>
+      <form onsubmit="saveTaskStatus(event)">
+        <input type="hidden" id="ts-id" value="" />
+        <div class="form-group">
+          <label>Status Name</label>
+          <input type="text" id="ts-name" required placeholder="e.g. Quality Check, Ready for Dispatch" />
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Badge Color (HEX)</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="color" id="ts-color-picker" value="#60a5fa" onchange="document.getElementById('ts-color').value = this.value" style="width:40px; height:38px; padding:2px; border-radius:6px; cursor:pointer;" />
+              <input type="text" id="ts-color" value="#60a5fa" required style="flex:1" onchange="document.getElementById('ts-color-picker').value = this.value" />
+            </div>
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Display Order</label>
+            <input type="number" id="ts-order" value="1" min="1" max="100" />
+          </div>
+        </div>
+        <div class="form-group" style="flex-direction:row; align-items:center; gap:10px; margin-top:8px;">
+          <input type="checkbox" id="ts-completed" style="width:18px; height:18px;" />
+          <label for="ts-completed" style="margin:0; cursor:pointer; color:#fff;">Mark as "Completed / Final" State</label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn-gold">Save Status</button>
         </div>
       </form>
     </div>
@@ -1388,30 +1546,21 @@
     </div>
   </div>
 
-  <!-- Create User Modal -->
+  <!-- Create / Edit User Modal -->
   <div id="user-modal" class="modal">
     <div class="modal-box">
-      <h3>Create Staff Account</h3>
+      <h3 id="user-modal-title">Create Staff Account</h3>
       <form onsubmit="saveUser(event)">
+        <input type="hidden" id="u-id" value="" />
         <div class="form-group">
           <label>Username</label>
           <input type="text" id="u-username" required placeholder="e.g. chef_karan" />
         </div>
-        <div style="display:flex; gap:10px;">
-          <div class="form-group" style="flex:1">
-            <label>System Tier</label>
-            <select id="u-role">
-              <option value="admin">Admin (Branch Head)</option>
-              <option value="manager">Manager (Event Lead)</option>
-              <option value="employee" selected>Employee (Ground Staff)</option>
-            </select>
-          </div>
-          <div class="form-group" style="flex:1">
-            <label>Assigned Role (Custom)</label>
-            <select id="u-dynamic-role">
-              <!-- Populated dynamically from roles -->
-            </select>
-          </div>
+        <div class="form-group">
+          <label>Assigned Role (Custom)</label>
+          <select id="u-dynamic-role">
+            <!-- Populated dynamically from roles -->
+          </select>
         </div>
         <div style="display:flex; gap:10px;">
           <div class="form-group" style="flex:1">
@@ -1423,21 +1572,27 @@
             <input type="text" id="u-lname" placeholder="Last Name" />
           </div>
         </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="u-email" placeholder="staff@gurujicaterers.com" />
+        <div style="display:flex; gap:10px;">
+          <div class="form-group" style="flex:1">
+            <label>Email</label>
+            <input type="email" id="u-email" placeholder="staff@gurujicaterers.com" />
+          </div>
+          <div class="form-group" style="flex:1">
+            <label>Mobile Number</label>
+            <input type="tel" id="u-phone" placeholder="e.g. +91 98765 43210" />
+          </div>
         </div>
         <div class="form-group">
           <label>Department</label>
           <input type="text" id="u-department" placeholder="e.g. Kitchen Operations" />
         </div>
         <div class="form-group">
-          <label>Initial Password</label>
-          <input type="password" id="u-password" required placeholder="Password" />
+          <label id="u-password-label">Password</label>
+          <input type="password" id="u-password" placeholder="Leave empty to keep current password" />
         </div>
         <div class="modal-actions">
           <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
-          <button type="submit" class="btn-gold">Create Account</button>
+          <button type="submit" id="u-submit-btn" class="btn-gold">Save Account</button>
         </div>
       </form>
     </div>
@@ -1714,33 +1869,78 @@
         manager: '📋 Event Manager',
         employee: '👨‍🍳 Staff / Employee'
       };
-      document.getElementById('header-role').innerText = roleLabels[user.role] || user.role;
+      const displayRole = user.role_name || roleLabels[user.role] || user.role;
+      document.getElementById('header-role').innerText = displayRole.startsWith('👑') || displayRole.startsWith('🏢') || displayRole.startsWith('📋') || displayRole.startsWith('👨‍🍳') || displayRole.startsWith('🛡️') 
+        ? displayRole 
+        : `🛡️ ${displayRole}`;
 
-      // Apply RBAC to Sidebar Navigation & Sections
-      const role = user.role || 'employee';
-      document.querySelectorAll('[data-roles]').forEach(el => {
-        const allowedRoles = el.getAttribute('data-roles').split(',').map(r => r.trim());
-        if (allowedRoles.includes(role)) {
-          el.style.display = el.tagName === 'DIV' ? 'block' : '';
+      // Apply Dynamic Module Permissions to Sidebar Navigation
+      const isSuperAdmin = user.role === 'superadmin';
+      const userPerms = user.permissions || {};
+
+      function canAccessModule(modKey) {
+        if (isSuperAdmin) return true;
+        // Native django-admin link only for superadmin
+        if (modKey === 'django-admin') return isSuperAdmin;
+        
+        // If user has dynamic role permissions defined
+        if (userPerms && Object.keys(userPerms).length > 0) {
+          const p = userPerms[modKey];
+          if (!p) return false;
+          return !!(p.allow_all || p.can_read);
+        }
+
+        // Fallback for default built-in roles if no custom matrix assigned:
+        if (user.role === 'admin') return true;
+        if (user.role === 'manager') {
+          return ['dashboard', 'events', 'tasks', 'sales', 'purchases', 'payments', 'packages', 'inventory', 'menu', 'inquiries', 'reviews'].includes(modKey);
+        }
+        if (user.role === 'employee') {
+          return ['events', 'tasks', 'inventory', 'menu'].includes(modKey);
+        }
+        return false;
+      }
+
+      // Hide or show each nav item
+      let firstAccessibleTab = null;
+      document.querySelectorAll('li[data-module]').forEach(li => {
+        const modKey = li.getAttribute('data-module');
+        if (canAccessModule(modKey)) {
+          li.style.display = '';
+          if (!firstAccessibleTab && modKey !== 'django-admin') {
+            firstAccessibleTab = modKey;
+          }
         } else {
-          el.style.display = 'none';
+          li.style.display = 'none';
         }
       });
 
-      // Role-specific action restrictions:
-      // Employee: Cannot create events, cannot add dishes, cannot create users
+      // Hide or show nav section titles based on child items
+      document.querySelectorAll('.nav-section-title[data-section-for]').forEach(sec => {
+        const forKeys = sec.getAttribute('data-section-for').split(',').map(k => k.trim());
+        const hasVisibleChild = forKeys.some(k => canAccessModule(k));
+        sec.style.display = hasVisibleChild ? 'block' : 'none';
+      });
+
+      // Role & Permission action restrictions:
       const btnAddEvent = document.querySelector('button[onclick="openEventModal()"]');
-      if (btnAddEvent) btnAddEvent.style.display = (role === 'employee') ? 'none' : 'inline-block';
+      if (btnAddEvent) {
+        const canCreateEvent = isSuperAdmin || (userPerms.events ? (userPerms.events.allow_all || userPerms.events.can_create) : (user.role !== 'employee'));
+        btnAddEvent.style.display = canCreateEvent ? 'inline-block' : 'none';
+      }
 
       const btnAddUser = document.getElementById('btn-open-user-modal');
-      if (btnAddUser) btnAddUser.style.display = (role === 'superadmin' || role === 'admin') ? 'inline-block' : 'none';
+      if (btnAddUser) {
+        const canCreateUser = isSuperAdmin || (userPerms.users ? (userPerms.users.allow_all || userPerms.users.can_create) : (user.role === 'admin'));
+        btnAddUser.style.display = canCreateUser ? 'inline-block' : 'none';
+      }
 
-      // Default landing tab based on role
+      // Default landing tab based on permissions
       try {
-        if (role === 'employee') {
-          switchTab('tasks');
+        if (firstAccessibleTab) {
+          switchTab(firstAccessibleTab);
         } else {
-          switchTab('dashboard');
+          switchTab('tasks');
         }
       } catch (err) {
         console.error('switchTab error:', err);
@@ -1830,13 +2030,15 @@
       const titleMap = {
         dashboard: 'Executive Dashboard & P&L Overview',
         events: 'Event Bookings & SOP Lifecycle',
+        projects: 'Projects Master & Execution Scope',
         tasks: 'Staff Task Board & Execution Tracking',
+        'task-statuses': 'Task Status Workflow Master',
         sales: 'Sales Invoices & Client Billing',
         purchases: 'Procurement & Purchase Orders (PO)',
         payments: 'Payment History & Cash Flow Ledger',
         'financial-report': 'Executive Financial & P&L Report',
         packages: 'Menu Packages & Per-Plate Costing',
-        inventory: 'Inventory & Asset Pool Tracking',
+        inventory: 'Inventory & Asset Tracking',
         roles: 'Roles & Permissions Access Control',
         users: 'Staff & User Role Hierarchy',
         inquiries: 'Public Event Leads',
@@ -1853,7 +2055,9 @@
       }
 
       if (tab === 'dashboard' || tab === 'events') loadEvents();
-      if (tab === 'tasks') loadTasks();
+      if (tab === 'projects') loadProjects();
+      if (tab === 'tasks') { loadProjects(); loadTaskStatuses(); loadTasks(); }
+      if (tab === 'task-statuses') loadTaskStatuses();
       if (tab === 'sales') loadSales();
       if (tab === 'purchases') loadPurchases();
       if (tab === 'payments') loadPayments();
@@ -1956,6 +2160,230 @@
       }
     }
 
+    // 1.5. Projects Master Management
+    let cachedProjects = [];
+
+    async function loadProjects() {
+      try {
+        const res = await fetch(`${API_URL}/projects/`);
+        cachedProjects = await res.json();
+        renderProjectsTable();
+        populateProjectDropdowns();
+      } catch (e) {
+        console.error('Error loading projects:', e);
+      }
+    }
+
+    function populateProjectDropdowns() {
+      const tkProj = document.getElementById('tk-project');
+      const filterProj = document.getElementById('task-filter-project');
+      
+      const optionsHtml = '<option value="">General (No Project)</option>' +
+        cachedProjects.map(p => `<option value="${p.id}">${p.name} (${p.code})</option>`).join('');
+
+      if (tkProj) tkProj.innerHTML = optionsHtml;
+      if (filterProj) {
+        filterProj.innerHTML = '<option value="all">All Projects</option>' +
+          cachedProjects.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+      }
+    }
+
+    function renderProjectsTable() {
+      const tbody = document.getElementById('projects-tbody');
+      if (!tbody) return;
+      if (!cachedProjects || cachedProjects.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:24px; color:var(--text-muted)">No projects defined yet. Click "+ Add New Project" to create one.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = cachedProjects.map(p => `
+        <tr>
+          <td><strong>${p.name}</strong><br><small style="color:var(--text-muted); font-family:monospace;">${p.code}</small></td>
+          <td>${p.client_name || '—'}</td>
+          <td><small>${p.start_date || '—'} ➔ ${p.end_date || 'Flexible'}</small></td>
+          <td><span class="badge-role">${p.tasks_count || 0} Tasks</span></td>
+          <td><span class="badge-status status-${p.status === 'completed' ? 'confirmed' : (p.status === 'cancelled' ? 'cancelled' : 'in_progress')}">${p.status}</span></td>
+          <td>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-action" style="color:#f59e0b;" onclick="editProject(${p.id})">Edit</button>
+              <button class="btn-action btn-delete" onclick="deleteProject(${p.id})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openProjectModal() {
+      document.getElementById('prj-id').value = '';
+      document.getElementById('prj-name').value = '';
+      document.getElementById('prj-code').value = '';
+      document.getElementById('prj-status').value = 'active';
+      document.getElementById('prj-client').value = '';
+      document.getElementById('prj-start').value = '';
+      document.getElementById('prj-end').value = '';
+      document.getElementById('prj-desc').value = '';
+      document.getElementById('project-modal-title').innerText = 'Define New Project';
+      document.getElementById('project-modal').classList.add('active');
+    }
+
+    function editProject(id) {
+      const p = cachedProjects.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('prj-id').value = p.id;
+      document.getElementById('prj-name').value = p.name;
+      document.getElementById('prj-code').value = p.code || '';
+      document.getElementById('prj-status').value = p.status || 'active';
+      document.getElementById('prj-client').value = p.client_name || '';
+      document.getElementById('prj-start').value = p.start_date || '';
+      document.getElementById('prj-end').value = p.end_date || '';
+      document.getElementById('prj-desc').value = p.description || '';
+      document.getElementById('project-modal-title').innerText = `✏️ Edit Project: ${p.name}`;
+      document.getElementById('project-modal').classList.add('active');
+    }
+
+    async function saveProject(e) {
+      e.preventDefault();
+      const id = document.getElementById('prj-id').value;
+      const payload = {
+        name: document.getElementById('prj-name').value.trim(),
+        code: document.getElementById('prj-code').value.trim() || undefined,
+        status: document.getElementById('prj-status').value,
+        client_name: document.getElementById('prj-client').value.trim(),
+        start_date: document.getElementById('prj-start').value || null,
+        end_date: document.getElementById('prj-end').value || null,
+        description: document.getElementById('prj-desc').value.trim(),
+      };
+      const url = id ? `${API_URL}/projects/${id}/` : `${API_URL}/projects/`;
+      const method = id ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        closeModals();
+        loadProjects();
+      } else {
+        const err = await res.json();
+        alert(JSON.stringify(err));
+      }
+    }
+
+    async function deleteProject(id) {
+      if (confirm('Delete this project? Associated tasks will remain but become general.')) {
+        await fetch(`${API_URL}/projects/${id}/`, { method: 'DELETE' });
+        loadProjects();
+      }
+    }
+
+    // 1.6. Task Status Master Management
+    let cachedTaskStatuses = [];
+
+    async function loadTaskStatuses() {
+      try {
+        const res = await fetch(`${API_URL}/task-statuses/`);
+        cachedTaskStatuses = await res.json();
+        renderTaskStatusesTable();
+        populateTaskStatusDropdowns();
+      } catch (e) {
+        console.error('Error loading task statuses:', e);
+      }
+    }
+
+    function populateTaskStatusDropdowns() {
+      const tkStatus = document.getElementById('tk-custom-status');
+      if (tkStatus) {
+        if (!cachedTaskStatuses || cachedTaskStatuses.length === 0) {
+          tkStatus.innerHTML = '<option value="">Standard Pending</option>';
+        } else {
+          tkStatus.innerHTML = cachedTaskStatuses.map(s => 
+            `<option value="${s.id}">${s.name}</option>`
+          ).join('');
+        }
+      }
+    }
+
+    function renderTaskStatusesTable() {
+      const tbody = document.getElementById('task-statuses-tbody');
+      if (!tbody) return;
+      if (!cachedTaskStatuses || cachedTaskStatuses.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:24px; color:var(--text-muted)">No custom statuses created yet.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = cachedTaskStatuses.map(s => `
+        <tr>
+          <td><strong>${s.name}</strong></td>
+          <td><span style="display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:12px; font-size:0.75rem; font-weight:600; background:${s.color}20; color:${s.color}; border:1px solid ${s.color}60;"><span style="width:8px; height:8px; border-radius:50%; background:${s.color};"></span>${s.color}</span></td>
+          <td>#${s.order}</td>
+          <td><span class="badge-status ${s.is_completed_state ? 'status-confirmed' : 'status-pending'}">${s.is_completed_state ? 'Yes (Final)' : 'No (In-Flight)'}</span></td>
+          <td><span class="badge-role">${s.tasks_count || 0} Tasks</span></td>
+          <td>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-action" style="color:#f59e0b;" onclick="editTaskStatus(${s.id})">Edit</button>
+              <button class="btn-action btn-delete" onclick="deleteTaskStatus(${s.id})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openTaskStatusModal() {
+      document.getElementById('ts-id').value = '';
+      document.getElementById('ts-name').value = '';
+      document.getElementById('ts-color').value = '#60a5fa';
+      document.getElementById('ts-color-picker').value = '#60a5fa';
+      document.getElementById('ts-order').value = (cachedTaskStatuses.length + 1);
+      document.getElementById('ts-completed').checked = false;
+      document.getElementById('task-status-modal-title').innerText = 'Add Task Status';
+      document.getElementById('task-status-modal').classList.add('active');
+    }
+
+    function editTaskStatus(id) {
+      const s = cachedTaskStatuses.find(x => x.id === id);
+      if (!s) return;
+      document.getElementById('ts-id').value = s.id;
+      document.getElementById('ts-name').value = s.name;
+      document.getElementById('ts-color').value = s.color || '#60a5fa';
+      document.getElementById('ts-color-picker').value = s.color || '#60a5fa';
+      document.getElementById('ts-order').value = s.order || 1;
+      document.getElementById('ts-completed').checked = s.is_completed_state;
+      document.getElementById('task-status-modal-title').innerText = `✏️ Edit Status: ${s.name}`;
+      document.getElementById('task-status-modal').classList.add('active');
+    }
+
+    async function saveTaskStatus(e) {
+      e.preventDefault();
+      const id = document.getElementById('ts-id').value;
+      const payload = {
+        name: document.getElementById('ts-name').value.trim(),
+        color: document.getElementById('ts-color').value.trim(),
+        order: Number(document.getElementById('ts-order').value) || 1,
+        is_completed_state: document.getElementById('ts-completed').checked,
+      };
+      const url = id ? `${API_URL}/task-statuses/${id}/` : `${API_URL}/task-statuses/`;
+      const method = id ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        closeModals();
+        loadTaskStatuses();
+      } else {
+        const err = await res.json();
+        alert(JSON.stringify(err));
+      }
+    }
+
+    async function deleteTaskStatus(id) {
+      if (confirm('Delete this task status?')) {
+        await fetch(`${API_URL}/task-statuses/${id}/`, { method: 'DELETE' });
+        loadTaskStatuses();
+      }
+    }
+
     // 2. Staff Tasks & Advanced Task Management
     let allTasksCache = [];
     let isTaskTableView = false;
@@ -1969,11 +2397,11 @@
     }
 
     function filterTasks() {
-      const dept = document.getElementById('task-filter-dept').value;
-      if (dept === 'all') {
+      const projId = document.getElementById('task-filter-project').value;
+      if (projId === 'all') {
         renderTasks(allTasksCache);
       } else {
-        const filtered = allTasksCache.filter(t => t.department === dept);
+        const filtered = allTasksCache.filter(t => String(t.project) === String(projId));
         renderTasks(filtered);
       }
     }
@@ -2009,16 +2437,20 @@
         };
         const pColor = priorityColors[t.priority] || '#60a5fa';
         const pBadge = `<span style="font-size:0.68rem; font-weight:700; text-transform:uppercase; padding:2px 8px; border-radius:4px; background:${pColor}20; color:${pColor}; border:1px solid ${pColor}50;">${t.priority || 'medium'}</span>`;
+        
+        const statusBadge = t.custom_status_name
+          ? `<span style="font-size:0.68rem; font-weight:700; padding:2px 8px; border-radius:4px; background:${t.custom_status_color || '#60a5fa'}20; color:${t.custom_status_color || '#60a5fa'}; border:1px solid ${t.custom_status_color || '#60a5fa'}50;">${t.custom_status_name}</span>`
+          : `<span class="badge-status status-${t.status}">${t.status}</span>`;
 
         // Kanban Card
         const cardHtml = `
-          <div class="kanban-card" style="border-left: 3px solid ${pColor}">
+          <div class="kanban-card" style="border-left: 3px solid ${t.custom_status_color || pColor}">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
               ${pBadge}
-              <small style="color:var(--text-muted); font-size:0.7rem;">${t.event_name ? t.event_name.slice(0, 20) + '...' : 'General Task'}</small>
+              <small style="color:var(--text-muted); font-size:0.7rem;">${t.project_name ? '🚀 ' + t.project_name : (t.event_name ? t.event_name.slice(0, 20) : 'General Task')}</small>
             </div>
             <h4>${t.title}</h4>
-            <p>${t.description || 'No specific instructions.'}</p>
+            <p>${t.description || 'No specific description.'}</p>
             ${t.staff_notes ? `<p style="font-size:0.75rem; color:#34d399; background:rgba(52,211,153,0.1); padding:4px 8px; border-radius:4px;">📝 Note: ${t.staff_notes}</p>` : ''}
             <div class="kanban-meta">
               <span>👤 <strong>${t.assigned_to_name}</strong></span>
@@ -2047,16 +2479,18 @@
           tableBody.innerHTML += `
             <tr>
               <td><strong>${t.title}</strong><br><small style="color:var(--text-muted)">${t.description || '—'}</small></td>
-              <td><span style="text-transform:capitalize;">${t.department}</span></td>
+              <td>${t.project_name ? `<span class="badge-role" style="background:rgba(99,102,241,0.15); color:#818cf8;">🚀 ${t.project_name}</span>` : '<span style="color:var(--text-muted);">General</span>'}</td>
               <td>${pBadge}</td>
               <td>${t.event_name || 'General Event'}</td>
               <td>${t.assigned_to_name}</td>
               <td>${t.due_date ? new Date(t.due_date).toLocaleString('en-IN', {dateStyle:'short', timeStyle:'short'}) : 'Flexible'}</td>
-              <td><span class="badge-status status-${t.status}">${t.status}</span></td>
+              <td>${statusBadge}</td>
               <td>
-                ${t.status === 'pending' ? `<button class="btn-action" onclick="updateTaskStatus(${t.id}, 'in_progress')">Start</button>` : ''}
-                ${t.status === 'in_progress' ? `<button class="btn-action" style="color:#34d399" onclick="promptCompleteTask(${t.id})">Done</button>` : ''}
-                <button class="btn-action btn-delete" onclick="deleteTask(${t.id})">Delete</button>
+                <div style="display:flex; gap:6px;">
+                  ${t.status === 'pending' ? `<button class="btn-action" onclick="updateTaskStatus(${t.id}, 'in_progress')">Start</button>` : ''}
+                  ${t.status === 'in_progress' ? `<button class="btn-action" style="color:#34d399" onclick="promptCompleteTask(${t.id})">Done</button>` : ''}
+                  <button class="btn-action btn-delete" onclick="deleteTask(${t.id})">Delete</button>
+                </div>
               </td>
             </tr>
           `;
@@ -2176,7 +2610,12 @@
     function populateRoleDropdowns() {
       const uDynSelect = document.getElementById('u-dynamic-role');
       if (uDynSelect) {
-        uDynSelect.innerHTML = cachedRoles.map(r => `<option value="${r.id}">${r.name}</option>`).join('');
+        if (!cachedRoles || cachedRoles.length === 0) {
+          uDynSelect.innerHTML = '<option value="">Standard Staff (No Custom Role)</option>';
+        } else {
+          uDynSelect.innerHTML = '<option value="">Standard Staff (Default)</option>' +
+            cachedRoles.map(r => `<option value="${r.id}">${r.name}</option>`).join('');
+        }
       }
     }
 
@@ -2337,17 +2776,22 @@
     // PERMISSIONS MATRIX INTERACTION (Screenshot 2)
     // ==========================================
     const DEFAULT_MODULE_LIST = [
-      { key: 'employee', label: 'Employee' },
-      { key: 'holidays', label: 'Holidays' },
-      { key: 'leaves', label: 'Leaves' },
-      { key: 'events', label: 'Events' },
-      { key: 'sales', label: 'Sales' },
-      { key: 'training', label: 'Training' },
-      { key: 'reports', label: 'Reports' },
-      { key: 'tickets', label: 'Tickets' },
-      { key: 'payroll', label: 'Payroll' },
-      { key: 'packages', label: 'Packages' },
-      { key: 'inventory', label: 'Inventory' },
+      { key: 'dashboard', label: 'Dashboard' },
+      { key: 'events', label: 'Event Bookings' },
+      { key: 'projects', label: 'Projects' },
+      { key: 'tasks', label: 'Tasks' },
+      { key: 'task-statuses', label: 'Task Statuses' },
+      { key: 'sales', label: 'Sales Invoices & Billing' },
+      { key: 'purchases', label: 'Purchase Orders & Vendors' },
+      { key: 'payments', label: 'Payment History & Cashflow' },
+      { key: 'financial-report', label: 'Executive Financial Report' },
+      { key: 'packages', label: 'Menu Packages & Costing' },
+      { key: 'inventory', label: 'Inventory & Asset' },
+      { key: 'menu', label: 'Dish Catalog' },
+      { key: 'roles', label: 'Roles & Permissions' },
+      { key: 'users', label: 'Users' },
+      { key: 'inquiries', label: 'Client Leads' },
+      { key: 'reviews', label: 'Testimonials' },
     ];
 
     async function openRoleMatrix(roleId) {
@@ -2528,7 +2972,12 @@
               <td>${u.department || 'Operations'}</td>
               <td>${u.phone || '—'}</td>
               <td><span class="badge-status status-confirmed">${u.is_active ? 'Active' : 'Disabled'}</span></td>
-              <td><button class="btn-action btn-delete" onclick="deleteUser(${u.id})">Remove</button></td>
+              <td>
+                <div style="display:flex; gap:6px;">
+                  <button class="btn-action" style="background:rgba(217,119,6,0.15); color:#f59e0b; border:1px solid rgba(217,119,6,0.3);" onclick="editUser(${u.id})">Edit</button>
+                  <button class="btn-action btn-delete" onclick="deleteUser(${u.id})">Remove</button>
+                </div>
+              </td>
             </tr>
           `).join('');
         }
@@ -2621,10 +3070,48 @@
       document.getElementById('event-modal').classList.add('active');
     }
     function openTaskModal() {
+      populateProjectDropdowns();
+      populateTaskStatusDropdowns();
       document.getElementById('task-modal').classList.add('active');
     }
     function openUserModal() {
       populateRoleDropdowns();
+      document.getElementById('user-modal-title').innerText = 'Create Staff Account';
+      document.getElementById('u-id').value = '';
+      document.getElementById('u-username').value = '';
+      document.getElementById('u-username').disabled = false;
+      document.getElementById('u-fname').value = '';
+      document.getElementById('u-lname').value = '';
+      document.getElementById('u-email').value = '';
+      document.getElementById('u-phone').value = '';
+      document.getElementById('u-department').value = '';
+      document.getElementById('u-password').value = '';
+      document.getElementById('u-password').required = true;
+      document.getElementById('u-password-label').innerText = 'Initial Password *';
+      document.getElementById('u-submit-btn').innerText = 'Create Account';
+      document.getElementById('user-modal').classList.add('active');
+    }
+
+    function editUser(id) {
+      const user = cachedStaff.find(u => u.id === id);
+      if (!user) return;
+      populateRoleDropdowns();
+      document.getElementById('user-modal-title').innerText = `Edit User: ${user.username}`;
+      document.getElementById('u-id').value = user.id;
+      document.getElementById('u-username').value = user.username || '';
+      document.getElementById('u-username').disabled = true; // username shouldn't be altered
+      if (user.dynamic_role) {
+        document.getElementById('u-dynamic-role').value = user.dynamic_role;
+      }
+      document.getElementById('u-fname').value = user.first_name || '';
+      document.getElementById('u-lname').value = user.last_name || '';
+      document.getElementById('u-email').value = user.email || '';
+      document.getElementById('u-phone').value = user.phone || '';
+      document.getElementById('u-department').value = user.department || '';
+      document.getElementById('u-password').value = '';
+      document.getElementById('u-password').required = false;
+      document.getElementById('u-password-label').innerText = 'New Password (Optional)';
+      document.getElementById('u-submit-btn').innerText = 'Update Account';
       document.getElementById('user-modal').classList.add('active');
     }
     function openMenuModal() {
@@ -2688,9 +3175,12 @@
     async function saveTask(e) {
       e.preventDefault();
       const dueVal = document.getElementById('tk-due').value;
+      const projVal = document.getElementById('tk-project').value;
+      const statusVal = document.getElementById('tk-custom-status').value;
       const payload = {
         title: document.getElementById('tk-title').value,
-        department: document.getElementById('tk-dept').value,
+        project: projVal ? projVal : null,
+        custom_status: statusVal ? statusVal : null,
         priority: document.getElementById('tk-priority').value,
         event: document.getElementById('tk-event').value || null,
         assigned_to: document.getElementById('tk-user').value,
@@ -2711,29 +3201,43 @@
 
     async function saveUser(e) {
       e.preventDefault();
+      const userId = document.getElementById('u-id').value;
+      const dynRoleId = document.getElementById('u-dynamic-role').value;
+      const pwd = document.getElementById('u-password').value;
+
       const payload = {
-        username: document.getElementById('u-username').value,
-        role: document.getElementById('u-role').value,
-        dynamic_role: document.getElementById('u-dynamic-role').value || null,
-        first_name: document.getElementById('u-fname').value,
-        last_name: document.getElementById('u-lname').value,
-        email: document.getElementById('u-email').value,
-        department: document.getElementById('u-department').value,
-        password: document.getElementById('u-password').value,
+        username: document.getElementById('u-username').value.trim(),
+        first_name: document.getElementById('u-fname').value.trim(),
+        last_name: document.getElementById('u-lname').value.trim(),
+        email: document.getElementById('u-email').value.trim(),
+        phone: document.getElementById('u-phone').value.trim(),
+        department: document.getElementById('u-department').value.trim(),
+        dynamic_role: dynRoleId ? Number(dynRoleId) : null,
       };
 
-      const res = await fetch(`${API_URL}/users`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      if (res.ok) {
-        closeModals();
-        loadUsers();
-        fetchAnalytics();
-      } else {
-        const err = await res.json();
-        alert(JSON.stringify(err));
+      if (pwd) {
+        payload.password = pwd;
+      }
+
+      const url = userId ? `${API_URL}/users/${userId}` : `${API_URL}/users`;
+      const method = userId ? 'PATCH' : 'POST';
+
+      try {
+        const res = await fetch(url, {
+          method: method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          closeModals();
+          loadUsers();
+          fetchAnalytics();
+        } else {
+          const err = await res.json();
+          alert(typeof err === 'object' ? JSON.stringify(err) : err);
+        }
+      } catch (err) {
+        alert('Network or server error while saving user account.');
       }
     }
 

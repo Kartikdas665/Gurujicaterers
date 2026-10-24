@@ -4,7 +4,7 @@ from .models import (
     User, Role, RolePermission, MenuItem, MenuPackage, Event, EventInventoryAllocation,
     InventoryItem, Task, EventBilling, VendorExpense, Inquiry, Review,
     Vendor, PurchaseOrder, PurchaseOrderItem, SalesInvoice, SalesInvoiceItem,
-    PaymentTransaction
+    PaymentTransaction, Project, TaskStatus
 )
 
 
@@ -35,6 +35,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             'phone': user.phone,
             'department': user.department,
             'profile_picture': user.profile_picture,
+            'permissions': UserSerializer(user).data.get('permissions', {}),
         }
         return data
 
@@ -136,14 +137,33 @@ class RoleSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
     role_name = serializers.CharField(source='dynamic_role.name', read_only=True)
+    permissions = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = [
             'id', 'username', 'email', 'first_name', 'last_name',
             'role', 'dynamic_role', 'role_name', 'branch', 'phone', 'department', 'profile_picture',
-            'is_active', 'password', 'date_joined'
+            'is_active', 'password', 'date_joined', 'permissions'
         ]
+
+    def get_permissions(self, obj):
+        if obj.role == 'superadmin':
+            return {'all': True}
+        if obj.dynamic_role:
+            perms = {}
+            for p in obj.dynamic_role.permissions.all():
+                perms[p.module_key] = {
+                    'allow_all': p.allow_all,
+                    'can_read': p.can_read,
+                    'can_write': p.can_write,
+                    'can_create': p.can_create,
+                    'can_delete': p.can_delete,
+                    'can_import': p.can_import,
+                    'can_export': p.can_export,
+                }
+            return perms
+        return {}
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
@@ -260,20 +280,55 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 # ==========================================
+# 5.5. PROJECTS & TASK STATUS SERIALIZERS
+# ==========================================
+class ProjectSerializer(serializers.ModelSerializer):
+    tasks_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Project
+        fields = [
+            'id', 'name', 'code', 'client_name', 'description',
+            'status', 'start_date', 'end_date', 'tasks_count',
+            'created_at', 'updated_at'
+        ]
+
+    def get_tasks_count(self, obj):
+        return obj.tasks.count()
+
+
+class TaskStatusSerializer(serializers.ModelSerializer):
+    tasks_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = TaskStatus
+        fields = ['id', 'name', 'slug', 'color', 'order', 'is_completed_state', 'tasks_count', 'created_at']
+
+    def get_tasks_count(self, obj):
+        return obj.tasks.count()
+
+
+# ==========================================
 # 6. TASKS SERIALIZERS
 # ==========================================
 class TaskSerializer(serializers.ModelSerializer):
     event_name = serializers.ReadOnlyField(source='event.name')
+    project_name = serializers.ReadOnlyField(source='project.name')
+    custom_status_name = serializers.ReadOnlyField(source='custom_status.name')
+    custom_status_color = serializers.ReadOnlyField(source='custom_status.color')
     assigned_by_name = serializers.ReadOnlyField(source='assigned_by.username')
     assigned_to_name = serializers.ReadOnlyField(source='assigned_to.username')
 
     class Meta:
         model = Task
         fields = [
-            'id', 'title', 'description', 'department', 'priority', 'event', 'event_name',
+            'id', 'title', 'description', 'department', 'priority',
+            'project', 'project_name',
+            'event', 'event_name',
             'assigned_by', 'assigned_by_name',
             'assigned_to', 'assigned_to_name',
-            'status', 'due_date', 'completed_at', 'staff_notes', 'created_at', 'updated_at'
+            'status', 'custom_status', 'custom_status_name', 'custom_status_color',
+            'due_date', 'completed_at', 'staff_notes', 'created_at', 'updated_at'
         ]
         read_only_fields = ['assigned_by', 'completed_at', 'created_at', 'updated_at']
 
@@ -286,7 +341,7 @@ class TaskSerializer(serializers.ModelSerializer):
 class TaskStatusUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ['status', 'staff_notes']
+        fields = ['status', 'custom_status', 'staff_notes']
 
 
 # ==========================================

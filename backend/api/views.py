@@ -13,7 +13,7 @@ from .models import (
     User, Role, RolePermission, MenuItem, MenuPackage, Event, EventInventoryAllocation,
     InventoryItem, Task, EventBilling, VendorExpense, Inquiry, Review,
     Vendor, PurchaseOrder, PurchaseOrderItem, SalesInvoice, SalesInvoiceItem,
-    PaymentTransaction
+    PaymentTransaction, Project, TaskStatus
 )
 from .serializers import (
     CustomTokenObtainPairSerializer,
@@ -25,6 +25,8 @@ from .serializers import (
     InventoryItemSerializer,
     EventInventoryAllocationSerializer,
     EventSerializer,
+    ProjectSerializer,
+    TaskStatusSerializer,
     TaskSerializer,
     TaskStatusUpdateSerializer,
     EventBillingSerializer,
@@ -269,6 +271,24 @@ class InventoryItemViewSet(viewsets.ModelViewSet):
 class EventInventoryAllocationViewSet(viewsets.ModelViewSet):
     queryset = EventInventoryAllocation.objects.all().select_related('event', 'item')
     serializer_class = EventInventoryAllocationSerializer
+    permission_classes = [AllowAny]
+
+
+# ==========================================
+# 4.5. PROJECTS VIEWSET
+# ==========================================
+class ProjectViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all().order_by('-created_at')
+    serializer_class = ProjectSerializer
+    permission_classes = [AllowAny]
+
+
+# ==========================================
+# 4.6. TASK STATUS VIEWSET
+# ==========================================
+class TaskStatusViewSet(viewsets.ModelViewSet):
+    queryset = TaskStatus.objects.all().order_by('order', 'id')
+    serializer_class = TaskStatusSerializer
     permission_classes = [AllowAny]
 
 

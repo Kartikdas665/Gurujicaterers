@@ -141,6 +141,15 @@ class User(AbstractUser):
             if existing.exists():
                 raise ValidationError('A Super Admin already exists. You cannot create another Super Admin.')
 
+        if self.dynamic_role and self.role != 'superadmin':
+            role_slug = self.dynamic_role.slug.lower()
+            if 'admin' in role_slug:
+                self.role = 'admin'
+            elif 'manager' in role_slug:
+                self.role = 'manager'
+            else:
+                self.role = 'employee'
+
         if self.role == 'superadmin':
             self.is_superuser = True
             self.is_staff = True
@@ -296,6 +305,61 @@ class EventInventoryAllocation(models.Model):
 
 
 # ==========================================
+# 4.5. PROJECTS MODULE
+# ==========================================
+class Project(models.Model):
+    STATUS_CHOICES = [
+        ('planning', 'Planning'),
+        ('active', 'Active'),
+        ('on_hold', 'On Hold'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+    ]
+
+    name = models.CharField(max_length=255)
+    code = models.CharField(max_length=50, unique=True, blank=True)
+    client_name = models.CharField(max_length=255, blank=True, default='')
+    description = models.TextField(blank=True, default='')
+    status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='active')
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            import random
+            from django.utils.text import slugify
+            prefix = slugify(self.name)[:6].upper() or "PRJ"
+            self.code = f"{prefix}-{random.randint(100, 999)}"
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.name} ({self.status})"
+
+
+# ==========================================
+# 4.6. TASK STATUS MASTER MODULE
+# ==========================================
+class TaskStatus(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True, blank=True)
+    color = models.CharField(max_length=20, default='#60a5fa', help_text="HEX color e.g. #60a5fa")
+    order = models.PositiveIntegerField(default=0)
+    is_completed_state = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            self.slug = slugify(self.name).replace('-', '_')
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
+# ==========================================
 # 5. TASKS & REAL-TIME STAFF TRACKING MODULE
 # ==========================================
 class Task(models.Model):
@@ -303,14 +367,6 @@ class Task(models.Model):
         ('pending', 'Pending'),
         ('in_progress', 'In Progress'),
         ('completed', 'Completed'),
-    ]
-
-    DEPARTMENT_CHOICES = [
-        ('kitchen', 'Kitchen & Food Prep'),
-        ('service', 'Live Service & Waitstaff'),
-        ('decor', 'Decor & Venue Setup'),
-        ('transport', 'Logistics & Transport'),
-        ('billing', 'Billing & Settlement'),
     ]
 
     PRIORITY_CHOICES = [
@@ -322,7 +378,21 @@ class Task(models.Model):
 
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, default='')
-    department = models.CharField(max_length=50, choices=DEPARTMENT_CHOICES, default='kitchen')
+    department = models.CharField(max_length=100, blank=True, default='')
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='tasks'
+    )
+    custom_status = models.ForeignKey(
+        TaskStatus,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='tasks'
+    )
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='medium')
     event = models.ForeignKey(
         Event,
