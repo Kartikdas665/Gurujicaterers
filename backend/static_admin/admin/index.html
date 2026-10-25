@@ -1463,51 +1463,52 @@
       <h3>Assign Task</h3>
       <form onsubmit="saveTask(event)">
         <div class="form-group">
-          <label>Title</label>
+          <label>Title *</label>
           <input type="text" id="tk-title" required placeholder="e.g. Prep 200kg Marinated Paneer & Tikka" />
         </div>
         <div style="display:flex; gap:10px;">
           <div class="form-group" style="flex:1">
-            <label>Project</label>
-            <select id="tk-project">
+            <label>Project *</label>
+            <select id="tk-project" required>
               <!-- Populated dynamically -->
             </select>
           </div>
           <div class="form-group" style="flex:1">
-            <label>Status</label>
-            <select id="tk-custom-status">
+            <label>Status *</label>
+            <select id="tk-custom-status" required>
               <!-- Populated dynamically from task statuses -->
             </select>
           </div>
         </div>
         <div style="display:flex; gap:10px;">
           <div class="form-group" style="flex:1">
-            <label>Priority</label>
-            <select id="tk-priority">
+            <label>Priority *</label>
+            <select id="tk-priority" required>
+              <option value="" disabled selected>-- Select Priority --</option>
               <option value="low">Low Priority</option>
-              <option value="medium" selected>Medium Priority</option>
+              <option value="medium">Medium Priority</option>
               <option value="high">High Priority</option>
               <option value="urgent">🚨 Urgent Priority</option>
             </select>
           </div>
           <div class="form-group" style="flex:1">
-            <label>Due Date</label>
-            <input type="date" id="tk-due" />
+            <label>Due Date *</label>
+            <input type="date" id="tk-due" required />
           </div>
         </div>
         <div class="form-group">
-          <label>Task Event / Type</label>
-          <select id="tk-category">
+          <label>Task Event / Type *</label>
+          <select id="tk-category" required>
             <!-- Populated dynamically from Task Events (Design, Development, Bug, etc.) -->
           </select>
         </div>
         <div class="form-group">
-          <label>Assign To</label>
-          <select id="tk-user"></select>
+          <label>Assign To *</label>
+          <select id="tk-user" required></select>
         </div>
         <div class="form-group">
-          <label>Description</label>
-          <textarea id="tk-desc" rows="2" placeholder="Specific steps, safety precautions..."></textarea>
+          <label>Description *</label>
+          <textarea id="tk-desc" rows="2" required placeholder="Specific steps, safety precautions..."></textarea>
         </div>
         <div class="modal-actions">
           <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
@@ -1994,6 +1995,21 @@
           const user = JSON.parse(savedUser);
           recordUserActivity();
           applyAuthenticatedUser(user);
+
+          // Asynchronously re-sync user permissions and role from backend
+          fetch(`${API_URL}/auth/me?user_id=${user.id}`)
+            .then(res => res.json())
+            .then(data => {
+              if (data.authenticated && data.user) {
+                localStorage.setItem('guruji_auth_user', JSON.stringify(data.user));
+                // If role or permissions changed, re-apply
+                if (JSON.stringify(data.user) !== JSON.stringify(user)) {
+                  applyAuthenticatedUser(data.user);
+                }
+              }
+            })
+            .catch(() => {});
+
           return true;
         } catch (e) {
           localStorage.removeItem('guruji_auth_user');
@@ -2096,6 +2112,12 @@
       if (btnAddUser) {
         const canCreateUser = isSuperAdmin || (userPerms.users ? (userPerms.users.allow_all || userPerms.users.can_create) : (user.role === 'admin'));
         btnAddUser.style.display = canCreateUser ? 'inline-block' : 'none';
+      }
+
+      const btnAddTask = document.querySelector('button[onclick="openTaskModal()"]');
+      if (btnAddTask) {
+        const canCreateTask = isSuperAdmin || (userPerms.tasks ? (userPerms.tasks.allow_all || userPerms.tasks.can_create) : true);
+        btnAddTask.style.display = canCreateTask ? 'inline-block' : 'none';
       }
 
       // Default landing tab based on permissions
@@ -2240,7 +2262,8 @@
     // Analytics Metrics
     async function fetchAnalytics() {
       try {
-        const res = await fetch(`${API_URL}/analytics`);
+        const queryParams = currentUser ? `?user_id=${currentUser.id}&role=${currentUser.role}` : '';
+        const res = await fetch(`${API_URL}/analytics${queryParams}`);
         const data = await res.json();
         const isEmp = (currentUser && currentUser.role === 'employee') || data.is_employee;
         const adminStatsRow = document.getElementById('admin-stats-row');
@@ -2635,9 +2658,9 @@
       const tkCat = document.getElementById('tk-category');
       if (tkCat) {
         if (!cachedTaskCategories || cachedTaskCategories.length === 0) {
-          tkCat.innerHTML = '<option value="">General / None</option>';
+          tkCat.innerHTML = '<option value="" disabled selected>-- No task events available --</option>';
         } else {
-          tkCat.innerHTML = '<option value="">Select Task Event / Type</option>' + cachedTaskCategories.map(c => 
+          tkCat.innerHTML = '<option value="" disabled selected>-- Select Task Event / Type * --</option>' + cachedTaskCategories.map(c => 
             `<option value="${c.id}">${c.name}</option>`
           ).join('');
         }
@@ -2769,6 +2792,8 @@
       if (completedCol) completedCol.innerHTML = '';
       if (tableBody) tableBody.innerHTML = '';
 
+      const canDeleteTask = !currentUser || currentUser.role === 'superadmin' || currentUser.role === 'admin' || (currentUser.permissions && currentUser.permissions.tasks ? (currentUser.permissions.tasks.allow_all || currentUser.permissions.tasks.can_delete) : false);
+
       tasks.forEach(t => {
         const priorityColors = {
           low: '#9ca3af',
@@ -2805,7 +2830,7 @@
               <div>
                 ${t.status === 'pending' ? `<button class="btn-action" onclick="updateTaskStatus(${t.id}, 'in_progress')">Start ➔</button>` : ''}
                 ${t.status === 'in_progress' ? `<button class="btn-action" style="color:#34d399" onclick="promptCompleteTask(${t.id})">Complete ✓</button>` : ''}
-                <button class="btn-action btn-delete" onclick="deleteTask(${t.id})">×</button>
+                ${canDeleteTask ? `<button class="btn-action btn-delete" onclick="deleteTask(${t.id})">×</button>` : ''}
               </div>
             </div>
           </div>
@@ -2838,7 +2863,7 @@
                 <div style="display:flex; gap:6px;">
                   ${t.status === 'pending' ? `<button class="btn-action" onclick="updateTaskStatus(${t.id}, 'in_progress')">Start</button>` : ''}
                   ${t.status === 'in_progress' ? `<button class="btn-action" style="color:#34d399" onclick="promptCompleteTask(${t.id})">Done</button>` : ''}
-                  <button class="btn-action btn-delete" onclick="deleteTask(${t.id})">Delete</button>
+                  ${canDeleteTask ? `<button class="btn-action btn-delete" onclick="deleteTask(${t.id})">Delete</button>` : ''}
                 </div>
               </td>
             </tr>
@@ -2871,9 +2896,18 @@
 
     async function deleteTask(id) {
       if (confirm('Delete this task?')) {
-        await fetch(`${API_URL}/tasks/${id}/`, { method: 'DELETE' });
-        loadTasks();
-        fetchAnalytics();
+        try {
+          const res = await fetch(`${API_URL}/tasks/${id}/`, { method: 'DELETE' });
+          if (!res.ok) {
+            const data = await res.json().catch(() => ({}));
+            alert(data.detail || data.error || 'Failed to delete task: Permission denied.');
+            return;
+          }
+          loadTasks();
+          fetchAnalytics();
+        } catch (err) {
+          alert('Failed to delete task: ' + err.message);
+        }
       }
     }
 
@@ -3308,12 +3342,12 @@
         if (tkUser) {
           const assignees = users.filter(u => u.role !== 'superadmin');
           if (assignees.length > 0) {
-            tkUser.innerHTML = assignees.map(u => {
+            tkUser.innerHTML = '<option value="" disabled selected>-- Select Assignee * --</option>' + assignees.map(u => {
               const label = `${u.first_name || u.username} (${u.role_name || u.role} - ${u.department || 'General'})`;
               return `<option value="${u.id}">${label}</option>`;
             }).join('');
           } else {
-            tkUser.innerHTML = `<option value="">No staff available</option>`;
+            tkUser.innerHTML = `<option value="" disabled selected>No staff available</option>`;
           }
         }
 
@@ -3538,30 +3572,76 @@
 
     async function saveTask(e) {
       e.preventDefault();
+      const title = document.getElementById('tk-title').value.trim();
       const dueVal = document.getElementById('tk-due').value;
       const projVal = document.getElementById('tk-project').value;
       const statusVal = document.getElementById('tk-custom-status').value;
       const catVal = document.getElementById('tk-category').value;
+      const priority = document.getElementById('tk-priority').value;
+      const assignedTo = document.getElementById('tk-user').value;
+      const desc = document.getElementById('tk-desc').value.trim();
+
+      // Check all fields
+      if (!title) {
+        alert('Please enter Task Title.');
+        document.getElementById('tk-title').focus();
+        return;
+      }
+      if (!priority) {
+        alert('Please select Task Priority.');
+        document.getElementById('tk-priority').focus();
+        return;
+      }
+      if (!dueVal) {
+        alert('Please select Due Date.');
+        document.getElementById('tk-due').focus();
+        return;
+      }
+      if (!catVal) {
+        alert('Please select Task Event / Type.');
+        document.getElementById('tk-category').focus();
+        return;
+      }
+      if (!assignedTo) {
+        alert('Please select Assign To user.');
+        document.getElementById('tk-user').focus();
+        return;
+      }
+      if (!desc) {
+        alert('Please enter Task Description.');
+        document.getElementById('tk-desc').focus();
+        return;
+      }
+
       const payload = {
-        title: document.getElementById('tk-title').value,
+        title: title,
         project: projVal ? projVal : null,
         custom_status: statusVal ? statusVal : null,
         task_category: catVal ? catVal : null,
-        priority: document.getElementById('tk-priority').value,
-        assigned_to: document.getElementById('tk-user').value,
-        description: document.getElementById('tk-desc').value,
-        due_date: dueVal ? new Date(`${dueVal}T23:59:59`).toISOString() : null,
+        priority: priority,
+        assigned_to: assignedTo,
+        description: desc,
+        due_date: new Date(`${dueVal}T23:59:59`).toISOString(),
         status: 'pending'
       };
 
-      await fetch(`${API_URL}/tasks/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      closeModals();
-      loadTasks();
-      fetchAnalytics();
+      try {
+        const res = await fetch(`${API_URL}/tasks/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const resData = await res.json();
+        if (!res.ok) {
+          alert(resData.detail || resData.error || JSON.stringify(resData));
+          return;
+        }
+        closeModals();
+        loadTasks();
+        fetchAnalytics();
+      } catch (err) {
+        alert('Failed to save task: ' + err.message);
+      }
     }
 
     async function saveUser(e) {

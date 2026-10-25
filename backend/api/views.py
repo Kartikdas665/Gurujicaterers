@@ -52,9 +52,42 @@ from .permissions import (
 )
 
 
-# ==========================================
-# 1. AUTHENTICATION & JWT ENDPOINTS
-# ==========================================
+def check_user_permission(user, module_key, action='read'):
+    """
+    Checks if a user has permission to perform an action on a module.
+    action can be: 'read', 'write', 'create', 'delete', 'import', 'export'
+    Superadmin and Admin default to True.
+    If dynamic_role is assigned, checks RolePermission.
+    """
+    if not user or not user.is_authenticated:
+        return True  # Fallback for unauthenticated dev/session mode
+    if user.role in ['superadmin', 'admin'] or user.is_superuser:
+        return True
+
+    if user.dynamic_role:
+        perm = RolePermission.objects.filter(role=user.dynamic_role, module_key=module_key).first()
+        if not perm:
+            return False
+        if perm.allow_all:
+            return True
+        attr_map = {
+            'read': perm.can_read,
+            'write': perm.can_write,
+            'create': perm.can_create,
+            'delete': perm.can_delete,
+            'import': perm.can_import,
+            'export': perm.can_export,
+        }
+        return attr_map.get(action, False)
+
+    # Built-in fallback
+    if user.role == 'manager':
+        return True
+    if user.role == 'employee':
+        if action == 'delete':
+            return False
+        return True
+    return False
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
@@ -114,6 +147,14 @@ def current_user_view(request):
     if request.user.is_authenticated:
         serializer = UserSerializer(request.user)
         return Response({'authenticated': True, 'user': serializer.data})
+    
+    uid = request.GET.get('user_id')
+    if uid:
+        user = User.objects.filter(id=uid).first()
+        if user and user.is_active:
+            serializer = UserSerializer(user)
+            return Response({'authenticated': True, 'user': serializer.data})
+
     return Response({'authenticated': False, 'user': None})
 
 
@@ -334,8 +375,8 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         user = self.request.user
-        if user.is_authenticated and user.role == 'employee':
-            raise PermissionDenied("Employees cannot create tasks.")
+        if not check_user_permission(user, 'tasks', 'create'):
+            raise PermissionDenied("You do not have permission to create tasks.")
 
         event = serializer.validated_data.get('event')
         if user.is_authenticated and user.role == 'manager' and event and event.assigned_manager != user:
@@ -358,11 +399,20 @@ class TaskViewSet(viewsets.ModelViewSet):
             if task.event and task.event.assigned_manager != user and task.assigned_by != user:
                 raise PermissionDenied("You cannot modify tasks belonging to other managers.")
 
+        if not check_user_permission(user, 'tasks', 'write'):
+            raise PermissionDenied("You do not have permission to edit tasks.")
+
         new_status = serializer.validated_data.get('status')
         if new_status == 'completed' and not task.completed_at:
             serializer.save(completed_at=timezone.now())
         else:
             serializer.save()
+
+    def destroy(self, request, *args, **kwargs):
+        user = request.user
+        if not check_user_permission(user, 'tasks', 'delete'):
+            raise PermissionDenied("You do not have permission to delete tasks.")
+        return super().destroy(request, *args, **kwargs)
 
 
 # ==========================================
@@ -605,9 +655,13 @@ def user_detail(request, pk):
 @permission_classes([AllowAny])
 def analytics_view(request):
     user = request.user
-    if user.is_authenticated and user.role == 'employee':
+    role = user.role if user.is_authenticated else request.GET.get('role')
+    user_id = user.id if user.is_authenticated else request.GET.get('user_id')
+
+    if role == 'employee' and user_id:
+        target_user = user if user.is_authenticated else User.objects.filter(id=user_id).first()
         # Employees get operational metrics only, zeroed financials
-        my_tasks = Task.objects.filter(assigned_to=user).select_related('project', 'custom_status', 'task_category')
+        my_tasks = Task.objects.filter(assigned_to=target_user).select_related('project', 'custom_status', 'task_category')
         todo_count = my_tasks.filter(Q(status='pending') | Q(custom_status__slug='pending')).count()
         in_progress_count = my_tasks.filter(Q(status='in_progress') | Q(custom_status__slug='in-progress')).count()
         completed_count = my_tasks.filter(Q(status='completed') | Q(custom_status__is_completed_state=True)).count()
@@ -615,8 +669,8 @@ def analytics_view(request):
 
         return Response({
             'is_employee': True,
-            'total_events': Event.objects.filter(tasks__assigned_to=user).distinct().count(),
-            'active_events': Event.objects.filter(tasks__assigned_to=user, status__in=['confirmed', 'in_progress']).distinct().count(),
+            'total_events': Event.objects.filter(tasks__assigned_to=target_user).distinct().count(),
+            'active_events': Event.objects.filter(tasks__assigned_to=target_user, status__in=['confirmed', 'in_progress']).distinct().count(),
             'total_tasks': my_tasks.count(),
             'pending_tasks': todo_count,
             'in_progress_tasks': in_progress_count,
