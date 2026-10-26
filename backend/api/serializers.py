@@ -258,6 +258,7 @@ class EventBillingSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     assigned_manager_name = serializers.ReadOnlyField(source='assigned_manager.username')
     menu_package_name = serializers.ReadOnlyField(source='menu_package.name')
+    menu_items_details = MenuItemSerializer(source='menu_items', many=True, read_only=True)
     billing = EventBillingSerializer(read_only=True)
     vendor_expenses = VendorExpenseSerializer(many=True, read_only=True)
     inventory_allocations = EventInventoryAllocationSerializer(many=True, read_only=True)
@@ -267,8 +268,11 @@ class EventSerializer(serializers.ModelSerializer):
         model = Event
         fields = [
             'id', 'name', 'client_name', 'client_phone', 'client_email',
-            'date', 'venue', 'guest_count', 'status', 'branch',
-            'menu_package', 'menu_package_name',
+            'date', 'time', 'venue', 'guest_count', 'status', 'branch',
+            'menu_package', 'menu_package_name', 'price',
+            'cooking_type', 'menu_items', 'menu_items_details',
+            'description', 'requirement',
+            'setup_provided', 'live_counters_count', 'waiters_required', 'waiters_count', 'setup_notes',
             'assigned_manager', 'assigned_manager_name',
             'plate_count_revised', 'kitchen_alert_notes',
             'billing', 'vendor_expenses', 'inventory_allocations',

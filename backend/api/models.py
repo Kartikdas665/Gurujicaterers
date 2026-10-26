@@ -254,6 +254,28 @@ class Event(models.Model):
     )
     branch = models.CharField(max_length=120, blank=True, default='Main Branch')
 
+    time = models.TimeField(null=True, blank=True, help_text="Event Start / Meal Time")
+    price = models.DecimalField(max_digits=12, decimal_places=2, default=0.0, help_text="Total Event Booking Price / Agreed Amount")
+    cooking_type = models.CharField(
+        max_length=50,
+        choices=[
+            ('live_cooking', 'Live Cooking (On-Site Fresh Preparation)'),
+            ('pre_cooked', 'Pre-Cooked (Delivered in Insulated Hot Boxes)'),
+            ('hybrid', 'Hybrid (Base Pre-Cooked + Live Tandoor/Chaats)'),
+        ],
+        default='live_cooking'
+    )
+    menu_items = models.ManyToManyField(MenuItem, related_name='events', blank=True)
+    description = models.TextField(blank=True, default='', help_text="General event flow, special instructions & VIP requests")
+    requirement = models.TextField(blank=True, default='', help_text="Client specific requirements (Crockery, Theme, Beverage stalls, etc.)")
+
+    # Setup Provided details
+    setup_provided = models.BooleanField(default=False, help_text="Whether catering/counter setup is provided")
+    live_counters_count = models.PositiveIntegerField(default=0, help_text="Number of live cooking counters required if setup provided")
+    waiters_required = models.BooleanField(default=False, help_text="Whether service waiters are required")
+    waiters_count = models.PositiveIntegerField(default=0, help_text="Number of waiters required")
+    setup_notes = models.TextField(blank=True, default='', help_text="What setup is required (counters, buffet tables, chaffing dishes, etc.)")
+
     # Quick Last-Minute Plate/Count Revision tracking
     plate_count_revised = models.PositiveIntegerField(null=True, blank=True, help_text="Last-minute plate count addition")
     kitchen_alert_notes = models.TextField(blank=True, default='', help_text="Urgent notes for head chef and crew")

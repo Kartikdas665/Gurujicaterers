@@ -1400,57 +1400,140 @@
 
   <!-- Create Event Modal -->
   <div id="event-modal" class="modal">
-    <div class="modal-box">
-      <h3>Create New Event Booking</h3>
+    <div class="modal-box" style="max-width: 720px; max-height: 90vh; overflow-y: auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:10px;">
+        <h3 style="margin:0;">Create New Event Booking</h3>
+        <button type="button" class="btn-action" onclick="closeModals()" style="font-size:1.1rem; padding:2px 8px;">✕</button>
+      </div>
       <form onsubmit="saveEvent(event)">
-        <div class="form-group">
-          <label>Event Name / Title</label>
-          <input type="text" id="ev-name" required placeholder="e.g. Kapoor Grand Wedding Sangeet" />
+        <!-- 1. Event & Client Info -->
+        <div style="display:flex; gap:12px;">
+          <div class="form-group" style="flex:1;">
+            <label>Event Name *</label>
+            <input type="text" id="ev-name" required placeholder="e.g. Royal Wedding Sangeet & Reception" />
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Client Name *</label>
+            <input type="text" id="ev-client" required placeholder="e.g. Rajesh Sharma" />
+          </div>
         </div>
-        <div class="form-group">
-          <label>Client Name</label>
-          <input type="text" id="ev-client" required placeholder="e.g. Vikram Kapoor" />
-        </div>
-        <div style="display:flex; gap:10px;">
-          <div class="form-group" style="flex:1">
-            <label>Client Phone</label>
+
+        <div style="display:flex; gap:12px;">
+          <div class="form-group" style="flex:1;">
+            <label>Phone No. *</label>
             <input type="text" id="ev-phone" required placeholder="+91 98765 43210" />
           </div>
-          <div class="form-group" style="flex:1">
-            <label>Client Email</label>
-            <input type="email" id="ev-email" placeholder="client@email.com" />
+          <div class="form-group" style="flex:1;">
+            <label>Mail *</label>
+            <input type="email" id="ev-email" required placeholder="client@example.com" />
           </div>
         </div>
-        <div style="display:flex; gap:10px;">
-          <div class="form-group" style="flex:1">
-            <label>Event Date</label>
+
+        <div style="display:flex; gap:12px;">
+          <div class="form-group" style="flex:1;">
+            <label>Date *</label>
             <input type="date" id="ev-date" required />
           </div>
-          <div class="form-group" style="flex:1">
-            <label>Guest Count (Pax)</label>
-            <input type="number" id="ev-pax" required min="10" value="250" />
+          <div class="form-group" style="flex:1;">
+            <label>Time *</label>
+            <input type="time" id="ev-time" required />
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Guest (Pax) *</label>
+            <input type="number" id="ev-pax" required min="1" value="200" placeholder="200" />
           </div>
         </div>
+
         <div class="form-group">
-          <label>Venue Location</label>
-          <input type="text" id="ev-venue" required placeholder="e.g. The Taj Palace Ballroom" />
+          <label>Venue *</label>
+          <input type="text" id="ev-venue" required placeholder="e.g. Grand Heritage Lawn, Alambagh, Lucknow" />
         </div>
+
+        <!-- 2. Menu Package, Price & Cooking Type -->
+        <div style="display:flex; gap:12px;">
+          <div class="form-group" style="flex:1.2;">
+            <label>Menu Package *</label>
+            <select id="ev-package" onchange="handleEventPackageChange()" required>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Price (₹ Agreed / Total) *</label>
+            <input type="number" id="ev-price" required min="0" step="0.01" placeholder="e.g. 150000" />
+          </div>
+          <div class="form-group" style="flex:1.2;">
+            <label>Cooking Dropdown *</label>
+            <select id="ev-cooking-type" required>
+              <option value="live_cooking" selected>🔥 Live Cooking (On-Site Fresh)</option>
+              <option value="pre_cooked">📦 Pre-Cooked (Delivered in Hot Boxes)</option>
+              <option value="hybrid">⚡ Hybrid (Pre-Cooked + Live Counters)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 3. Menu Items Selection -->
         <div class="form-group">
-          <label>Menu Package</label>
-          <select id="ev-package"></select>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <label style="margin:0;">Menu Items *</label>
+            <span style="font-size:0.75rem; color:var(--text-muted);"><span id="ev-menu-selected-count">0</span> items selected</span>
+          </div>
+          <div id="ev-menu-items-container" style="max-height: 140px; overflow-y: auto; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px;">
+            <!-- Populated dynamically with checkboxes -->
+          </div>
         </div>
+
+        <!-- 4. Requirement & Description -->
         <div class="form-group">
-          <label>Booking Status</label>
-          <select id="ev-status">
-            <option value="inquiry">Lead / Inquiry</option>
-            <option value="quoted">Quotation Generated</option>
-            <option value="confirmed" selected>Confirmed (Advance Received - Block Assets)</option>
-            <option value="in_progress">In Progress (Live Event)</option>
-          </select>
+          <label>Requirement *</label>
+          <textarea id="ev-requirement" rows="2" required placeholder="Client specific requirements (e.g. Bone china crockery, welcome drinks booth, copper chafing dishes...)"></textarea>
         </div>
-        <div class="modal-actions">
+
+        <div class="form-group">
+          <label>Description *</label>
+          <textarea id="ev-desc" rows="2" required placeholder="Event flow, VIP instructions, catering schedule and special handling..."></textarea>
+        </div>
+
+        <!-- 5. Setup Provided Section (Conditional Details) -->
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px; margin-bottom: 14px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+            <label style="font-weight:700; margin:0; display:flex; align-items:center; gap:8px;">
+              <span>🍽️ Setup Provided?</span>
+            </label>
+            <select id="ev-setup-provided" onchange="toggleEventSetupFields()" style="width: 140px; padding: 6px 10px;" required>
+              <option value="no">No</option>
+              <option value="yes" selected>Yes</option>
+            </select>
+          </div>
+
+          <div id="ev-setup-conditional-box" style="display:block;">
+            <div style="display:flex; gap:12px; margin-top:8px;">
+              <div class="form-group" style="flex:1;">
+                <label>Live Cooking Counters (Count) *</label>
+                <input type="number" id="ev-live-counters" min="0" value="2" placeholder="e.g. 2 (Tandoor, Chaat)" />
+              </div>
+              <div class="form-group" style="flex:1;">
+                <label>Waiters Required? *</label>
+                <select id="ev-waiters-required" onchange="toggleWaitersCountField()">
+                  <option value="yes" selected>Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div class="form-group" id="ev-waiters-count-wrap" style="flex:1;">
+                <label>How Many Waiters? *</label>
+                <input type="number" id="ev-waiters-count" min="0" value="6" placeholder="e.g. 6" />
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top:8px; margin-bottom:0;">
+              <label>What's Required for Setup? *</label>
+              <textarea id="ev-setup-notes" rows="2" placeholder="e.g. 2 Live Chaat/Tandoor counters, 4 buffet stations, warmer chafers, water dispenders..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions" style="margin-top:14px;">
           <button type="button" class="btn-cancel" onclick="closeModals()">Cancel</button>
-          <button type="submit" class="btn-gold">Create Event</button>
+          <button type="submit" class="btn-gold" style="padding:10px 24px;">Create Event Booking</button>
         </div>
       </form>
     </div>
@@ -2393,17 +2476,36 @@
               <tr>
                 <td>
                   <strong>${ev.name}</strong><br>
-                  <small style="color:var(--primary)">Manager: ${ev.assigned_manager_name || 'Unassigned'}</small>
+                  <small style="color:var(--primary)">${ev.cooking_type === 'live_cooking' ? '🔥 Live Cooking' : (ev.cooking_type === 'pre_cooked' ? '📦 Pre-Cooked' : '⚡ Hybrid')}</small>
+                  ${ev.setup_provided ? `<br><small style="color:#38bdf8;">🍽️ Setup (${ev.live_counters_count || 0} Counters, ${ev.waiters_count || 0} Waiters)</small>` : ''}
                 </td>
-                <td>${ev.client_name}<br><small style="color:var(--text-muted)">${ev.client_phone}</small></td>
-                <td>${ev.date}<br><small style="color:var(--text-muted)">${ev.venue}</small></td>
-                <td>${ev.guest_count} Pax</td>
-                <td>${ev.menu_package_name || 'Custom Dishes'}</td>
-                <td><span class="badge-status status-${ev.status}">${ev.status}</span></td>
-                <td>Total: ₹${Number(b.total_amount || 0).toLocaleString('en-IN')}<br><small style="color:#34d399">Adv: ₹${Number(b.advance_paid || 0).toLocaleString('en-IN')}</small></td>
                 <td>
-                  <button class="btn-action btn-alert-action" onclick="openExtraPlatesModal(${ev.id})">+ Plates</button>
-                  <button class="btn-action btn-delete" onclick="deleteEvent(${ev.id})">Delete</button>
+                  <strong>${ev.client_name}</strong><br>
+                  <small style="color:var(--text-muted)">${ev.client_phone}</small><br>
+                  <small style="color:var(--text-muted)">${ev.client_email || ''}</small>
+                </td>
+                <td>
+                  <strong>${ev.date}</strong> ${ev.time ? `@ ${ev.time}` : ''}<br>
+                  <small style="color:var(--text-muted)">📍 ${ev.venue}</small>
+                </td>
+                <td>
+                  <strong>${ev.guest_count}</strong> Pax<br>
+                  <small style="color:var(--text-muted);">${(ev.menu_items || []).length} Dishes</small>
+                </td>
+                <td>
+                  <strong>${ev.menu_package_name || 'Custom Package'}</strong>
+                  ${ev.requirement ? `<br><small style="color:var(--text-muted); font-style:italic;">Req: ${ev.requirement.slice(0, 30)}...</small>` : ''}
+                </td>
+                <td><span class="badge-status status-${ev.status}">${ev.status}</span></td>
+                <td>
+                  <strong style="color:var(--primary)">₹${Number(ev.price || b.total_amount || 0).toLocaleString('en-IN')}</strong><br>
+                  <small style="color:#34d399">Adv: ₹${Number(b.advance_paid || 0).toLocaleString('en-IN')}</small>
+                </td>
+                <td>
+                  <div style="display:flex; gap:6px;">
+                    <button class="btn-action btn-alert-action" onclick="openExtraPlatesModal(${ev.id})">+ Plates</button>
+                    <button class="btn-action btn-delete" onclick="deleteEvent(${ev.id})">Delete</button>
+                  </div>
                 </td>
               </tr>
             `;
@@ -2919,7 +3021,8 @@
 
         const pkgSelect = document.getElementById('ev-package');
         if (pkgSelect) {
-          pkgSelect.innerHTML = `<option value="">-- No Fixed Package --</option>` +
+          pkgSelect.innerHTML = `<option value="" disabled selected>-- Select Menu Package * --</option>` +
+            `<option value="custom">✨ Custom Package (Dish-by-Dish)</option>` +
             cachedPackages.map(p => `<option value="${p.id}">${p.name} (₹${p.per_plate_price}/plate)</option>`).join('');
         }
 
@@ -3405,11 +3508,15 @@
       }
     }
 
+    let cachedMenuDishes = [];
+
     // 7. Menu Dishes
     async function loadMenu() {
       try {
         const res = await fetch(`${API_URL}/menu`);
         const menu = await res.json();
+        cachedMenuDishes = menu;
+        populateEventMenuItemsContainer();
         const tbody = document.getElementById('menu-tbody');
         if (tbody) {
           tbody.innerHTML = menu.map(m => `
@@ -3426,6 +3533,70 @@
         }
       } catch (e) {
         console.error(e);
+      }
+    }
+
+    function populateEventMenuItemsContainer(selectedIds = []) {
+      const container = document.getElementById('ev-menu-items-container');
+      if (!container) return;
+      if (!cachedMenuDishes || cachedMenuDishes.length === 0) {
+        container.innerHTML = `<span style="grid-column: 1/-1; color:var(--text-muted); font-size:0.8rem;">No dishes in catalog. Go to 'Dish Catalog' to add items.</span>`;
+        return;
+      }
+      container.innerHTML = cachedMenuDishes.map(d => {
+        const isChecked = selectedIds.includes(d.id) ? 'checked' : '';
+        return `
+          <label style="display:flex; align-items:center; gap:6px; font-size:0.8rem; background:rgba(255,255,255,0.04); padding:4px 8px; border-radius:4px; cursor:pointer;">
+            <input type="checkbox" name="ev-menu-item-cb" value="${d.id}" ${isChecked} onchange="updateEventMenuSelectedCount()" />
+            <span>${d.isVeg ? '🟢' : '🔴'} ${d.name} <small style="color:var(--text-muted);">(₹${d.price})</small></span>
+          </label>
+        `;
+      }).join('');
+      updateEventMenuSelectedCount();
+    }
+
+    function updateEventMenuSelectedCount() {
+      const countEl = document.getElementById('ev-menu-selected-count');
+      const checked = document.querySelectorAll('input[name="ev-menu-item-cb"]:checked');
+      if (countEl) countEl.innerText = checked.length;
+    }
+
+    function handleEventPackageChange() {
+      const pkgId = document.getElementById('ev-package').value;
+      const pax = Number(document.getElementById('ev-pax').value) || 100;
+      if (!pkgId || pkgId === 'custom') {
+        return;
+      }
+      const pkg = cachedPackages.find(p => p.id == pkgId);
+      if (pkg) {
+        // Auto-suggest price if not entered or update based on per_plate_price * pax
+        const autoPrice = Number(pkg.per_plate_price) * pax;
+        const priceInput = document.getElementById('ev-price');
+        if (priceInput && (!priceInput.value || Number(priceInput.value) === 0)) {
+          priceInput.value = autoPrice;
+        }
+        // Auto-select package menu items if defined
+        if (pkg.items && Array.isArray(pkg.items)) {
+          populateEventMenuItemsContainer(pkg.items);
+        } else if (pkg.items_details && Array.isArray(pkg.items_details)) {
+          populateEventMenuItemsContainer(pkg.items_details.map(x => x.id));
+        }
+      }
+    }
+
+    function toggleEventSetupFields() {
+      const setupProv = document.getElementById('ev-setup-provided').value;
+      const box = document.getElementById('ev-setup-conditional-box');
+      if (box) {
+        box.style.display = (setupProv === 'yes') ? 'block' : 'none';
+      }
+    }
+
+    function toggleWaitersCountField() {
+      const waitersReq = document.getElementById('ev-waiters-required').value;
+      const wrap = document.getElementById('ev-waiters-count-wrap');
+      if (wrap) {
+        wrap.style.display = (waitersReq === 'yes') ? 'block' : 'none';
       }
     }
 
@@ -3458,6 +3629,15 @@
     }
     function openEventModal() {
       document.getElementById('ev-date').value = new Date().toISOString().split('T')[0];
+      if (!document.getElementById('ev-time').value) {
+        document.getElementById('ev-time').value = '19:00';
+      }
+      if (cachedPackages.length === 0) loadPackages();
+      if (cachedMenuDishes.length === 0) loadMenu();
+      else populateEventMenuItemsContainer();
+
+      toggleEventSetupFields();
+      toggleWaitersCountField();
       document.getElementById('event-modal').classList.add('active');
     }
     function openTaskModal() {
@@ -3548,26 +3728,88 @@
 
     async function saveEvent(e) {
       e.preventDefault();
+      const name = document.getElementById('ev-name').value.trim();
+      const clientName = document.getElementById('ev-client').value.trim();
+      const phone = document.getElementById('ev-phone').value.trim();
+      const email = document.getElementById('ev-email').value.trim();
+      const date = document.getElementById('ev-date').value;
+      const time = document.getElementById('ev-time').value;
+      const pax = Number(document.getElementById('ev-pax').value);
+      const venue = document.getElementById('ev-venue').value.trim();
+      const pkgVal = document.getElementById('ev-package').value;
+      const price = Number(document.getElementById('ev-price').value);
+      const cookingType = document.getElementById('ev-cooking-type').value;
+      const req = document.getElementById('ev-requirement').value.trim();
+      const desc = document.getElementById('ev-desc').value.trim();
+
+      const setupProv = document.getElementById('ev-setup-provided').value === 'yes';
+      const liveCounters = setupProv ? (Number(document.getElementById('ev-live-counters').value) || 0) : 0;
+      const waitersReq = setupProv ? (document.getElementById('ev-waiters-required').value === 'yes') : false;
+      const waitersCount = (setupProv && waitersReq) ? (Number(document.getElementById('ev-waiters-count').value) || 0) : 0;
+      const setupNotes = setupProv ? document.getElementById('ev-setup-notes').value.trim() : '';
+
+      // Collect selected menu item IDs
+      const selectedMenuItems = Array.from(document.querySelectorAll('input[name="ev-menu-item-cb"]:checked'))
+        .map(cb => Number(cb.value));
+
+      // Validation
+      if (!name) { alert('Please enter Event Name.'); return; }
+      if (!clientName) { alert('Please enter Client Name.'); return; }
+      if (!phone) { alert('Please enter Phone No.'); return; }
+      if (!email) { alert('Please enter Client Mail.'); return; }
+      if (!date) { alert('Please select Event Date.'); return; }
+      if (!time) { alert('Please enter Event Time.'); return; }
+      if (!pax || pax < 1) { alert('Please enter valid Guest count.'); return; }
+      if (!venue) { alert('Please enter Event Venue.'); return; }
+      if (!pkgVal) { alert('Please select Menu Package.'); return; }
+      if (isNaN(price) || price < 0) { alert('Please enter valid Event Price.'); return; }
+      if (!cookingType) { alert('Please select Cooking Option.'); return; }
+      if (selectedMenuItems.length === 0) { alert('Please select at least one Menu Item.'); return; }
+      if (!req) { alert('Please enter Event Requirements.'); return; }
+      if (!desc) { alert('Please enter Event Description.'); return; }
+      if (setupProv && !setupNotes) { alert('Please specify What is Required for Setup.'); return; }
+
       const payload = {
-        name: document.getElementById('ev-name').value,
-        client_name: document.getElementById('ev-client').value,
-        client_phone: document.getElementById('ev-phone').value,
-        client_email: document.getElementById('ev-email').value,
-        date: document.getElementById('ev-date').value,
-        guest_count: Number(document.getElementById('ev-pax').value),
-        venue: document.getElementById('ev-venue').value,
-        menu_package: document.getElementById('ev-package').value || null,
-        status: document.getElementById('ev-status').value,
+        name: name,
+        client_name: clientName,
+        client_phone: phone,
+        client_email: email,
+        date: date,
+        time: time,
+        guest_count: pax,
+        venue: venue,
+        menu_package: (pkgVal && pkgVal !== 'custom') ? Number(pkgVal) : null,
+        price: price,
+        cooking_type: cookingType,
+        menu_items: selectedMenuItems,
+        requirement: req,
+        description: desc,
+        setup_provided: setupProv,
+        live_counters_count: liveCounters,
+        waiters_required: waitersReq,
+        waiters_count: waitersCount,
+        setup_notes: setupNotes,
+        status: 'confirmed'
       };
 
-      await fetch(`${API_URL}/events/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      closeModals();
-      loadEvents();
-      fetchAnalytics();
+      try {
+        const res = await fetch(`${API_URL}/events/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const resData = await res.json();
+        if (!res.ok) {
+          alert('Error creating event: ' + (resData.detail || JSON.stringify(resData)));
+          return;
+        }
+        alert('🎉 Event booking created successfully!');
+        closeModals();
+        loadEvents();
+        fetchAnalytics();
+      } catch (err) {
+        alert('Failed to save event: ' + err.message);
+      }
     }
 
     async function saveTask(e) {

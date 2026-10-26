@@ -194,12 +194,13 @@ class EventViewSet(viewsets.ModelViewSet):
         branch = user.branch if user.is_authenticated else 'Main Branch'
         event = serializer.save(assigned_manager=manager, branch=branch)
 
-        # Auto-create Billing record based on selected package & guest count
+        # Auto-create Billing record based on selected package & guest count or agreed event price
         pkg = event.menu_package
-        quotation = 0.0
+        quotation = float(event.price) if (event.price and float(event.price) > 0) else 0.0
         food_cost = 0.0
         if pkg:
-            quotation = float(pkg.per_plate_price) * float(event.guest_count)
+            if quotation == 0.0:
+                quotation = float(pkg.per_plate_price) * float(event.guest_count)
             food_cost = float(pkg.per_plate_cost) * float(event.guest_count)
 
         EventBilling.objects.get_or_create(
