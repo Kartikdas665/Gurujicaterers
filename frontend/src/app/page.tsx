@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import Navbar from './components/Navbar';
 
 export default function Home() {
@@ -202,13 +203,13 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 3. Our Signature Services */}
+        {/* 3. Our Catering Services */}
         <section id="signature-services" className="signature-services-section">
           <div className="container">
             <div className="signature-header">
               <div className="gold-accent-line"></div>
               <p className="signature-subheading">Experience unparalleled catering excellence.</p>
-              <h2 className="signature-title">Our Signature Services</h2>
+              <h2 className="signature-title">Our Catering Services</h2>
               <div className="signature-divider">
                 <span className="divider-line"></span>
                 <span className="signature-bowl-icon">🥣</span>
@@ -303,6 +304,18 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* View All Catering Services Button */}
+            <div style={{ textAlign: 'center', marginTop: '45px' }}>
+              <Link
+                href="/packages/catering"
+                className="btn btn-primary"
+                style={{ padding: '14px 38px', fontSize: '1rem', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+              >
+                <span>View All Catering Services</span>
+                <span>→</span>
+              </Link>
             </div>
           </div>
         </section>
@@ -450,84 +463,6 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-
-              {/* Member 4 */}
-              <div className="team-member-card">
-                <div className="team-card-top">
-                  <div className="team-avatar-wrap" style={{ borderColor: '#ea580c' }}>
-                    <div className="team-avatar-inner" style={{ background: 'linear-gradient(135deg, #2e1509, #140d17)' }}>
-                      <span className="team-avatar-text" style={{ color: '#fb923c' }}>RS</span>
-                    </div>
-                    <span className="team-avatar-badge">🍨 Mithai Maestro</span>
-                  </div>
-                  <div className="team-exp-chip">30+ Yrs Exp</div>
-                </div>
-                <div className="team-card-body">
-                  <h3 className="team-member-name">Pandit Ramkishan Sharma</h3>
-                  <div className="team-member-role">Chief Master Confectioner</div>
-                  <div className="team-member-specialty">Pure Desi Ghee Sweets & Kulfi Studios</div>
-                  <p className="team-member-bio">
-                    Custodian of three generations of Banaras sweet craftsmanship. Curates live swirling desi ghee jalebis, thick malai rabri, and molecular liquid nitrogen smoking kulfi bars.
-                  </p>
-                  <div className="team-chip-tags">
-                    <span className="team-chip">100% Desi Ghee</span>
-                    <span className="team-chip">Live Jalebi Rabri</span>
-                    <span className="team-chip">Nitrogen Kulfi</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Member 5 */}
-              <div className="team-member-card">
-                <div className="team-card-top">
-                  <div className="team-avatar-wrap" style={{ borderColor: '#2563eb' }}>
-                    <div className="team-avatar-inner" style={{ background: 'linear-gradient(135deg, #0e1b33, #140d17)' }}>
-                      <span className="team-avatar-text" style={{ color: '#60a5fa' }}>SS</span>
-                    </div>
-                    <span className="team-avatar-badge">🎩 Hospitality Lead</span>
-                  </div>
-                  <div className="team-exp-chip">16+ Yrs Exp</div>
-                </div>
-                <div className="team-card-body">
-                  <h3 className="team-member-name">Shivansh Singh</h3>
-                  <div className="team-member-role">VP - Banquet Operations & Logistics</div>
-                  <div className="team-member-specialty">White-Glove Butler Hospitality & 2000+ Pax</div>
-                  <p className="team-member-bio">
-                    Ensures clockwork timing, immaculate luxury table layout, discreet VIP butler service, and zero food delays for high-profile destination weddings across India.
-                  </p>
-                  <div className="team-chip-tags">
-                    <span className="team-chip">White-Glove Service</span>
-                    <span className="team-chip">2000+ Pax Galas</span>
-                    <span className="team-chip">Zero-Delay Delivery</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Member 6 */}
-              <div className="team-member-card">
-                <div className="team-card-top">
-                  <div className="team-avatar-wrap" style={{ borderColor: '#059669' }}>
-                    <div className="team-avatar-inner" style={{ background: 'linear-gradient(135deg, #0a2418, #140d17)' }}>
-                      <span className="team-avatar-text" style={{ color: '#34d399' }}>RN</span>
-                    </div>
-                    <span className="team-avatar-badge">🛡️ Hygiene Lead</span>
-                  </div>
-                  <div className="team-exp-chip">12+ Yrs Exp</div>
-                </div>
-                <div className="team-card-body">
-                  <h3 className="team-member-name">Dr. Radhika Nair</h3>
-                  <div className="team-member-role">Head of Food Safety & Sanitation</div>
-                  <div className="team-member-specialty">HACCP 7-Star Kitchen Protocols</div>
-                  <p className="team-member-bio">
-                    Directs strict lab testing of ingredients, daily farm-fresh dairy audits, temperature-controlled logistics, and multi-tier sterilizations across our mobile kitchens.
-                  </p>
-                  <div className="team-chip-tags">
-                    <span className="team-chip">HACCP Certified</span>
-                    <span className="team-chip">7-Star Hygiene</span>
-                    <span className="team-chip">Lab Tested Food</span>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Team Trust Bar */}
@@ -553,92 +488,107 @@ export default function Home() {
               </div>
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '36px' }}>
-              <a href="/packages/catering" className="btn btn-outline" style={{ padding: '12px 30px' }}>
-                Explore Our Catering Packages →
-              </a>
+            <div style={{ textAlign: 'center', marginTop: '40px' }}>
+              <Link
+                href="/about#team"
+                className="btn btn-primary"
+                style={{ padding: '14px 38px', fontSize: '1rem', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+              >
+                <span>View All Team Members</span>
+                <span>→</span>
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* 5. Packages & Menu Showcase */}
+        {/* 5. Event Packages & Production Showcase */}
         <section id="packages" className="menu-section">
           <div id="menu"></div>
           <div className="container">
             <div className="section-header-centered">
-              <span className="section-pill">CHEF&apos;S SIGNATURES & PACKAGES</span>
-              <h2 className="section-title-luxury">Our Packages & Menu Showcase</h2>
+              <span className="section-pill">✦ EXPERIENTIAL EVENTS & PRODUCTION</span>
+              <h2 className="section-title-luxury">Our Event Packages & Services</h2>
               <p className="section-subtitle">
-                A symphony of hand-picked culinary treasures. From traditional royal sigri tandoor to modern global gastronomy and bespoke live dessert creations.
+                End-to-end experiential event management, brand activations, large-scale concert productions, and corporate conferences with turnkey technical execution.
               </p>
             </div>
 
             <div className="menu-showcase-grid">
+              {/* Event Package 1: On-Ground & Outdoor Activation */}
               <div className="menu-showcase-card">
                 <div className="menu-showcase-img-wrap">
-                  <img src="/catering_hero_1791127858700.jpg" alt="Luxury Wedding Catering Food Display - Charcoal Tandoori & Artisanal Kebabs" />
-                  <span className="menu-card-badge">ROYAL GRILLS</span>
+                  <img src="/catering_hero_1791127858700.jpg" alt="On-Ground and Outdoor Brand Activation Setup" />
+                  <span className="menu-card-badge">ACTIVATION & POPUPS</span>
                 </div>
                 <div className="menu-card-body">
-                  <h4>Artisanal Tandoori & Kebabs</h4>
-                  <p>Authentic charcoal sigri appetizers infused with hand-ground spices, served sizzling with mint chutney.</p>
+                  <h4>On-Ground & Outdoor Activation</h4>
+                  <p>Experiential consumer engagement, brand pavilions, mall popups, kiosk fabrication, and high-footfall outdoor roadshows.</p>
                   <div className="menu-card-footer">
-                    <span className="menu-tag-list">Tandoor • Awadhi • Live</span>
-                    <span className="menu-view-arrow">Explore →</span>
+                    <span className="menu-tag-list">Popups • Kiosks • Roadshows</span>
+                    <Link href="/packages/events-expenditure" className="menu-view-arrow">Explore →</Link>
                   </div>
                 </div>
               </div>
 
+              {/* Event Package 2: Corporate Events, Seminars & Workshops */}
               <div className="menu-showcase-card">
                 <div className="menu-showcase-img-wrap">
-                  <img src="/catering_corporate_1791127885197.jpg" alt="Corporate Event Buffet Setup - Contemporary Global & Mediterranean Platter" />
-                  <span className="menu-card-badge">GLOBAL DELIGHTS</span>
+                  <img src="/catering_corporate_1791127885197.jpg" alt="Corporate Gala Summit and Seminar Setup" />
+                  <span className="menu-card-badge">CORPORATE EXCELLENCE</span>
                 </div>
                 <div className="menu-card-body">
-                  <h4>Continental & Mediterranean</h4>
-                  <p>Farm-fresh organic salads, hand-rolled pasta live counters, and exquisite mezze boards crafted fresh.</p>
+                  <h4>Corporate Events & Seminars</h4>
+                  <p>High-level business conferences, annual award nights, panel symposiums, and dynamic team-building offsites with 360° logistical support.</p>
                   <div className="menu-card-footer">
-                    <span className="menu-tag-list">Gourmet • Italian • Salads</span>
-                    <span className="menu-view-arrow">Explore →</span>
+                    <span className="menu-tag-list">Summits • Workshops • Team Building</span>
+                    <Link href="/packages/events-expenditure" className="menu-view-arrow">Explore →</Link>
                   </div>
                 </div>
               </div>
 
+              {/* Event Package 3: Concert & Artist Management */}
               <div className="menu-showcase-card">
                 <div className="menu-showcase-img-wrap">
-                  <img src="/catering_wedding_1791127871855.jpg" alt="Gourmet Dessert Studio - Traditional Confectionery & Liquid Nitrogen Kulfi" />
-                  <span className="menu-card-badge">DESSERT THEATER</span>
+                  <img src="/catering_wedding_1791127871855.jpg" alt="Live Concert Stage and Artist Management Production" />
+                  <span className="menu-card-badge">LIVE CONCERTS</span>
                 </div>
                 <div className="menu-card-body">
-                  <h4>Artisanal Dessert Studio</h4>
-                  <p>Desi ghee royal mithais alongside liquid nitrogen smoking kulfi bars and Belgian chocolate fondue.</p>
+                  <h4>Concert & Artist Management</h4>
+                  <p>Turnkey live concert management, A-list celebrity bookings, sound & line-array engineering, heavy trussing, and VIP hospitality.</p>
                   <div className="menu-card-footer">
-                    <span className="menu-tag-list">Liquid Nitrogen • Kulfi</span>
-                    <span className="menu-view-arrow">Explore →</span>
+                    <span className="menu-tag-list">Celebrities • Stage Truss • Sound</span>
+                    <Link href="/packages/events-expenditure" className="menu-view-arrow">Explore →</Link>
                   </div>
                 </div>
               </div>
 
+              {/* Event Package 4: AV Content Creation & Campaigns */}
               <div className="menu-showcase-card">
                 <div className="menu-showcase-img-wrap">
-                  <img src="/catering_party_footer.jpg" alt="Private Party Catering Buffet Setup - Grand Celebratory Spread" />
-                  <span className="menu-card-badge">GRAND SPREAD</span>
+                  <img src="/catering_party_footer.jpg" alt="AV Content Creation and Fundraiser Campaign Production" />
+                  <span className="menu-card-badge">MEDIA & CAMPAIGNS</span>
                 </div>
                 <div className="menu-card-body">
-                  <h4>Grand Banquet Buffet</h4>
-                  <p>Lavish multi-cuisine dining spreads orchestrated with 7-star presentation and warm hospitality.</p>
+                  <h4>AV Content Creation & Campaigns</h4>
+                  <p>4K multi-cam live broadcast, LED wall graphics, cinematic event aftermovies, projection mapping, and viral fundraising campaigns.</p>
                   <div className="menu-card-footer">
-                    <span className="menu-tag-list">Banquets • Multi-Cuisine</span>
-                    <span className="menu-view-arrow">Explore →</span>
+                    <span className="menu-tag-list">4K Broadcast • LED Graphics • Campaigns</span>
+                    <Link href="/packages/events-expenditure" className="menu-view-arrow">Explore →</Link>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '35px' }}>
-              <a href="/packages/catering" className="btn btn-primary" style={{ padding: '14px 34px' }}>
-                View Complete Packages & Menus 📖
-              </a>
+            {/* View All Button Redirecting to Events & Expenditure */}
+            <div style={{ textAlign: 'center', marginTop: '45px' }}>
+              <Link
+                href="/packages/events-expenditure"
+                className="btn btn-primary"
+                style={{ padding: '15px 42px', fontSize: '1.02rem', display: 'inline-flex', alignItems: 'center', gap: '10px' }}
+              >
+                <span>View All Event Packages & Expenditure</span>
+                <span>→</span>
+              </Link>
             </div>
           </div>
         </section>
