@@ -116,7 +116,7 @@ export default function Home() {
             <h1>Crafting Unforgettable Culinary Experiences</h1>
             <p>Exquisite cuisine, impeccable service, and meticulous attention to detail. Let us transform your special occasions into extraordinary memories.</p>
             <div className="hero-btns">
-              <a href="#menu" className="btn btn-primary">Explore Our Menu</a>
+              <a href="#packages" className="btn btn-primary">Our Packages</a>
               <a href="#book" className="btn btn-outline">Get a Custom Quote</a>
             </div>
           </div>
@@ -360,12 +360,214 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 5. Menu Showcase */}
-        <section id="menu" className="menu-section">
+        {/* 4.5 Team Section - Culinary Masters & Leadership */}
+        <section id="team" className="team-section">
           <div className="container">
             <div className="section-header-centered">
-              <span className="section-pill">CHEF'S SIGNATURES</span>
-              <h2 className="section-title-luxury">Menu Showcase</h2>
+              <div className="gold-accent-line" style={{ margin: '0 auto 16px' }}></div>
+              <span className="section-pill">✦ CULINARY ARTISANS & DIRECTORS</span>
+              <h2 className="section-title-luxury">Meet Our Master Chefs & Leadership</h2>
+              <p className="section-subtitle">
+                Over 25 years of royal Awadhi culinary mastery, Michelin-grade craft, and white-glove event hospitality orchestrating India&apos;s most celebrated celebrations.
+              </p>
+            </div>
+
+            <div className="team-grid">
+              {/* Member 1 */}
+              <div className="team-member-card">
+                <div className="team-card-top">
+                  <div className="team-avatar-wrap" style={{ borderColor: '#c59b27' }}>
+                    <div className="team-avatar-inner" style={{ background: 'linear-gradient(135deg, #2b1f0d, #140d17)' }}>
+                      <span className="team-avatar-text" style={{ color: '#c59b27' }}>RK</span>
+                    </div>
+                    <span className="team-avatar-badge">👑 Master Chef</span>
+                  </div>
+                  <div className="team-exp-chip">25+ Yrs Exp</div>
+                </div>
+                <div className="team-card-body">
+                  <h3 className="team-member-name">Chef Rajeev Kapoor</h3>
+                  <div className="team-member-role">Executive Culinary Director</div>
+                  <div className="team-member-specialty">Royal Awadhi & Dum Pukht Gastronomy</div>
+                  <p className="team-member-bio">
+                    Former Executive Sous Chef at luxury heritage palaces. The master craftsman behind Guruji&apos;s celebrated 18-hour Dal Bukhara, saffron shahi gravies, and sealed clay-handi biryanis.
+                  </p>
+                  <div className="team-chip-tags">
+                    <span className="team-chip">Awadhi Master</span>
+                    <span className="team-chip">Heirloom Spices</span>
+                    <span className="team-chip">Clay Handi</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Member 2 */}
+              <div className="team-member-card">
+                <div className="team-card-top">
+                  <div className="team-avatar-wrap" style={{ borderColor: '#d97706' }}>
+                    <div className="team-avatar-inner" style={{ background: 'linear-gradient(135deg, #2c1a0c, #140d17)' }}>
+                      <span className="team-avatar-text" style={{ color: '#f59e0b' }}>VR</span>
+                    </div>
+                    <span className="team-avatar-badge">🔥 Sigri Master</span>
+                  </div>
+                  <div className="team-exp-chip">18+ Yrs Exp</div>
+                </div>
+                <div className="team-card-body">
+                  <h3 className="team-member-name">Chef Vikramaditya Rathore</h3>
+                  <div className="team-member-role">Head of Sigri Tandoor & Barbecue</div>
+                  <div className="team-member-specialty">Live Sigri Charcoal & Smoked Kebabs</div>
+                  <p className="team-member-bio">
+                    Hailing from Rajasthan&apos;s royal banquet lineage. Specialist in authentic live charcoal smoking, artisanal zafrani paneer tikkas, and melt-in-mouth smoked galouti kebabs.
+                  </p>
+                  <div className="team-chip-tags">
+                    <span className="team-chip">Live Sigri</span>
+                    <span className="team-chip">Charcoal Smoking</span>
+                    <span className="team-chip">Rajasthani Royal</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Member 3 */}
+              <div className="team-member-card">
+                <div className="team-card-top">
+                  <div className="team-avatar-wrap" style={{ borderColor: '#e11d48' }}>
+                    <div className="team-avatar-inner" style={{ background: 'linear-gradient(135deg, #2d0e1b, #140d17)' }}>
+                      <span className="team-avatar-text" style={{ color: '#fb7185' }}>AS</span>
+                    </div>
+                    <span className="team-avatar-badge">✨ Live Fusion</span>
+                  </div>
+                  <div className="team-exp-chip">14+ Yrs Exp</div>
+                </div>
+                <div className="team-card-body">
+                  <h3 className="team-member-name">Chef Ananya Sen</h3>
+                  <div className="team-member-role">Director of Global Gastronomy</div>
+                  <div className="team-member-specialty">Artisanal Pasta Theater & Dim Sums</div>
+                  <p className="team-member-bio">
+                    Trained at Le Cordon Bleu. Spearheads our live gourmet interactive stations, wood-fired sourdough pizzas, handcrafted truffle pastas, and delicate Pan-Asian dim sum wok bars.
+                  </p>
+                  <div className="team-chip-tags">
+                    <span className="team-chip">Le Cordon Bleu</span>
+                    <span className="team-chip">Neapolitan Sourdough</span>
+                    <span className="team-chip">Pasta Theater</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Member 4 */}
+              <div className="team-member-card">
+                <div className="team-card-top">
+                  <div className="team-avatar-wrap" style={{ borderColor: '#ea580c' }}>
+                    <div className="team-avatar-inner" style={{ background: 'linear-gradient(135deg, #2e1509, #140d17)' }}>
+                      <span className="team-avatar-text" style={{ color: '#fb923c' }}>RS</span>
+                    </div>
+                    <span className="team-avatar-badge">🍨 Mithai Maestro</span>
+                  </div>
+                  <div className="team-exp-chip">30+ Yrs Exp</div>
+                </div>
+                <div className="team-card-body">
+                  <h3 className="team-member-name">Pandit Ramkishan Sharma</h3>
+                  <div className="team-member-role">Chief Master Confectioner</div>
+                  <div className="team-member-specialty">Pure Desi Ghee Sweets & Kulfi Studios</div>
+                  <p className="team-member-bio">
+                    Custodian of three generations of Banaras sweet craftsmanship. Curates live swirling desi ghee jalebis, thick malai rabri, and molecular liquid nitrogen smoking kulfi bars.
+                  </p>
+                  <div className="team-chip-tags">
+                    <span className="team-chip">100% Desi Ghee</span>
+                    <span className="team-chip">Live Jalebi Rabri</span>
+                    <span className="team-chip">Nitrogen Kulfi</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Member 5 */}
+              <div className="team-member-card">
+                <div className="team-card-top">
+                  <div className="team-avatar-wrap" style={{ borderColor: '#2563eb' }}>
+                    <div className="team-avatar-inner" style={{ background: 'linear-gradient(135deg, #0e1b33, #140d17)' }}>
+                      <span className="team-avatar-text" style={{ color: '#60a5fa' }}>SS</span>
+                    </div>
+                    <span className="team-avatar-badge">🎩 Hospitality Lead</span>
+                  </div>
+                  <div className="team-exp-chip">16+ Yrs Exp</div>
+                </div>
+                <div className="team-card-body">
+                  <h3 className="team-member-name">Shivansh Singh</h3>
+                  <div className="team-member-role">VP - Banquet Operations & Logistics</div>
+                  <div className="team-member-specialty">White-Glove Butler Hospitality & 2000+ Pax</div>
+                  <p className="team-member-bio">
+                    Ensures clockwork timing, immaculate luxury table layout, discreet VIP butler service, and zero food delays for high-profile destination weddings across India.
+                  </p>
+                  <div className="team-chip-tags">
+                    <span className="team-chip">White-Glove Service</span>
+                    <span className="team-chip">2000+ Pax Galas</span>
+                    <span className="team-chip">Zero-Delay Delivery</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Member 6 */}
+              <div className="team-member-card">
+                <div className="team-card-top">
+                  <div className="team-avatar-wrap" style={{ borderColor: '#059669' }}>
+                    <div className="team-avatar-inner" style={{ background: 'linear-gradient(135deg, #0a2418, #140d17)' }}>
+                      <span className="team-avatar-text" style={{ color: '#34d399' }}>RN</span>
+                    </div>
+                    <span className="team-avatar-badge">🛡️ Hygiene Lead</span>
+                  </div>
+                  <div className="team-exp-chip">12+ Yrs Exp</div>
+                </div>
+                <div className="team-card-body">
+                  <h3 className="team-member-name">Dr. Radhika Nair</h3>
+                  <div className="team-member-role">Head of Food Safety & Sanitation</div>
+                  <div className="team-member-specialty">HACCP 7-Star Kitchen Protocols</div>
+                  <p className="team-member-bio">
+                    Directs strict lab testing of ingredients, daily farm-fresh dairy audits, temperature-controlled logistics, and multi-tier sterilizations across our mobile kitchens.
+                  </p>
+                  <div className="team-chip-tags">
+                    <span className="team-chip">HACCP Certified</span>
+                    <span className="team-chip">7-Star Hygiene</span>
+                    <span className="team-chip">Lab Tested Food</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Trust Bar */}
+            <div className="team-trust-strip">
+              <div className="team-trust-item">
+                <div className="trust-number">150+</div>
+                <div className="trust-label">Culinary Artisans & Brigade</div>
+              </div>
+              <div className="team-trust-divider"></div>
+              <div className="team-trust-item">
+                <div className="trust-number">1,000+</div>
+                <div className="trust-label">Royal Galas & Weddings Executed</div>
+              </div>
+              <div className="team-trust-divider"></div>
+              <div className="team-trust-item">
+                <div className="trust-number">100%</div>
+                <div className="trust-label">Pure Desi Ghee & Veg Integrity</div>
+              </div>
+              <div className="team-trust-divider"></div>
+              <div className="team-trust-item">
+                <div className="trust-number">7-Star</div>
+                <div className="trust-label">HACCP Certified Sanitation Standard</div>
+              </div>
+            </div>
+
+            <div style={{ textAlign: 'center', marginTop: '36px' }}>
+              <a href="/packages/catering" className="btn btn-outline" style={{ padding: '12px 30px' }}>
+                Explore Our Catering Packages →
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* 5. Packages & Menu Showcase */}
+        <section id="packages" className="menu-section">
+          <div id="menu"></div>
+          <div className="container">
+            <div className="section-header-centered">
+              <span className="section-pill">CHEF&apos;S SIGNATURES & PACKAGES</span>
+              <h2 className="section-title-luxury">Our Packages & Menu Showcase</h2>
               <p className="section-subtitle">
                 A symphony of hand-picked culinary treasures. From traditional royal sigri tandoor to modern global gastronomy and bespoke live dessert creations.
               </p>
@@ -434,8 +636,8 @@ export default function Home() {
             </div>
 
             <div style={{ textAlign: 'center', marginTop: '35px' }}>
-              <a href="/menu" className="btn btn-primary" style={{ padding: '14px 34px' }}>
-                View Complete Menu Portfolio 📖
+              <a href="/packages/catering" className="btn btn-primary" style={{ padding: '14px 34px' }}>
+                View Complete Packages & Menus 📖
               </a>
             </div>
           </div>
@@ -673,17 +875,18 @@ export default function Home() {
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/services">Services</a></li>
-                <li><a href="/menu">Menu</a></li>
-                <li><a href="/faq">FAQ</a></li>
+                <li><a href="/packages/catering">Packages</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
               </ul>
             </div>
             <div className="footer-col">
               <h4>EXPERIENCE</h4>
               <ul>
-                <li><a href="/book">Book Tasting</a></li>
+                <li><a href="/packages/events-expenditure">Events & Expenditure</a></li>
+                <li><a href="/brochure">Official Brochure</a></li>
                 <li><a href="/reviews">Reviews</a></li>
-                <li><a href="#signature-services">Signature Services</a></li>
-                <li><a href="#book">Get a Quote</a></li>
+                <li><a href="/book">Plan Your Event</a></li>
               </ul>
             </div>
           </div>
