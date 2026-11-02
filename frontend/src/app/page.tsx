@@ -2,23 +2,11 @@
 
 import { useState, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import Navbar from './components/Navbar';
 
 export default function Home() {
-  // Interactive Form State
-  const [selectedEventType, setSelectedEventType] = useState('wedding');
-  const [dietaryOptions, setDietaryOptions] = useState<string[]>(['veg', 'dessert']);
-  const [guestCount, setGuestCount] = useState<number>(150);
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
-  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-
-  const toggleDietary = (item: string) => {
-    if (dietaryOptions.includes(item)) {
-      setDietaryOptions(dietaryOptions.filter((d) => d !== item));
-    } else {
-      setDietaryOptions([...dietaryOptions, item]);
-    }
-  };
 
   const faqs = [
     {
@@ -129,7 +117,7 @@ export default function Home() {
             <h1>Crafting Unforgettable Culinary Experiences</h1>
             <p>Exquisite cuisine, impeccable service, and meticulous attention to detail. Let us transform your special occasions into extraordinary memories.</p>
             <div className="hero-btns">
-              <a href="#menu" className="btn btn-primary">Explore Our Menu</a>
+              <a href="#packages" className="btn btn-primary">Our Packages</a>
               <a href="#book" className="btn btn-outline">Get a Custom Quote</a>
             </div>
           </div>
@@ -215,13 +203,13 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 3. Our Signature Services */}
+        {/* 3. Our Catering Services */}
         <section id="signature-services" className="signature-services-section">
           <div className="container">
             <div className="signature-header">
               <div className="gold-accent-line"></div>
               <p className="signature-subheading">Experience unparalleled catering excellence.</p>
-              <h2 className="signature-title">Our Signature Services</h2>
+              <h2 className="signature-title">Our Catering Services</h2>
               <div className="signature-divider">
                 <span className="divider-line"></span>
                 <span className="signature-bowl-icon">🥣</span>
@@ -317,6 +305,18 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            {/* View All Catering Services Button */}
+            <div style={{ textAlign: 'center', marginTop: '45px' }}>
+              <Link
+                href="/packages/catering"
+                className="btn btn-primary"
+                style={{ padding: '14px 38px', fontSize: '1rem', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+              >
+                <span>View All Catering Services</span>
+                <span>→</span>
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -373,83 +373,222 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 5. Menu Showcase */}
-        <section id="menu" className="menu-section">
+        {/* 4.5 Team Section - Culinary Masters & Leadership */}
+        <section id="team" className="team-section">
           <div className="container">
             <div className="section-header-centered">
-              <span className="section-pill">CHEF'S SIGNATURES</span>
-              <h2 className="section-title-luxury">Menu Showcase</h2>
+              <div className="gold-accent-line" style={{ margin: '0 auto 16px' }}></div>
+              <span className="section-pill">✦ CULINARY ARTISANS & DIRECTORS</span>
+              <h2 className="section-title-luxury">Meet Our Master Chefs & Leadership</h2>
               <p className="section-subtitle">
-                A symphony of hand-picked culinary treasures. From traditional royal sigri tandoor to modern global gastronomy and bespoke live dessert creations.
+                Over 25 years of royal Awadhi culinary mastery, Michelin-grade craft, and white-glove event hospitality orchestrating India&apos;s most celebrated celebrations.
+              </p>
+            </div>
+
+            <div className="team-grid">
+              {/* Member 1 */}
+              <div className="team-member-card">
+                <div className="team-card-top">
+                  <div className="team-avatar-wrap" style={{ borderColor: '#c59b27' }}>
+                    <div className="team-avatar-inner" style={{ background: 'linear-gradient(135deg, #2b1f0d, #140d17)' }}>
+                      <span className="team-avatar-text" style={{ color: '#c59b27' }}>RK</span>
+                    </div>
+                    <span className="team-avatar-badge">👑 Master Chef</span>
+                  </div>
+                  <div className="team-exp-chip">25+ Yrs Exp</div>
+                </div>
+                <div className="team-card-body">
+                  <h3 className="team-member-name">Chef Rajeev Kapoor</h3>
+                  <div className="team-member-role">Executive Culinary Director</div>
+                  <div className="team-member-specialty">Royal Awadhi & Dum Pukht Gastronomy</div>
+                  <p className="team-member-bio">
+                    Former Executive Sous Chef at luxury heritage palaces. The master craftsman behind Guruji&apos;s celebrated 18-hour Dal Bukhara, saffron shahi gravies, and sealed clay-handi biryanis.
+                  </p>
+                  <div className="team-chip-tags">
+                    <span className="team-chip">Awadhi Master</span>
+                    <span className="team-chip">Heirloom Spices</span>
+                    <span className="team-chip">Clay Handi</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Member 2 */}
+              <div className="team-member-card">
+                <div className="team-card-top">
+                  <div className="team-avatar-wrap" style={{ borderColor: '#d97706' }}>
+                    <div className="team-avatar-inner" style={{ background: 'linear-gradient(135deg, #2c1a0c, #140d17)' }}>
+                      <span className="team-avatar-text" style={{ color: '#f59e0b' }}>VR</span>
+                    </div>
+                    <span className="team-avatar-badge">🔥 Sigri Master</span>
+                  </div>
+                  <div className="team-exp-chip">18+ Yrs Exp</div>
+                </div>
+                <div className="team-card-body">
+                  <h3 className="team-member-name">Chef Vikramaditya Rathore</h3>
+                  <div className="team-member-role">Head of Sigri Tandoor & Barbecue</div>
+                  <div className="team-member-specialty">Live Sigri Charcoal & Smoked Kebabs</div>
+                  <p className="team-member-bio">
+                    Hailing from Rajasthan&apos;s royal banquet lineage. Specialist in authentic live charcoal smoking, artisanal zafrani paneer tikkas, and melt-in-mouth smoked galouti kebabs.
+                  </p>
+                  <div className="team-chip-tags">
+                    <span className="team-chip">Live Sigri</span>
+                    <span className="team-chip">Charcoal Smoking</span>
+                    <span className="team-chip">Rajasthani Royal</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Member 3 */}
+              <div className="team-member-card">
+                <div className="team-card-top">
+                  <div className="team-avatar-wrap" style={{ borderColor: '#e11d48' }}>
+                    <div className="team-avatar-inner" style={{ background: 'linear-gradient(135deg, #2d0e1b, #140d17)' }}>
+                      <span className="team-avatar-text" style={{ color: '#fb7185' }}>AS</span>
+                    </div>
+                    <span className="team-avatar-badge">✨ Live Fusion</span>
+                  </div>
+                  <div className="team-exp-chip">14+ Yrs Exp</div>
+                </div>
+                <div className="team-card-body">
+                  <h3 className="team-member-name">Chef Ananya Sen</h3>
+                  <div className="team-member-role">Director of Global Gastronomy</div>
+                  <div className="team-member-specialty">Artisanal Pasta Theater & Dim Sums</div>
+                  <p className="team-member-bio">
+                    Trained at Le Cordon Bleu. Spearheads our live gourmet interactive stations, wood-fired sourdough pizzas, handcrafted truffle pastas, and delicate Pan-Asian dim sum wok bars.
+                  </p>
+                  <div className="team-chip-tags">
+                    <span className="team-chip">Le Cordon Bleu</span>
+                    <span className="team-chip">Neapolitan Sourdough</span>
+                    <span className="team-chip">Pasta Theater</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Trust Bar */}
+            <div className="team-trust-strip">
+              <div className="team-trust-item">
+                <div className="trust-number">150+</div>
+                <div className="trust-label">Culinary Artisans & Brigade</div>
+              </div>
+              <div className="team-trust-divider"></div>
+              <div className="team-trust-item">
+                <div className="trust-number">1,000+</div>
+                <div className="trust-label">Royal Galas & Weddings Executed</div>
+              </div>
+              <div className="team-trust-divider"></div>
+              <div className="team-trust-item">
+                <div className="trust-number">100%</div>
+                <div className="trust-label">Pure Desi Ghee & Veg Integrity</div>
+              </div>
+              <div className="team-trust-divider"></div>
+              <div className="team-trust-item">
+                <div className="trust-number">7-Star</div>
+                <div className="trust-label">HACCP Certified Sanitation Standard</div>
+              </div>
+            </div>
+
+            <div style={{ textAlign: 'center', marginTop: '40px' }}>
+              <Link
+                href="/about#team"
+                className="btn btn-primary"
+                style={{ padding: '14px 38px', fontSize: '1rem', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+              >
+                <span>View All Team Members</span>
+                <span>→</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* 5. Event Packages & Production Showcase */}
+        <section id="packages" className="menu-section">
+          <div id="menu"></div>
+          <div className="container">
+            <div className="section-header-centered">
+              <span className="section-pill">✦ EXPERIENTIAL EVENTS & PRODUCTION</span>
+              <h2 className="section-title-luxury">Our Event Packages & Services</h2>
+              <p className="section-subtitle">
+                End-to-end experiential event management, brand activations, large-scale concert productions, and corporate conferences with turnkey technical execution.
               </p>
             </div>
 
             <div className="menu-showcase-grid">
+              {/* Event Package 1: On-Ground & Outdoor Activation */}
               <div className="menu-showcase-card">
                 <div className="menu-showcase-img-wrap">
-                  <img src="/catering_hero_1791127858700.jpg" alt="Luxury Wedding Catering Food Display - Charcoal Tandoori & Artisanal Kebabs" />
-                  <span className="menu-card-badge">ROYAL GRILLS</span>
+                  <img src="/catering_hero_1791127858700.jpg" alt="On-Ground and Outdoor Brand Activation Setup" />
+                  <span className="menu-card-badge">ACTIVATION & POPUPS</span>
                 </div>
                 <div className="menu-card-body">
-                  <h4>Artisanal Tandoori & Kebabs</h4>
-                  <p>Authentic charcoal sigri appetizers infused with hand-ground spices, served sizzling with mint chutney.</p>
+                  <h4>On-Ground & Outdoor Activation</h4>
+                  <p>Experiential consumer engagement, brand pavilions, mall popups, kiosk fabrication, and high-footfall outdoor roadshows.</p>
                   <div className="menu-card-footer">
-                    <span className="menu-tag-list">Tandoor • Awadhi • Live</span>
-                    <span className="menu-view-arrow">Explore →</span>
+                    <span className="menu-tag-list">Popups • Kiosks • Roadshows</span>
+                    <Link href="/packages/events-expenditure" className="menu-view-arrow">Explore →</Link>
                   </div>
                 </div>
               </div>
 
+              {/* Event Package 2: Corporate Events, Seminars & Workshops */}
               <div className="menu-showcase-card">
                 <div className="menu-showcase-img-wrap">
-                  <img src="/catering_corporate_1791127885197.jpg" alt="Corporate Event Buffet Setup - Contemporary Global & Mediterranean Platter" />
-                  <span className="menu-card-badge">GLOBAL DELIGHTS</span>
+                  <img src="/catering_corporate_1791127885197.jpg" alt="Corporate Gala Summit and Seminar Setup" />
+                  <span className="menu-card-badge">CORPORATE EXCELLENCE</span>
                 </div>
                 <div className="menu-card-body">
-                  <h4>Continental & Mediterranean</h4>
-                  <p>Farm-fresh organic salads, hand-rolled pasta live counters, and exquisite mezze boards crafted fresh.</p>
+                  <h4>Corporate Events & Seminars</h4>
+                  <p>High-level business conferences, annual award nights, panel symposiums, and dynamic team-building offsites with 360° logistical support.</p>
                   <div className="menu-card-footer">
-                    <span className="menu-tag-list">Gourmet • Italian • Salads</span>
-                    <span className="menu-view-arrow">Explore →</span>
+                    <span className="menu-tag-list">Summits • Workshops • Team Building</span>
+                    <Link href="/packages/events-expenditure" className="menu-view-arrow">Explore →</Link>
                   </div>
                 </div>
               </div>
 
+              {/* Event Package 3: Concert & Artist Management */}
               <div className="menu-showcase-card">
                 <div className="menu-showcase-img-wrap">
-                  <img src="/catering_wedding_1791127871855.jpg" alt="Gourmet Dessert Studio - Traditional Confectionery & Liquid Nitrogen Kulfi" />
-                  <span className="menu-card-badge">DESSERT THEATER</span>
+                  <img src="/catering_wedding_1791127871855.jpg" alt="Live Concert Stage and Artist Management Production" />
+                  <span className="menu-card-badge">LIVE CONCERTS</span>
                 </div>
                 <div className="menu-card-body">
-                  <h4>Artisanal Dessert Studio</h4>
-                  <p>Desi ghee royal mithais alongside liquid nitrogen smoking kulfi bars and Belgian chocolate fondue.</p>
+                  <h4>Concert & Artist Management</h4>
+                  <p>Turnkey live concert management, A-list celebrity bookings, sound & line-array engineering, heavy trussing, and VIP hospitality.</p>
                   <div className="menu-card-footer">
-                    <span className="menu-tag-list">Liquid Nitrogen • Kulfi</span>
-                    <span className="menu-view-arrow">Explore →</span>
+                    <span className="menu-tag-list">Celebrities • Stage Truss • Sound</span>
+                    <Link href="/packages/events-expenditure" className="menu-view-arrow">Explore →</Link>
                   </div>
                 </div>
               </div>
 
+              {/* Event Package 4: AV Content Creation & Campaigns */}
               <div className="menu-showcase-card">
                 <div className="menu-showcase-img-wrap">
-                  <img src="/catering_party_footer.jpg" alt="Private Party Catering Buffet Setup - Grand Celebratory Spread" />
-                  <span className="menu-card-badge">GRAND SPREAD</span>
+                  <img src="/catering_party_footer.jpg" alt="AV Content Creation and Fundraiser Campaign Production" />
+                  <span className="menu-card-badge">MEDIA & CAMPAIGNS</span>
                 </div>
                 <div className="menu-card-body">
-                  <h4>Grand Banquet Buffet</h4>
-                  <p>Lavish multi-cuisine dining spreads orchestrated with 7-star presentation and warm hospitality.</p>
+                  <h4>AV Content Creation & Campaigns</h4>
+                  <p>4K multi-cam live broadcast, LED wall graphics, cinematic event aftermovies, projection mapping, and viral fundraising campaigns.</p>
                   <div className="menu-card-footer">
-                    <span className="menu-tag-list">Banquets • Multi-Cuisine</span>
-                    <span className="menu-view-arrow">Explore →</span>
+                    <span className="menu-tag-list">4K Broadcast • LED Graphics • Campaigns</span>
+                    <Link href="/packages/events-expenditure" className="menu-view-arrow">Explore →</Link>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '35px' }}>
-              <a href="/menu" className="btn btn-primary" style={{ padding: '14px 34px' }}>
-                View Complete Menu Portfolio 📖
-              </a>
+            {/* View All Button Redirecting to Events & Expenditure */}
+            <div style={{ textAlign: 'center', marginTop: '45px' }}>
+              <Link
+                href="/packages/events-expenditure"
+                className="btn btn-primary"
+                style={{ padding: '15px 42px', fontSize: '1.02rem', display: 'inline-flex', alignItems: 'center', gap: '10px' }}
+              >
+                <span>View All Event Packages & Expenditure</span>
+                <span>→</span>
+              </Link>
             </div>
           </div>
         </section>
@@ -542,183 +681,79 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 7. Booking / Lead Generation Form */}
-        <section id="book" className="interactive-book-section">
+        {/* 7. Ready to Plan Luxury CTA Section */}
+        <section id="book" className="luxury-cta-banner-section">
           <div className="container">
-            <div className="book-card-container">
-              <div className="book-card-left">
-                <span className="section-pill">LIVE QUOTE & BOOKING</span>
-                <h2>Design Your Dream Catering Experience</h2>
-                <p>Tell us about your upcoming event, and our culinary experts will craft a customized proposal just for you.</p>
+            <div className="cta-banner-wrapper">
+              {/* Left Column: Heading, description & value bullet points */}
+              <div className="cta-banner-left">
+                <span className="cta-pill-tag">✦ Bespoke Catering & Events</span>
+                <h2 className="cta-main-title">
+                  Ready to host an unforgettable royal culinary experience?
+                </h2>
+                <p className="cta-description">
+                  From intimate celebrations to grand destination weddings across India. 
+                  Experience masterchef craft, tailored authentic menus, and flawless hospitality.
+                </p>
 
-                {/* Event Type Selector */}
-                <div className="booking-option-group">
-                  <label className="group-label">1. Event Type</label>
-                  <div className="event-pills-row">
-                    {[
-                      { id: 'wedding', label: '💍 Destination Wedding' },
-                      { id: 'corporate', label: '💼 Corporate Catering' },
-                      { id: 'private', label: '🎉 Social & Private Events' },
-                      { id: 'celebrity', label: '🌟 Celebrity VIP' },
-                    ].map((type) => (
-                      <button
-                        key={type.id}
-                        type="button"
-                        onClick={() => setSelectedEventType(type.id)}
-                        className={`event-type-pill ${selectedEventType === type.id ? 'active' : ''}`}
-                      >
-                        {type.label}
-                      </button>
-                    ))}
+                <div className="cta-features-list">
+                  <div className="cta-feature-item">
+                    <span className="cta-check-icon">✓</span>
+                    <span>Curated royal & global menus tailored to your guest palate</span>
                   </div>
-                </div>
-
-                {/* Live Guest Slider */}
-                <div className="booking-option-group">
-                  <div className="slider-label-row">
-                    <label className="group-label">2. Estimated Guest Count</label>
-                    <span className="slider-val-badge">{guestCount} Guests</span>
+                  <div className="cta-feature-item">
+                    <span className="cta-check-icon">✓</span>
+                    <span>Live Delhi chaat, sigri tandoor, artisanal mocktails & dessert studios</span>
                   </div>
-                  <input
-                    type="range"
-                    min="50"
-                    max="1500"
-                    step="25"
-                    value={guestCount}
-                    onChange={(e) => setGuestCount(Number(e.target.value))}
-                    className="guest-range-slider"
-                  />
-                  <div className="slider-scale">
-                    <span>50 Guests</span>
-                    <span>500</span>
-                    <span>1,000</span>
-                    <span>1,500+ Guests</span>
-                  </div>
-                </div>
-
-                {/* Dietary & Service Addons */}
-                <div className="booking-option-group">
-                  <label className="group-label">3. Culinary Stations & Add-ons</label>
-                  <div className="addon-chips-grid">
-                    {[
-                      { id: 'veg', label: '🥗 Pure Veg & Jain Counter' },
-                      { id: 'chaat', label: '🥘 Live Delhi Chaat Studio' },
-                      { id: 'live-tandoor', label: '🔥 Live Sigri Tandoor' },
-                      { id: 'dessert', label: '🍨 Royal Dessert Studio' },
-                      { id: 'mocktails', label: '🍹 Signature Mocktail Lounge' },
-                    ].map((addon) => (
-                      <button
-                        key={addon.id}
-                        type="button"
-                        onClick={() => toggleDietary(addon.id)}
-                        className={`addon-chip ${dietaryOptions.includes(addon.id) ? 'active' : ''}`}
-                      >
-                        <span className="chip-check">{dietaryOptions.includes(addon.id) ? '✓' : '+'}</span>
-                        {addon.label}
-                      </button>
-                    ))}
+                  <div className="cta-feature-item">
+                    <span className="cta-check-icon">✓</span>
+                    <span>Dedicated event hospitality manager & complimentary food tasting</span>
                   </div>
                 </div>
               </div>
 
-              {/* Right Side: Direct Inquiry Form */}
-              <div className="book-card-right">
-                <div className="inquiry-header-badge">
-                  <div className="inquiry-badge-tag">✦ BESPOKE RESERVATION</div>
-                  <h3 className="inquiry-badge-title">Request a Custom Proposal</h3>
-                  <p className="inquiry-badge-sub">
-                    Share your event details below. Our culinary team will review your menu preferences and provide a personalized proposal within 2 hours.
+              {/* Right Column: Clean Floating Action Card */}
+              <div className="cta-banner-right">
+                <div className="cta-action-card">
+                  <h3 className="cta-card-heading">Talk to our culinary experts</h3>
+                  <p className="cta-card-sub">Get quick estimates or connect with our banquet specialists directly.</p>
+
+                  <div className="cta-input-group">
+                    <label htmlFor="cta-phone" className="cta-input-label">Phone or Email</label>
+                    <input
+                      id="cta-phone"
+                      type="text"
+                      placeholder="e.g. +91 98765 43210 or your@email.com"
+                      className="cta-card-input"
+                    />
+                  </div>
+
+                  <a href="/book" className="cta-primary-btn">
+                    <span>Plan Your Event</span>
+                    <span className="cta-btn-arrow">→</span>
+                  </a>
+
+                  <div className="cta-quick-contacts">
+                    <span className="cta-quick-divider">or connect instantly</span>
+                    <div className="cta-contact-links">
+                      <a href="tel:+919876543210" className="cta-contact-pill">
+                        📞 Call +91 98765 43210
+                      </a>
+                      <a 
+                        href="https://wa.me/919876543210?text=Hi%20Guruji%20Caterers,%20I%20would%20like%20to%20discuss%20catering%20for%20my%20event." 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="cta-contact-pill whatsapp"
+                      >
+                        💬 WhatsApp Us
+                      </a>
+                    </div>
+                  </div>
+
+                  <p className="cta-card-footnote">
+                    Fast response within 2 hours • Complimentary tasting session
                   </p>
                 </div>
-
-                {formSubmitted ? (
-                  <div className="booking-success-box">
-                    <div className="success-icon">🎉</div>
-                    <h3>Booking Request Received!</h3>
-                    <p>Thank you! Our culinary director will connect with you within 2 business hours with a bespoke tasting menu and detailed proposal.</p>
-                    <button
-                      type="button"
-                      onClick={() => setFormSubmitted(false)}
-                      className="btn btn-outline"
-                      style={{ marginTop: '16px' }}
-                    >
-                      Plan Another Event
-                    </button>
-                  </div>
-                ) : (
-                  <form
-                    className="interactive-form-inputs"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      setFormSubmitted(true);
-                    }}
-                  >
-                    <div className="form-input-field">
-                      <label>Full Name</label>
-                      <input type="text" placeholder="e.g. Alexander Vance" required />
-                    </div>
-
-                    <div className="form-input-field">
-                      <label>Email Address</label>
-                      <input type="email" placeholder="alexander@example.com" required />
-                    </div>
-
-                    <div className="form-input-field">
-                      <label>Phone Number</label>
-                      <input type="tel" placeholder="+91 98765 43210" required />
-                    </div>
-
-                    <div className="form-input-row">
-                      <div className="form-input-field">
-                        <label>Event Date</label>
-                        <input type="date" required />
-                      </div>
-                      <div className="form-input-field">
-                        <label>Event Type</label>
-                        <select
-                          value={selectedEventType}
-                          onChange={(e) => setSelectedEventType(e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '12px 14px',
-                            background: '#151515',
-                            border: '1px solid #333',
-                            borderRadius: '8px',
-                            color: '#fff',
-                            fontSize: '0.95rem'
-                          }}
-                        >
-                          <option value="private">Social & Private Events</option>
-                          <option value="corporate">Corporate Catering</option>
-                          <option value="wedding">Destination Weddings</option>
-                          <option value="celebrity">Celebrity & VIP Events</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="form-input-field">
-                      <label>Estimated Guest Count</label>
-                      <input
-                        type="number"
-                        min="50"
-                        value={guestCount}
-                        onChange={(e) => setGuestCount(Number(e.target.value))}
-                        required
-                      />
-                    </div>
-
-                    <div className="form-input-field">
-                      <label>Special Requirements</label>
-                      <textarea rows={2} placeholder="Dietary restrictions (vegan, gluten-free, Jain), chef live counters, or event themes..."></textarea>
-                    </div>
-
-                    <button type="submit" className="btn-luxury-submit">
-                      <span>Request a Bespoke Tasting</span>
-                      <span className="btn-arrow">→</span>
-                    </button>
-                    <p className="guarantee-text">🔒 100% Privacy • No Spam • Complimentary Food Tasting</p>
-                  </form>
-                )}
               </div>
             </div>
           </div>
@@ -790,17 +825,18 @@ export default function Home() {
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/services">Services</a></li>
-                <li><a href="/menu">Menu</a></li>
-                <li><a href="/faq">FAQ</a></li>
+                <li><a href="/packages/catering">Packages</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
               </ul>
             </div>
             <div className="footer-col">
               <h4>EXPERIENCE</h4>
               <ul>
-                <li><a href="/book">Book Tasting</a></li>
+                <li><a href="/packages/events-expenditure">Events & Expenditure</a></li>
+                <li><a href="/brochure">Official Brochure</a></li>
                 <li><a href="/reviews">Reviews</a></li>
-                <li><a href="#signature-services">Signature Services</a></li>
-                <li><a href="#book">Get a Quote</a></li>
+                <li><a href="/book">Plan Your Event</a></li>
               </ul>
             </div>
           </div>

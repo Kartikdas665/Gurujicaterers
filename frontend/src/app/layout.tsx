@@ -1,28 +1,20 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
 import "./globals.css";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-poppins",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "Premium Catering Services for Weddings, Corporate & Private Events",
-  description: "Elevate your next event with our premium catering services. We specialize in bespoke menus, exquisite food presentation, and flawless execution for weddings, corporate gatherings, and private parties. Request a quote today!",
+  title: "Guruji Caterers | Royal Catering & Event Specialists",
+  description: "Elevate your next event with Guruji Caterers. We specialize in bespoke menus, royal Awadhi cuisines, live culinary theaters, and white-glove banquet hospitality for weddings, corporate gatherings, and private celebrations.",
   keywords: [
-    "premium catering services",
-    "corporate event catering",
-    "luxury wedding caterers",
-    "bespoke menu catering",
-    "private party food services",
-    "best catering company"
+    "guruji caterers",
+    "royal catering services",
+    "wedding caterers delhi ncr",
+    "corporate catering",
+    "pure desi ghee catering",
+    "live food counters"
   ],
   openGraph: {
-    title: "Premium Catering Services for Weddings, Corporate & Private Events",
-    description: "Elevate your next event with our premium catering services. We specialize in bespoke menus, exquisite food presentation, and flawless execution for weddings, corporate gatherings, and private parties.",
+    title: "Guruji Caterers | Royal Catering & Event Specialists",
+    description: "Elevate your next event with Guruji Caterers. We specialize in bespoke menus, royal Awadhi cuisines, live culinary theaters, and white-glove banquet hospitality.",
     type: "website",
   }
 };
@@ -34,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
